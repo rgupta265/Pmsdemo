@@ -1,12 +1,5 @@
 import Middlewares from '../middlewares/index';
-import store from '../Store/index';
-import axios from 'axios';
 
-axios.get('api/constants').then((response)=>{
-  let allData = response.data.permissions;
-  
-  console.log(allData);
-})
 
 // Guest Component Start
 const Home = () => import('../Pages/Home.vue' /* webpackChunkName: "resource/js/Pages/Login" */)
@@ -73,6 +66,8 @@ const routes = [
     }
   },
   // Dashboard layout and their Integrated children component Start
+
+  //Initilise only one permission which can access routes permission object inside meta
   {
     path:"",
     component: Navbar,
@@ -87,7 +82,6 @@ const routes = [
           title:'accessdenied',
           middleware :[
             Middlewares.auth,
-            // Middlewares.checkPermissions
           ],
         }
       },
@@ -111,7 +105,11 @@ const routes = [
           component: ViewProfile,
           meta:{
               title:`profile`,
-              middleware :[Middlewares.auth],
+              middleware :[
+                Middlewares.auth,
+                 
+              ],
+              
           }
       },
       {
@@ -122,9 +120,9 @@ const routes = [
             title:`permission`, 
             middleware :[
               Middlewares.auth,
-              Middlewares.checkPermissions 
+              Middlewares.checkPermissions
             ],
-            // permissions:['view-dashboard','view-user-management','create-roles','create-permissions']
+            permissions:["view-user-role-permission-management"]
         }
       },
       {
@@ -133,6 +131,11 @@ const routes = [
         component: RoleList,
         meta:{
             title:`roles`,
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions
+            ],
+            permissions:["view-user-role-permission-management"]
          
         }
       },
@@ -142,6 +145,11 @@ const routes = [
         component: UserList,
         meta:{
             title:`users`,
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions
+            ],
+            permissions:["view-user-role-permission-management"]
         }
       },
       {
@@ -154,7 +162,7 @@ const routes = [
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:[]
+            permissions:["view-pms-master"]
         }
       },
       {
@@ -167,7 +175,7 @@ const routes = [
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            // permissions:['view-dashboard','view-user-management','create-roles','create-permissions']
+            permissions:["view-invite-link"]
         }
       },
       

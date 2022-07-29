@@ -56466,16 +56466,7 @@ router.beforeEach(function (to, from, next) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _middlewares_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../middlewares/index */ "./resources/js/middlewares/index.js");
-/* harmony import */ var _Store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Store/index */ "./resources/js/Store/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-
-
-
-axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('api/constants').then(function (response) {
-  var allData = response.data.permissions;
-  console.log(allData);
-}); // Guest Component Start
+ // Guest Component Start
 
 var Home = function Home() {
   return __webpack_require__.e(/*! import() | resource/js/Pages/Login */ "resource/js/Pages/Login").then(__webpack_require__.bind(null, /*! ../Pages/Home.vue */ "./resources/js/Pages/Home.vue"));
@@ -56565,6 +56556,7 @@ var routes = [{
     middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].guest]
   }
 }, // Dashboard layout and their Integrated children component Start
+//Initilise only one permission which can access routes permission object inside meta
 {
   path: "",
   component: Navbar,
@@ -56575,8 +56567,7 @@ var routes = [{
     name: 'accessdenied',
     meta: {
       title: 'accessdenied',
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth // Middlewares.checkPermissions
-      ]
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth]
     }
   }, {
     name: "dashboard",
@@ -56601,22 +56592,26 @@ var routes = [{
     component: PermissionList,
     meta: {
       title: "permission",
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions] // permissions:['view-dashboard','view-user-management','create-roles','create-permissions']
-
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["view-user-role-permission-management"]
     }
   }, {
     name: "roles",
     path: '/roles',
     component: RoleList,
     meta: {
-      title: "roles"
+      title: "roles",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["view-user-role-permission-management"]
     }
   }, {
     name: "users",
     path: '/users',
     component: UserList,
     meta: {
-      title: "users"
+      title: "users",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["view-user-role-permission-management"]
     }
   }, {
     name: "pmsattribute",
@@ -56625,7 +56620,7 @@ var routes = [{
     meta: {
       title: "pmsattribute",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: []
+      permissions: ["view-pms-master"]
     }
   }, {
     name: "invitelink",
@@ -56633,8 +56628,8 @@ var routes = [{
     component: InviteLink,
     meta: {
       title: "invitelink",
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions] // permissions:['view-dashboard','view-user-management','create-roles','create-permissions']
-
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["view-invite-link"]
     }
   }]
 } // Dashboard layout and their Integrated children component End 
