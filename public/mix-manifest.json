@@ -1,0 +1,15 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/resource/js/Components/Layouts/navbar.js": "/resource/js/Components/Layouts/navbar.js",
+    "/resource/js/Pages/About.vue.js": "/resource/js/Pages/About.vue.js",
+    "/resource/js/Pages/Admin/Dashboard.vue.js": "/resource/js/Pages/Admin/Dashboard.vue.js",
+    "/resource/js/Pages/Admin/UserManagement/Permissions/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Permissions/List.vue.js",
+    "/resource/js/Pages/Admin/UserManagement/Roles/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Roles/List.vue.js",
+    "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js",
+    "/resource/js/Pages/Login.js": "/resource/js/Pages/Login.js",
+    "/resource/js/Pages/Register.js": "/resource/js/Pages/Register.js",
+    "/vendors~resource/js/Components/Layouts/navbar.js": "/vendors~resource/js/Components/Layouts/navbar.js",
+    "/resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue.js": "/resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue.js",
+    "/resource/js/Pages/Admin/InviteLink/CreateLink.vue.js": "/resource/js/Pages/Admin/InviteLink/CreateLink.vue.js"
+}
