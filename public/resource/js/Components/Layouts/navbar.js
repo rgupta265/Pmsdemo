@@ -363,8 +363,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    //  this.$toast("Welcome To dashboard");
     if (this.isLoggedIn) {
+      this.$toast.success("Welcome Back");
       this.$store.dispatch('getUser');
       this.$store.dispatch('getUserDetails');
     }

@@ -341,8 +341,8 @@
         
       },
       created(){
-      //  this.$toast("Welcome To dashboard");
          if(this.isLoggedIn){
+           this.$toast.success("Welcome Back");
             this.$store.dispatch('getUser');
             this.$store.dispatch('getUserDetails');
          }

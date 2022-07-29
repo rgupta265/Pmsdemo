@@ -12,12 +12,12 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 import can from './helpers/can';
+
 const options = {
     timeout: 3000,
     position: "top-right",
   // You can set your default options here
 };
-
 
 Vue.use(Toast, options);
 
