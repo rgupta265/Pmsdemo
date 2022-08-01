@@ -6,3 +6,8 @@ This Project Need Following requirement to start Project;
 
 hit "api/roles" to insert dummy data to check user base different permission
 IT has JWT so You have to use it
+
+
+Note: If you face to composer install any error please comment the following line in PermissionServiceProvider.php
+declare inside boot function 
+and after migarte table kindly oncomment this line
