@@ -51,10 +51,6 @@
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
-
-                <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
@@ -210,59 +206,15 @@
 
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  <!-- Settings Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                          <label class="form-check-label" for="changesMade">
-                            Changes made to your account
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                          <label class="form-check-label" for="newProducts">
-                            Information on new products and services
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers">
-                          <label class="form-check-label" for="proOffers">
-                            Marketing and promo offers
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                          <label class="form-check-label" for="securityNotify">
-                            Security alerts
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                  </form><!-- End settings Form -->
-
-                </div>
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
+                  <div v-if="showError">
+                      <span v-if="errors">
+                      <small v-for="error in errors" :key="error" class="text-danger d-block">{{ error[0] }}</small>
+                      </span>
+                   </div>
                   <form method="post" action="" @submit.prevent ="changePassword">
-
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input type="password" v-model="userPass.old_password" class="form-control" >
-                      </div>
-                    </div>
-
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
@@ -304,15 +256,15 @@ export default {
    data(){
          return{
           userPass :{
-            old_password :'',
             new_password :'',
             confirm_password :''
-          }
+          },
+          	showError: false,
          }
       },
    	computed : {
         ...mapGetters(
-          { user: "getUser",userDetails :"getUserDetails"},
+          { user: "getUser",userDetails :"getUserDetails",errors: "getError"},
         ),
         
         isLoggedIn : function(){ 
@@ -321,9 +273,19 @@ export default {
         
       },
       methods:{
-        changePassword()
+        	...mapActions(["ChangePassword"]),
+        changePassword :function()
         {
-          
+          let data = {
+            old_password :this.userPass.old_password,
+            new_password :this.userPass.new_password,
+            confirm_password :this.userPass.confirm_password
+          }
+          this.$store.dispatch('ChangePassword', data)
+		         .then(() => this.$router.push('/profile'))
+		         .catch(err =>{
+		            this.showError = true;
+		         })
         }
       },
       created(){

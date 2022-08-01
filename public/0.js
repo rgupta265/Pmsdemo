@@ -363,8 +363,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    //  this.$toast("Welcome To dashboard");
     if (this.isLoggedIn) {
+      this.$toast.success("Welcome Back");
       this.$store.dispatch('getUser');
       this.$store.dispatch('getUserDetails');
     }
@@ -1047,7 +1047,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "nav-item" }, [
-      _c("a", { staticClass: "nav-link ", attrs: { href: "index.html" } }, [
+      _c("a", { staticClass: "nav-link ", attrs: { href: "#" } }, [
         _c("i", { staticClass: "bi bi-grid" }),
         _vm._v(" "),
         _c("span", [_vm._v("Dashboard")])

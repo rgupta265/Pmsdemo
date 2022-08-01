@@ -26,7 +26,7 @@ Route::post('register',[App\Http\Controllers\AuthController::class, 'register'])
 Route::post('login',[App\Http\Controllers\AuthController::class, 'login']);
 Route::group(['middleware'=>'jwt.verify'],function(){
     Route::get('user',[App\Http\Controllers\AuthController::class, 'getUser']);
-    // Route::resource('todos','TodoController');
     Route::get('me', [App\Http\Controllers\UsersController::class, 'me']);
+    Route::post('changePassword', [App\Http\Controllers\UsersController::class, 'changePassword']);
 
 });

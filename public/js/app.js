@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"0":"resource/js/Components/Layouts/navbar","1":"vendors~resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","vendors~resource/js/Components/Layouts/navbar":"vendors~resource/js/Components/Layouts/navbar","resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -2039,7 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Navbar: function Navbar() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ./Components/Layouts/Navbar.vue */ "./resources/js/Components/Layouts/Navbar.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e("vendors~resource/js/Components/Layouts/navbar"), __webpack_require__.e("resource/js/Components/Layouts/navbar")]).then(__webpack_require__.bind(null, /*! ./Components/Layouts/Navbar.vue */ "./resources/js/Components/Layouts/Navbar.vue"));
     }
   }
 });
@@ -56487,7 +56487,7 @@ var NotFound = function NotFound() {
 
 
 var Navbar = function Navbar() {
-  return Promise.all(/*! import() | resource/js/Components/Layouts/navbar */[__webpack_require__.e(1), __webpack_require__.e(0)]).then(__webpack_require__.bind(null, /*! ../Components/Layouts/Navbar.vue */ "./resources/js/Components/Layouts/Navbar.vue"));
+  return Promise.all(/*! import() | resource/js/Components/Layouts/navbar */[__webpack_require__.e("vendors~resource/js/Components/Layouts/navbar"), __webpack_require__.e("resource/js/Components/Layouts/navbar")]).then(__webpack_require__.bind(null, /*! ../Components/Layouts/Navbar.vue */ "./resources/js/Components/Layouts/Navbar.vue"));
 }; // Navbar Layout Component End
 // Authenticated Component Start
 
@@ -56733,8 +56733,30 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         });
       });
     },
-    logout: function logout(_ref3) {
+    ChangePassword: function ChangePassword(_ref3, userPass) {
       var commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        commit('auth_request');
+        axios__WEBPACK_IMPORTED_MODULE_2___default()({
+          url: 'changePassword',
+          data: userPass,
+          method: 'POST'
+        }).then(function (resp) {
+          // const token = 'Bearer '+resp.data.access_token
+          // const userPass = resp.data.userPass
+          // localStorage.setItem('token', token)
+          // axios.defaults.headers.common['Authorization'] = token
+          // commit('auth_success', token, userPass)
+          // commit('handle_error', '')
+          resolve(resp);
+        })["catch"](function (error) {
+          // localStorage.removeItem('token')
+          reject(error);
+        });
+      });
+    },
+    logout: function logout(_ref4) {
+      var commit = _ref4.commit;
       return new Promise(function (resolve, reject) {
         commit('logout');
         localStorage.removeItem('token');
@@ -56742,8 +56764,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         resolve();
       });
     },
-    getUser: function getUser(_ref4) {
-      var commit = _ref4.commit;
+    getUser: function getUser(_ref5) {
+      var commit = _ref5.commit;
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
           url: 'user',
@@ -56754,8 +56776,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         });
       });
     },
-    getUserDetails: function getUserDetails(_ref5) {
-      var commit = _ref5.commit;
+    getUserDetails: function getUserDetails(_ref6) {
+      var commit = _ref6.commit;
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
           url: 'me',
@@ -56951,7 +56973,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (permissions) {
   //get the user Permission
-  var userPermissions = _Store_index__WEBPACK_IMPORTED_MODULE_0__["default"].getters['getUserDetails'].permissions;
+  var myObjres = _Store_index__WEBPACK_IMPORTED_MODULE_0__["default"].getters['getUserDetails'].permissions; // [1,2,3]
+
+  var userPermissions = JSON.parse(JSON.stringify(myObjres)); //manipulate data for permissions
+
   var canEnter = false;
 
   if (!userPermissions || !permissions) {
@@ -56962,6 +56987,9 @@ __webpack_require__.r(__webpack_exports__);
     canEnter = userPermissions.includes(permissions);
   } else {
     permissions.forEach(function (permission) {
+      console.log(permission);
+      console.log(userPermissions);
+
       if (userPermissions.includes(permission)) {
         canEnter = true;
       }

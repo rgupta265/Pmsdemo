@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["resource/js/Components/Layouts/navbar"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Layouts/Navbar.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
@@ -364,7 +364,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   created: function created() {
     if (this.isLoggedIn) {
-      this.$toast.success("Welcome Back");
       this.$store.dispatch('getUser');
       this.$store.dispatch('getUserDetails');
     }

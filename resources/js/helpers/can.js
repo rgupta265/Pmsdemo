@@ -2,7 +2,8 @@ import store from '../Store/index';
 
 export default (permissions) =>{
     //get the user Permission
-    const userPermissions = store.getters['getUserDetails'].permissions;
+    const myObjres = store.getters['getUserDetails'].permissions; // [1,2,3]
+    const userPermissions = JSON.parse(JSON.stringify(myObjres));//manipulate data for permissions
     let canEnter =false;
      
     if(!userPermissions || !permissions)
@@ -16,7 +17,10 @@ export default (permissions) =>{
     }
     else
     {
+        
         permissions.forEach((permission)=>{
+            console.log(permission);
+        console.log(userPermissions);
             if(userPermissions.includes(permission)){
                 canEnter = true;   
             }

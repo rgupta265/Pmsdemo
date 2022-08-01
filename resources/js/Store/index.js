@@ -75,6 +75,25 @@ export default new Vuex.Store({
         })
       })
     },
+    ChangePassword({commit}, userPass){
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        axios({url: 'changePassword', data: userPass, method: 'POST' })
+        .then(resp => {
+          // const token = 'Bearer '+resp.data.access_token
+          // const userPass = resp.data.userPass
+          // localStorage.setItem('token', token)
+          // axios.defaults.headers.common['Authorization'] = token
+          // commit('auth_success', token, userPass)
+          // commit('handle_error', '')
+          resolve(resp)
+        })
+        .catch(error => {
+          // localStorage.removeItem('token')
+          reject(error)
+        })
+      })
+    },
     logout({commit}){
       return new Promise((resolve, reject) => {
         commit('logout')

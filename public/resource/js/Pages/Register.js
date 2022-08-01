@@ -278,7 +278,10 @@ var render = function() {
                                 _vm._l(_vm.errors, function(error) {
                                   return _c(
                                     "small",
-                                    { staticClass: "text-danger d-block" },
+                                    {
+                                      key: error,
+                                      staticClass: "text-danger d-block"
+                                    },
                                     [_vm._v(_vm._s(error[0]))]
                                   )
                                 }),

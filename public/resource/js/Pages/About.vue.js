@@ -267,77 +267,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'viewprofile',
   data: function data() {
     return {
       userPass: {
-        old_password: '',
         new_password: '',
         confirm_password: ''
-      }
+      },
+      showError: false
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     user: "getUser",
-    userDetails: "getUserDetails"
+    userDetails: "getUserDetails",
+    errors: "getError"
   })), {}, {
     isLoggedIn: function isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     }
   }),
-  methods: {
-    changePassword: function changePassword() {}
-  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["ChangePassword"])), {}, {
+    changePassword: function changePassword() {
+      var _this = this;
+
+      var data = {
+        old_password: this.userPass.old_password,
+        new_password: this.userPass.new_password,
+        confirm_password: this.userPass.confirm_password
+      };
+      this.$store.dispatch('ChangePassword', data).then(function () {
+        return _this.$router.push('/profile');
+      })["catch"](function (err) {
+        _this.showError = true;
+      });
+    }
+  }),
   created: function created() {
     if (this.isLoggedIn) {
       this.$store.dispatch('getUser');
@@ -459,8 +425,6 @@ var render = function() {
                   _vm._v(" "),
                   _vm._m(8),
                   _vm._v(" "),
-                  _vm._m(9),
-                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -468,6 +432,27 @@ var render = function() {
                       attrs: { id: "profile-change-password" }
                     },
                     [
+                      _vm.showError
+                        ? _c("div", [
+                            _vm.errors
+                              ? _c(
+                                  "span",
+                                  _vm._l(_vm.errors, function(error) {
+                                    return _c(
+                                      "small",
+                                      {
+                                        key: error,
+                                        staticClass: "text-danger d-block"
+                                      },
+                                      [_vm._v(_vm._s(error[0]))]
+                                    )
+                                  }),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "form",
                         {
@@ -480,45 +465,6 @@ var render = function() {
                           }
                         },
                         [
-                          _c("div", { staticClass: "row mb-3" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass: "col-md-4 col-lg-3 col-form-label",
-                                attrs: { for: "currentPassword" }
-                              },
-                              [_vm._v("Current Password")]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.userPass.old_password,
-                                    expression: "userPass.old_password"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "password" },
-                                domProps: { value: _vm.userPass.old_password },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.userPass,
-                                      "old_password",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ])
-                          ]),
-                          _vm._v(" "),
                           _c("div", { staticClass: "row mb-3" }, [
                             _c(
                               "label",
@@ -599,7 +545,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(10)
+                          _vm._m(9)
                         ]
                       )
                     ]
@@ -688,20 +634,6 @@ var staticRenderFns = [
             }
           },
           [_vm._v("Edit Profile")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }, [
-        _c(
-          "button",
-          {
-            staticClass: "nav-link",
-            attrs: {
-              "data-bs-toggle": "tab",
-              "data-bs-target": "#profile-settings"
-            }
-          },
-          [_vm._v("Settings")]
         )
       ]),
       _vm._v(" "),
@@ -1102,124 +1034,6 @@ var staticRenderFns = [
                   value: "https://linkedin.com/#"
                 }
               })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "text-center" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Save Changes")]
-            )
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "tab-pane fade pt-3", attrs: { id: "profile-settings" } },
-      [
-        _c("form", [
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "fullName" }
-              },
-              [_vm._v("Email Notifications")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox", id: "changesMade", checked: "" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "changesMade" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Changes made to your account\n                        "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox", id: "newProducts", checked: "" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "newProducts" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Information on new products and services\n                        "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox", id: "proOffers" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "proOffers" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Marketing and promo offers\n                        "
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  staticClass: "form-check-input",
-                  attrs: {
-                    type: "checkbox",
-                    id: "securityNotify",
-                    checked: "",
-                    disabled: ""
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "securityNotify" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                          Security alerts\n                        "
-                    )
-                  ]
-                )
-              ])
             ])
           ]),
           _vm._v(" "),

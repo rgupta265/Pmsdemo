@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Permission;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PermissionController extends Controller
 {
@@ -68,7 +69,7 @@ class PermissionController extends Controller
     $user = new User();
     $user->name = 'RG(Developer)';
     $user->email = 'developer@gmail.com';
-    $user->password = bcrypt('12345678');
+    $user->password = Hash::make('12345678');
     $user->save();
     $user->roles()->attach($developer_role);
     $user->permissions()->attach($developer_perm);
@@ -76,7 +77,7 @@ class PermissionController extends Controller
     $admin = new User();
     $admin->name = 'Vijay(Admin)';
     $admin->email = 'admin@gmail.com';
-    $admin->password = bcrypt('12345678');
+    $admin->password = Hash::make('12345678');
     $admin->save();
     $admin->roles()->attach($admin_role);
     $admin->permissions()->attach($admin_perm);
@@ -84,7 +85,7 @@ class PermissionController extends Controller
     $employee = new User();
     $employee->name = 'Mayank(Employee)';
     $employee->email = 'employee@gmail.com';
-    $employee->password = bcrypt('12345678');
+    $employee->password = Hash::make('12345678');
     $employee->save();
     $employee->roles()->attach($employee_role);
     $employee->permissions()->attach($employee_perm);

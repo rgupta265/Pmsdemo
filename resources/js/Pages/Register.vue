@@ -22,7 +22,7 @@
                   </div>
                                     <div v-if="showError">
                                         <span v-if="errors">
-                                        <small v-for="error in errors" class="text-danger d-block">{{ error[0] }}</small>
+                                        <small v-for="error in errors" :key="error" class="text-danger d-block">{{ error[0] }}</small>
                                         </span>
                                     </div>
                   <form class="row g-3 needs-validation" method="post" action=""  @submit.prevent="submit" novalidate>
