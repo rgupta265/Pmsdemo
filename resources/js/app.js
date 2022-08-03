@@ -7,12 +7,16 @@ import axios from 'axios'
 import router from './Router/index'
 import store from './Store/index';
 import App from './App.vue';
-
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 import can from './helpers/can';
-
+import moment from 'moment';
+Vue.filter('formatDate', function(value) {
+  if (value) {
+      return moment(String(value)).format('DD/MM/YYYY hh:mm:ss a')
+  }
+});
 const options = {
     timeout: 3000,
     position: "top-right",
@@ -53,6 +57,8 @@ axios.interceptors.response.use(undefined, function (error) {
     }
   }
 })
+
+
 axios.get('constants').then((response)=>{
   Vue.prototype.$constants =response.data;
 
@@ -62,4 +68,5 @@ axios.get('constants').then((response)=>{
       store,
       // components: { App }
     });
+    
 });

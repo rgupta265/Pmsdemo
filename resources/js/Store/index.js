@@ -8,9 +8,9 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user : {},
     error : '',
-    userDetails:{}
+    userDetails:{},
+    webDetails: {},
   },
   mutations: {
     auth_request(state){
@@ -32,6 +32,9 @@ export default new Vuex.Store({
     },
     setUserDetails(state,userDetails){
       state.userDetails = userDetails
+    },
+    setWebDetails(state,webDetails){
+      state.webDetails = webDetails
     }
   },
   actions: {
@@ -75,21 +78,14 @@ export default new Vuex.Store({
         })
       })
     },
-    ChangePassword({commit}, userPass){
+    ChangePassword({commit}, user){
       return new Promise((resolve, reject) => {
         commit('auth_request')
-        axios({url: 'changePassword', data: userPass, method: 'POST' })
+        axios({url: 'changePassword', data: user, method: 'POST' })
         .then(resp => {
-          // const token = 'Bearer '+resp.data.access_token
-          // const userPass = resp.data.userPass
-          // localStorage.setItem('token', token)
-          // axios.defaults.headers.common['Authorization'] = token
-          // commit('auth_success', token, userPass)
-          // commit('handle_error', '')
           resolve(resp)
         })
         .catch(error => {
-          // localStorage.removeItem('token')
           reject(error)
         })
       })
@@ -102,19 +98,18 @@ export default new Vuex.Store({
         resolve()
       })
     },
-
-    getUser({commit}){
-      return new Promise((resolve, reject) => {
-        axios({url:'user',method:'GET'}).then(res =>{
-          commit('set_user',res.data)
-          resolve(res)
-        })
-      }); 
-    },
     getUserDetails({commit}){
       return new Promise((resolve, reject) => {
         axios({url:'me',method:'GET'}).then(res =>{
           commit('setUserDetails',res.data.data)
+          resolve(res)
+        })
+      }); 
+    },
+    getWebDetails({commit}){
+      return new Promise((resolve, reject) => {
+        axios({url:'webinfo',method:'GET'}).then(res =>{
+          commit('setWebDetails',res.data)
           resolve(res)
         })
       }); 
@@ -126,7 +121,8 @@ export default new Vuex.Store({
     authStatus: state => state.status,
     getUser: state=> state.user,
     getError: state=> state.error,
-    getUserDetails :state=>state.userDetails
+    getUserDetails :state=>state.userDetails,
+    getWebDetails :state=>state.webDetails
   }
 })
 

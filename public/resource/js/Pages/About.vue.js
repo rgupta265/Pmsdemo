@@ -267,20 +267,230 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'viewprofile',
+  name: "viewprofile",
   data: function data() {
     return {
       userPass: {
-        new_password: '',
-        confirm_password: ''
+        new_password: "",
+        confirm_password: ""
       },
       showError: false
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    user: "getUser",
     userDetails: "getUserDetails",
     errors: "getError"
   })), {}, {
@@ -297,18 +507,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         new_password: this.userPass.new_password,
         confirm_password: this.userPass.confirm_password
       };
-      this.$store.dispatch('ChangePassword', data).then(function () {
-        return _this.$router.push('/profile');
-      })["catch"](function (err) {
-        _this.showError = true;
+      this.$store.dispatch("ChangePassword", data).then(function (resp) {
+        _this.showError = false;
+
+        _this.$toast.success(resp.data.success, {});
+
+        _this.$store.dispatch("logout");
+
+        _this.$router.push("/");
+      })["catch"](function (err) {// this.showError = true;
       });
     }
   }),
-  created: function created() {
-    if (this.isLoggedIn) {
-      this.$store.dispatch('getUser');
-      this.$store.dispatch('getUserDetails');
-    }
+  created: function created() {// if (this.isLoggedIn) {
+    //   this.$store.dispatch("getUser");
+    //   this.$store.dispatch("getUserDetails");
+    // }
   }
 });
 
@@ -341,7 +555,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "card-body profile-card pt-4 d-flex flex-column align-items-center"
+                    "\n                  card-body\n                  profile-card\n                  pt-4\n                  d-flex\n                  flex-column\n                  align-items-center\n                "
                 },
                 [
                   _c("img", {
@@ -383,7 +597,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("p", { staticClass: "small fst-italic" }, [
                         _vm._v(
-                          "Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde."
+                          "\n                      Sunt est soluta temporibus accusantium neque nam maiores\n                      cumque temporibus. Tempora libero non est unde veniam est\n                      qui dolor. Ut sunt iure rerum quae quisquam autem eveniet\n                      perspiciatis odit. Fuga sequi sed ea saepe at unde.\n                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -392,12 +606,16 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-lg-3 col-md-4 label " }, [
+                        _c("div", { staticClass: "col-lg-3 col-md-4 label" }, [
                           _vm._v("Full Name")
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-lg-9 col-md-8" }, [
-                          _vm._v(_vm._s(_vm.userDetails.name))
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.userDetails.name) +
+                              "\n                      "
+                          )
                         ])
                       ]),
                       _vm._v(" "),
@@ -417,7 +635,11 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-lg-9 col-md-8" }, [
-                          _vm._v(_vm._s(_vm.userDetails.email))
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.userDetails.email) +
+                              "\n                      "
+                          )
                         ])
                       ])
                     ]
@@ -439,12 +661,28 @@ var render = function() {
                                   "span",
                                   _vm._l(_vm.errors, function(error) {
                                     return _c(
-                                      "small",
+                                      "div",
                                       {
                                         key: error,
-                                        staticClass: "text-danger d-block"
+                                        staticClass:
+                                          "alert alert-danger alert-dismissible fade show",
+                                        attrs: { role: "alert" }
                                       },
-                                      [_vm._v(_vm._s(error[0]))]
+                                      [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(error[0]) +
+                                            "\n                          "
+                                        ),
+                                        _c("button", {
+                                          staticClass: "btn-close",
+                                          attrs: {
+                                            type: "button",
+                                            "data-bs-dismiss": "alert",
+                                            "aria-label": "Close"
+                                          }
+                                        })
+                                      ]
                                     )
                                   }),
                                   0
@@ -511,7 +749,7 @@ var render = function() {
                                 staticClass: "col-md-4 col-lg-3 col-form-label",
                                 attrs: { for: "renewPassword" }
                               },
-                              [_vm._v("Re-enter New Password")]
+                              [_vm._v("Confirm New Password")]
                             ),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-8 col-lg-9" }, [
@@ -619,7 +857,7 @@ var staticRenderFns = [
               "data-bs-target": "#profile-overview"
             }
           },
-          [_vm._v("Overview")]
+          [_vm._v("\n                      Overview\n                    ")]
         )
       ]),
       _vm._v(" "),
@@ -633,7 +871,7 @@ var staticRenderFns = [
               "data-bs-target": "#profile-edit"
             }
           },
-          [_vm._v("Edit Profile")]
+          [_vm._v("\n                      Edit Profile\n                    ")]
         )
       ]),
       _vm._v(" "),
@@ -647,7 +885,11 @@ var staticRenderFns = [
               "data-bs-target": "#profile-change-password"
             }
           },
-          [_vm._v("Change Password")]
+          [
+            _vm._v(
+              "\n                      Change Password\n                    "
+            )
+          ]
         )
       ])
     ])
@@ -732,7 +974,10 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("div", { staticClass: "col-md-8 col-lg-9" }, [
               _c("img", {
-                attrs: { src: "assets/img/profile-img.jpg", alt: "Profile" }
+                attrs: {
+                  src: "backendTheme/assets/img/profile-img.jpg",
+                  alt: "Profile"
+                }
               }),
               _vm._v(" "),
               _c("div", { staticClass: "pt-2" }, [
@@ -774,7 +1019,7 @@ var staticRenderFns = [
                   name: "fullName",
                   type: "text",
                   id: "fullName",
-                  value: "Kevin Anderson"
+                  value: ""
                 }
               })
             ])
@@ -824,7 +1069,7 @@ var staticRenderFns = [
                   name: "company",
                   type: "text",
                   id: "company",
-                  value: "Lueilwitz, Wisoky and Leuschke"
+                  value: ""
                 }
               })
             ])
@@ -843,12 +1088,7 @@ var staticRenderFns = [
             _c("div", { staticClass: "col-md-8 col-lg-9" }, [
               _c("input", {
                 staticClass: "form-control",
-                attrs: {
-                  name: "job",
-                  type: "text",
-                  id: "Job",
-                  value: "Web Designer"
-                }
+                attrs: { name: "job", type: "text", id: "Job", value: "" }
               })
             ])
           ]),
@@ -870,7 +1110,7 @@ var staticRenderFns = [
                   name: "country",
                   type: "text",
                   id: "Country",
-                  value: "USA"
+                  value: ""
                 }
               })
             ])
@@ -893,7 +1133,7 @@ var staticRenderFns = [
                   name: "address",
                   type: "text",
                   id: "Address",
-                  value: "A108 Adam Street, New York, NY 535022"
+                  value: ""
                 }
               })
             ])
@@ -912,12 +1152,7 @@ var staticRenderFns = [
             _c("div", { staticClass: "col-md-8 col-lg-9" }, [
               _c("input", {
                 staticClass: "form-control",
-                attrs: {
-                  name: "phone",
-                  type: "text",
-                  id: "Phone",
-                  value: "(436) 486-3538 x29071"
-                }
+                attrs: { name: "phone", type: "text", id: "Phone", value: "" }
               })
             ])
           ]),
@@ -935,12 +1170,7 @@ var staticRenderFns = [
             _c("div", { staticClass: "col-md-8 col-lg-9" }, [
               _c("input", {
                 staticClass: "form-control",
-                attrs: {
-                  name: "email",
-                  type: "email",
-                  id: "Email",
-                  value: "k.anderson@example.com"
-                }
+                attrs: { name: "email", type: "email", id: "Email", value: "" }
               })
             ])
           ]),
@@ -962,7 +1192,7 @@ var staticRenderFns = [
                   name: "twitter",
                   type: "text",
                   id: "Twitter",
-                  value: "https://twitter.com/#"
+                  value: ""
                 }
               })
             ])
@@ -985,7 +1215,7 @@ var staticRenderFns = [
                   name: "facebook",
                   type: "text",
                   id: "Facebook",
-                  value: "https://facebook.com/#"
+                  value: ""
                 }
               })
             ])
@@ -1008,7 +1238,7 @@ var staticRenderFns = [
                   name: "instagram",
                   type: "text",
                   id: "Instagram",
-                  value: "https://instagram.com/#"
+                  value: ""
                 }
               })
             ])
@@ -1031,7 +1261,7 @@ var staticRenderFns = [
                   name: "linkedin",
                   type: "text",
                   id: "Linkedin",
-                  value: "https://linkedin.com/#"
+                  value: ""
                 }
               })
             ])
@@ -1041,7 +1271,11 @@ var staticRenderFns = [
             _c(
               "button",
               { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [_vm._v("Save Changes")]
+              [
+                _vm._v(
+                  "\n                          Save Changes\n                        "
+                )
+              ]
             )
           ])
         ])
@@ -1056,7 +1290,11 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Change Password")]
+        [
+          _vm._v(
+            "\n                          Change Password\n                        "
+          )
+        ]
       )
     ])
   }
