@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, HasPermissionsTrait, SoftDeletes;
+    use HasFactory, Notifiable, HasPermissionsTrait, SoftDeletes, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +46,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    protected static $logAttributes = ['name', 'email','password'];
 
     public function getJWTIdentifier() {
         return $this->getKey();
@@ -53,7 +55,7 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
-
+        //if user have multiple role
     public function roles() {
 
         return $this->belongsToMany(Role::class,'users_roles');

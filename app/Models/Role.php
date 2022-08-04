@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasPermissionsTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 class Role extends Model
 {
-    use HasFactory,HasPermissionsTrait;
+    use HasFactory,HasPermissionsTrait ,LogsActivity;
+
+    protected $fillable =['name','slug'];
+    protected static $logAttributes = ['name', 'slug'];
 
     public function permissions() {
 
@@ -20,12 +24,6 @@ class Role extends Model
       return $this->permissions()->where('slug', $permissions)->count();
    }
 
-   public function scopeDeveloper($query){
-      $this->query->where('slug','developer');
-   }
-   public function scopeAdmin($query){
-      $this->query->where('slug','admin');
-   }
      
    //   public function users() {
      

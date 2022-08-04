@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use JWTAuth;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
 class JWTMiddleware
@@ -25,6 +26,7 @@ class JWTMiddleware
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                 return response()->json(['status' => 'Token is Invalid']);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
+                Auth::logout();
                 return response()->json(['status' => 'Token is Expired']);
             }else{
                 return response()->json(['status' => 'Authorization Token not found']);

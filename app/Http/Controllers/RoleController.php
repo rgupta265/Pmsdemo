@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
-
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PermissionController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
-        return response()->json(Permission::get());
+        return response()->json(Role::get());
     }
 
     /**
@@ -28,7 +26,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -39,17 +37,15 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         $validator = Validator::make($request->all(), [
-            'name' => ['required','unique:permissions,name'],
+            'name' => ['required','unique:roles,name'],
         ]);
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-        $create = Permission::create(array_merge(
+        $create = Role::create(array_merge(
             $validator->validated(),
             [
                 'name' => $request->name,
@@ -58,17 +54,17 @@ class PermissionController extends Controller
         ));
         if($create)
         {
-            return response()->json(['success'=>'Permission Added Successfully.']);
+            return response()->json(['success'=>'Role Added Successfully.']);
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Permission  $permission
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show(Role $role)
     {
         //
     }
@@ -76,10 +72,10 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Permission  $permission
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permission $permission)
+    public function edit(Role $role)
     {
         //
     }
@@ -88,26 +84,25 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Permission  $permission
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Role $role)
     {
-
         $validator = Validator::make($request->all(), [
-            'name' => ['required','unique:permissions,name'],
+            'name' => ['required','unique:roles,name'],
         ]);
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-       $update= $permission->update([
+       $update= $role->update([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name)
         ]);
         if($update){
-            return response()->json(['success'=>'Permission Updated Successfully']);
+            return response()->json(['success'=>'Role Updated Successfully']);
         }
         
     }
@@ -115,13 +110,13 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Permission  $permission
+     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy(Role $role)
     {
-        $permission->delete();
+        $role->delete();
 
-        return response()->json(['success'=>'Permission Deleted Successfully']);
+        return response()->json(['success'=>'Role Deleted Successfully']);
     }
 }

@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +18,18 @@ use App\Http\Controllers\AuthController;
 //     return $request->user();
 // });
 
-Route::get('/roles', [App\Http\Controllers\PermissionController::class,'Permission']);//create dummy data
+// Route::get('/roles', [App\Http\Controllers\PermissionController::class,'Permission']);//create dummy data
 Route::get('/constants', [App\Http\Controllers\ConstantsController::class, 'index']);//get roles and all permission data to checked user permissions
 
 Route::post('register',[App\Http\Controllers\AuthController::class, 'register']);
 Route::post('login',[App\Http\Controllers\AuthController::class, 'login']);
 Route::group(['middleware'=>'jwt.verify'],function(){
+    Route::get('webinfo',[App\Http\Controllers\WebsiteMasterInfo::class, 'getWebinfo']);
     Route::get('user',[App\Http\Controllers\AuthController::class, 'getUser']);
     Route::get('me', [App\Http\Controllers\UsersController::class, 'me']);
     Route::post('changePassword', [App\Http\Controllers\UsersController::class, 'changePassword']);
-
+    // Roles start
+    Route::resource('roles', RoleController::class);
+    // Roles End
+    Route::resource('permission', PermissionController::class);
 });

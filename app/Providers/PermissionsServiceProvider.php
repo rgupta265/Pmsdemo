@@ -26,19 +26,18 @@ class PermissionsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $permissions = Permission::all();
+        $permissions = Permission::all();
 
-        // try {
-        //     foreach($permissions as $permission) {
-        //         Gate::define($permission->slug, function ($user) use ($permission) {
-        //             return $user->hasPermissionTo($permission);
-        //         });
-        //     }
-            
-        // } catch (\Exception $e) {
-        //     report($e);
-        //     return false;
-        // }
+        try {
+            foreach($permissions as $permission) {
+                Gate::define($permission->slug, function ($user) use ($permission) {
+                    return $user->hasPermissionTo($permission);
+                });
+            }
+        } catch (\Exception $e) {
+            report($e);
+            return false;
+        }
 
     }
 }

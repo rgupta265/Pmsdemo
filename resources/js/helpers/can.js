@@ -19,8 +19,6 @@ export default (permissions) =>{
     {
         
         permissions.forEach((permission)=>{
-            console.log(permission);
-        console.log(userPermissions);
             if(userPermissions.includes(permission)){
                 canEnter = true;   
             }
