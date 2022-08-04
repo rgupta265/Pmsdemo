@@ -160,6 +160,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "list",
@@ -172,75 +217,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       success: "",
       api: "roles",
       btnName: "Add Role",
-      editRoleId: ""
+      editRoleId: "",
+      permissions: [],
+      assign_permissions: []
     };
   },
   mounted: function mounted() {
     this.getRole();
+    this.getPermissions();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     errors: "getError"
   })),
   methods: {
-    getRole: function getRole() {
+    getPermissions: function getPermissions() {
       var _this = this;
 
+      axios.get("/getAllPermission").then(function (response) {
+        _this.permissions = response.data.permissions;
+      })["catch"](function () {});
+    },
+    getRole: function getRole() {
+      var _this2 = this;
+
       axios.get(this.api).then(function (response) {
-        _this.roleList = response.data;
+        _this2.roleList = response.data;
       });
     },
     addRole: function addRole() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post(this.api, {
-        name: this.role
+        name: this.role,
+        permission: this.assign_permissions
       }).then(function (response) {
-        _this2.success = response.data.success;
-        _this2.showStatus = true;
+        _this3.success = response.data.success;
+        _this3.showStatus = true;
 
-        _this2.getRole();
+        _this3.getRole();
 
-        _this2.role = "";
+        _this3.role = "";
+        _this3.assign_permissions = [];
       })["catch"](function (err) {
-        _this2.showStatus = true;
+        _this3.showStatus = true;
       });
     },
     deleteRole: function deleteRole(index) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"](this.api + "/" + this.roleList[index].id).then(function (response) {
-        _this3.success = response.data.success;
-        _this3.showTableStatus = true;
+        _this4.success = response.data.success;
+        _this4.showTableStatus = true;
 
-        _this3.getRole();
+        _this4.getRole();
       });
     },
     editRole: function editRole(index) {
       this.role = this.roleList[index].name;
       this.editRoleId = this.roleList[index].id;
       this.btnName = "Update Role";
+      this.assign_permissions = this.roleList[index].permissions.includes([slug]);
     },
     updateRole: function updateRole() {
-      var _this4 = this;
+      var _this5 = this;
 
       var data = {
-        'name': this.role
+        name: this.role
       };
       axios.put(this.api + "/" + this.editRoleId, data).then(function (response) {
-        _this4.success = response.data.success;
-        _this4.showStatus = true;
+        _this5.success = response.data.success;
+        _this5.showStatus = true;
 
-        _this4.getRole();
+        _this5.getRole();
 
-        _this4.reset();
+        _this5.reset();
       })["catch"](function (err) {
-        _this4.showStatus = true;
+        _this5.showStatus = true;
       });
     },
     reset: function reset() {
       this.role = "";
-      this.editRoleId = '';
+      this.editRoleId = "";
       this.btnName = "Add Role";
+      this.assign_permissions = [];
     }
   },
   created: function created() {}
@@ -302,69 +361,90 @@ var render = function() {
                     ])
                   : _vm._e(),
                 _vm._v(" "),
-                _c("table", { staticClass: "table table-sm" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.roleList, function(rl, index) {
-                      return _c("tr", { key: index }, [
-                        _c("th", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(++index))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(rl.name))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm._f("formatDate")(rl.created_at)))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm._f("formatDate")(rl.updated_at)))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "badge bg-primary",
-                              attrs: { role: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.editRole(--index)
+                _c(
+                  "table",
+                  { staticClass: "table table-sm table-responsive-sm" },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.roleList, function(rl, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(++index))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(rl.name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm._f("formatDate")(rl.created_at)))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "badge bg-primary",
+                                attrs: { role: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editRole(--index)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "bi bi-pencil-square me-1"
-                              }),
-                              _vm._v(" Edit")
-                            ]
-                          ),
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "bi bi-pencil-square me-1"
+                                }),
+                                _vm._v(" Edit")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "badge bg-danger",
+                                attrs: { role: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteRole(--index)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "bi bi-trash me-1" }),
+                                _vm._v(" Delete")
+                              ]
+                            )
+                          ]),
                           _vm._v(" "),
                           _c(
-                            "span",
-                            {
-                              staticClass: "badge bg-danger",
-                              attrs: { role: "button" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteRole(--index)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: "bi bi-trash me-1" }),
-                              _vm._v(" Delete")
-                            ]
+                            "td",
+                            _vm._l(rl.permissions, function(per) {
+                              return _c(
+                                "span",
+                                {
+                                  key: per,
+                                  staticClass: "badge bg-success m-1"
+                                },
+                                [
+                                  _c("i", { staticClass: "fbi bi-star me-1" }),
+                                  _vm._v(
+                                    _vm._s(per.slug) +
+                                      "\n                      "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
                           )
                         ])
-                      ])
-                    }),
-                    0
-                  )
-                ])
+                      }),
+                      0
+                    )
+                  ]
+                )
               ])
             ])
           ]),
@@ -448,47 +528,110 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "row g-3 col-12" }, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "form-label",
-                        attrs: { for: "inputNanme4" }
-                      },
-                      [_vm._v("Role Name")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.role,
-                          expression: "role"
-                        }
-                      ],
-                      staticClass: "form-control form-control-sm",
-                      attrs: { type: "text", placeholder: "Add New Role" },
-                      domProps: { value: _vm.role },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.role = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.editRoleId
-                      ? _c(
-                          "span",
+                    _c("div", { staticClass: "col-12" }, [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
                           {
-                            attrs: { role: "button" },
-                            on: { click: _vm.reset }
-                          },
-                          [_vm._v("Reset")]
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.role,
+                            expression: "role"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        attrs: { type: "text", placeholder: "Add New Role" },
+                        domProps: { value: _vm.role },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.role = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.editRoleId
+                        ? _c(
+                            "span",
+                            {
+                              staticStyle: { float: "right" },
+                              attrs: { role: "button" },
+                              on: { click: _vm.reset }
+                            },
+                            [_vm._v("Reset")]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      _vm._l(_vm.permissions, function(option, item) {
+                        return _c(
+                          "div",
+                          { key: item, staticClass: "form-check" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.assign_permissions,
+                                  expression: "assign_permissions"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                value: option.id,
+                                checked: Array.isArray(_vm.assign_permissions)
+                                  ? _vm._i(_vm.assign_permissions, option.id) >
+                                    -1
+                                  : _vm.assign_permissions
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.assign_permissions,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = option.id,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.assign_permissions = $$a.concat([
+                                          $$v
+                                        ]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.assign_permissions = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.assign_permissions = $$c
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", {}, [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(option.name) +
+                                  "\n                    "
+                              )
+                            ])
+                          ]
                         )
-                      : _vm._e()
+                      }),
+                      0
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "text-center p-2" }, [
@@ -502,7 +645,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Submit\n                  "
+                              "\n                  Submit\n                "
                             )
                           ]
                         )
@@ -518,7 +661,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Update\n                  "
+                              "\n                  Update\n                "
                             )
                           ]
                         )
@@ -564,11 +707,31 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Added Time")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Updated Time")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Permission Name")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-label", attrs: { for: "inputNanme4" } },
+      [_c("strong", [_vm._v("Role Name")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "form-label", attrs: { for: "inputNanme4" } },
+      [_c("strong", [_vm._v("Assign Role")])]
+    )
   }
 ]
 render._withStripped = true

@@ -31,5 +31,8 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     // Roles start
     Route::resource('roles', RoleController::class);
     // Roles End
+    Route::resource('permission', PermissionController::class);
+    Route::get('getAllPermission', [App\Http\Controllers\PermissionController::class, 'getAllPermissions']);
+    Route::get('getUserRolePermission',[App\Http\Controllers\UsersController::class,'getUserHasRolePermission']);
 
 });

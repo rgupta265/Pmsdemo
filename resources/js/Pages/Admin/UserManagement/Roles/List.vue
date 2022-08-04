@@ -32,29 +32,40 @@
                     ></button>
                   </div>
                 </span>
-                <table class="table table-sm">
+                <table class="table table-sm table-responsive-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Role Name</th>
                       <th scope="col">Added Time</th>
-                      <th scope="col">Updated Time</th>
                       <th scope="col">Action</th>
+                      <th scope="col">Permission Name</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="(rl, index) in roleList" :key="index">
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ rl.name }}</td>
+
                       <td>{{ rl.created_at | formatDate }}</td>
-                      <td>{{ rl.updated_at | formatDate }}</td>
                       <td>
-                        <span role="button" class="badge bg-primary" @click="editRole(--index)"
+                        <span
+                          role="button"
+                          class="badge bg-primary"
+                          @click="editRole(--index)"
                           ><i class="bi bi-pencil-square me-1"></i> Edit</span
                         >
-                        <span role="button" class="badge bg-danger" @click="deleteRole(--index)"
+                        <span
+                          role="button"
+                          class="badge bg-danger"
+                          @click="deleteRole(--index)"
                           ><i class="bi bi-trash me-1"></i> Delete</span
                         >
+                      </td>
+                      <td >
+                        <span class="badge bg-success m-1" v-for="per in rl.permissions" :key="per">
+                          <i class="fbi bi-star me-1"></i>{{ per.slug }}
+                        </span>
                       </td>
                     </tr>
                   </tbody>
@@ -75,7 +86,7 @@
                   align-items-center
                 "
               >
-                <h5 class="card-title">{{this.btnName}}</h5>
+                <h5 class="card-title">{{ this.btnName }}</h5>
                 <div v-if="showStatus">
                   <span v-if="errors">
                     <div
@@ -109,10 +120,11 @@
                   </span>
                 </div>
                 <!-- Vertical Form -->
-                
-                  <div class="row g-3 col-12">
+
+                <div class="row g-3 col-12">
+                  <div class="col-12">
                     <label for="inputNanme4" class="form-label"
-                      >Role Name</label
+                      ><strong>Role Name</strong></label
                     >
                     <input
                       type="text"
@@ -120,18 +132,51 @@
                       placeholder="Add New Role"
                       v-model="role"
                     />
-                     <span role="button" @click="reset" v-if="editRoleId">Reset</span>
+                    <span role="button" style="float:right" @click="reset" v-if="editRoleId"
+                      >Reset</span
+                    >
                   </div>
-                  <div class="text-center p-2">
-                    <button type="submit" class="btn btn-primary btn-sm" v-if="!editRoleId" @click="addRole">
-                      Submit
-                    </button>
-                       
-                    <button type="submit" class="btn btn-primary btn-sm" v-if="editRoleId" @click="updateRole">
-                      Update
-                    </button>
-                    
+                  <label for="inputNanme4" class="form-label"
+                    ><strong>Assign Role</strong></label
+                  >
+                  <div class="col-12">
+                    <div
+                      class="form-check"
+                      v-for="(option, item) in permissions"
+                      :key="item"
+                    >
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="assign_permissions"
+                        :value="option.id"
+                      />
+                      <label class="">
+                        {{ option.name }}
+                      </label>
+                    </div>
                   </div>
+                </div>
+               
+                <div class="text-center p-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-sm"
+                    v-if="!editRoleId"
+                    @click="addRole"
+                  >
+                    Submit
+                  </button>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-sm"
+                    v-if="editRoleId"
+                    @click="updateRole"
+                  >
+                    Update
+                  </button>
+                </div>
                 <!-- Vertical Form -->
               </div>
             </div>
@@ -154,17 +199,28 @@ export default {
       showStatus: false,
       success: "",
       api: "roles",
-      btnName :"Add Role",
-      editRoleId:""
+      btnName: "Add Role",
+      editRoleId: "",
+      permissions: [],
+      assign_permissions: [],
     };
   },
   mounted() {
     this.getRole();
+    this.getPermissions();
   },
   computed: {
     ...mapGetters({ errors: "getError" }),
   },
   methods: {
+    getPermissions() {
+      axios
+        .get("/getAllPermission")
+        .then((response) => {
+          this.permissions = response.data.permissions;
+        })
+        .catch(() => {});
+    },
     getRole() {
       axios.get(this.api).then((response) => {
         this.roleList = response.data;
@@ -172,34 +228,41 @@ export default {
     },
     addRole() {
       axios
-        .post(this.api, { name: this.role })
+        .post(this.api, {
+          name: this.role,
+          permission: this.assign_permissions,
+        })
         .then((response) => {
           this.success = response.data.success;
           this.showStatus = true;
           this.getRole();
           this.role = "";
+          this.assign_permissions=[];
         })
         .catch((err) => {
           this.showStatus = true;
         });
     },
     deleteRole(index) {
-      axios.delete(this.api + "/" + this.roleList[index].id).then((response) => {
-        this.success = response.data.success;
-        this.showTableStatus = true;
-        this.getRole();
-      });
-    },
-    editRole(index)
-    {
-        this.role = this.roleList[index].name;
-        this.editRoleId =this.roleList[index].id;
-        this.btnName ="Update Role";
-    },
-    updateRole(){
-      let data ={'name':this.role};
       axios
-        .put(this.api+"/"+this.editRoleId, data)
+        .delete(this.api + "/" + this.roleList[index].id)
+        .then((response) => {
+          this.success = response.data.success;
+          this.showTableStatus = true;
+          this.getRole();
+        });
+    },
+    editRole(index) {
+      this.role = this.roleList[index].name;
+      this.editRoleId = this.roleList[index].id;
+      this.btnName = "Update Role";
+      this.assign_permissions = this.roleList[index].permissions.includes([slug]);
+      
+    },
+    updateRole() {
+      let data = { name: this.role };
+      axios
+        .put(this.api + "/" + this.editRoleId, data)
         .then((response) => {
           this.success = response.data.success;
           this.showStatus = true;
@@ -210,12 +273,13 @@ export default {
           this.showStatus = true;
         });
     },
-    reset()
-    {
+    reset() {
       this.role = "";
-      this.editRoleId ='';
-      this.btnName ="Add Role";
-    }
+      this.editRoleId = "";
+      this.btnName = "Add Role";
+      this.assign_permissions =[]
+    },
+    
   },
   created() {},
 };

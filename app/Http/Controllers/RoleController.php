@@ -6,17 +6,22 @@ use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+// use App\Traits\HasPermissionsTrait;
+
+use function GuzzleHttp\Promise\all;
 
 class RoleController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return response()->json(Role::get());
+    {   
+        $roles= Role::with('permissions')->get();
+        return response()->json($roles);
     }
 
     /**
@@ -39,22 +44,26 @@ class RoleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required','unique:roles,name'],
+            // 'permission' => ['nullable']
         ]);
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-        $create = Role::create(array_merge(
+        $role = Role::create(array_merge(
             $validator->validated(),
             [
                 'name' => $request->name,
                 'slug'=>Str::slug($request->name)
             ]
         ));
-        if($create)
+        if($request->has("permission")){
+            $role->permissions()->attach($request->permission);
+        }
+        if($role)
         {
-            return response()->json(['success'=>'Role Added Successfully.']);
+            return response()->json(['success'=>'Role and Permission assigned Successfully.']);
         }
     }
 

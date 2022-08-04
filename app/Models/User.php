@@ -62,7 +62,6 @@ class User extends Authenticatable implements JWTSubject
     
     }
  
-
     public function hasRole( ... $roles ) {
                 //$user->hasRole('admin','user)
         return $this->roles->where('slug', $roles)->count();
