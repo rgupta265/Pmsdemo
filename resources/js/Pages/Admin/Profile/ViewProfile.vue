@@ -1,16 +1,7 @@
 <template>
   <div class="viewprofile">
     <main id="main" class="main">
-      <div class="pagetitle">
-        <h1>Profile</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item">Users</li>
-            <li class="breadcrumb-item active">Profile</li>
-          </ol>
-        </nav>
-      </div>
+      <Breadcrumb></Breadcrumb>
       <!-- End Page Title -->
 
       <section class="section profile">
@@ -388,24 +379,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <div v-if="showError">
-                      <span v-if="errors">
-                        <div
-                          class="alert alert-danger alert-dismissible fade show"
-                          role="alert"
-                          v-for="error in errors"
-                          :key="error"
-                        >
-                          {{ error[0] }}
-                          <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="alert"
-                            aria-label="Close"
-                          ></button>
-                        </div>
-                      </span>
-                    </div>
+                  <Alert :data="showError"></Alert>
                     <form
                       method="post"
                       action=""
@@ -461,9 +435,15 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 </template>
 
 <script>
+import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
+import Alert from ".../../../resources/js/Components/Layouts/Alert";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "viewprofile",
+  components: {
+    Breadcrumb,
+    Alert
+  },
   data() {
     return {
       userPass: {
@@ -500,12 +480,6 @@ export default {
           // this.showError = true;
         });
     },
-  },
-  created() {
-    // if (this.isLoggedIn) {
-    //   this.$store.dispatch("getUser");
-    //   this.$store.dispatch("getUserDetails");
-    // }
   },
 };
 </script>

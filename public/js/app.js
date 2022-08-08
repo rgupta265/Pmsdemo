@@ -78249,7 +78249,7 @@ var AddPmsAttribute = function AddPmsAttribute() {
 };
 
 var InviteLink = function InviteLink() {
-  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/InviteLink/CreateLink.vue */ "resource/js/Pages/Admin/InviteLink/CreateLink.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/InviteLink/CreateLink.vue */ "./resources/js/Pages/Admin/InviteLink/CreateLink.vue"));
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/InviteLink/CreateLink.vue */ "resource/js/Pages/Admin/InviteLink/CreateLink.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/InviteLink/List.vue */ "./resources/js/Pages/Admin/InviteLink/List.vue"));
 }; // Authenticated Component End
 
 
@@ -78310,35 +78310,59 @@ var routes = [{
     path: '/profile',
     component: ViewProfile,
     meta: {
-      title: "profile",
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth]
+      title: "My Profile",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Profile'
+      }]
     }
   }, {
     name: "permission",
     path: '/permission',
     component: PermissionList,
     meta: {
-      title: "permission",
+      title: "Permission List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Permission'
+      }]
     }
   }, {
     name: "roles",
     path: '/roles',
     component: RoleList,
     meta: {
-      title: "roles",
+      title: "Roles List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Roles'
+      }]
     }
   }, {
     name: "users",
     path: '/users',
     component: UserList,
     meta: {
-      title: "users",
+      title: "Users List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Users'
+      }]
     }
   }, {
     name: "pmsattribute",
@@ -78354,9 +78378,15 @@ var routes = [{
     path: '/invitelink',
     component: InviteLink,
     meta: {
-      title: "invitelink",
+      title: "Invite Link",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-invite-link"]
+      permissions: ["view-invite-link"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Invite Link'
+      }]
     }
   }]
 } // Dashboard layout and their Integrated children component End 
@@ -78607,6 +78637,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('formatDate', function (value) {
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_9___default()(String(value)).format('DD/MM/YYYY hh:mm:ss a');
+  }
+}); //delay alert timeout
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('delay', {
+  params: ['cb'],
+  bind: function bind() {
+    setTimeout(this.params.cb, 3000);
   }
 });
 var options = {

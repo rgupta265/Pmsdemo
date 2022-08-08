@@ -23,7 +23,7 @@ const RoleList = () => import('../Pages/Admin/UserManagement/Roles/List.vue' /* 
 const UserList = () => import('../Pages/Admin/UserManagement/Users/List.vue' /* webpackChunkName: "resource/js/Pages/Admin/UserManagement/Users/List.vue" */)
 //PMS Master
 const AddPmsAttribute = () => import('../Pages/Admin/PmsMaster/AddPmsAttribute.vue' /* webpackChunkName: "resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue" */)
-const InviteLink = () => import('../Pages/Admin/InviteLink/CreateLink.vue' /* webpackChunkName: "resource/js/Pages/Admin/InviteLink/CreateLink.vue" */)
+const InviteLink = () => import('../Pages/Admin/InviteLink/List.vue' /* webpackChunkName: "resource/js/Pages/Admin/InviteLink/CreateLink.vue" */)
 // Authenticated Component End
 
 
@@ -104,11 +104,15 @@ const routes = [
           path: '/profile',
           component: ViewProfile,
           meta:{
-              title:`profile`,
+              title:`My Profile`,
               middleware :[
                 Middlewares.auth,
                  
               ],
+              breadcrumb: [
+                { name: 'Dashboard', link: 'dashboard' },
+                { name: 'Profile' }
+              ]
               
           }
       },
@@ -117,12 +121,16 @@ const routes = [
         path: '/permission',
         component: PermissionList,
         meta:{
-            title:`permission`, 
+            title:`Permission List`, 
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions
             ],
-            permissions:["view-user-role-permission-management"]
+            permissions:["view-user-role-permission-management"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Permission' }
+            ]
         }
       },
       {
@@ -130,12 +138,16 @@ const routes = [
         path: '/roles',
         component: RoleList,
         meta:{
-            title:`roles`,
+            title:`Roles List`,
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions
             ],
-            permissions:["view-user-role-permission-management"]
+            permissions:["view-user-role-permission-management"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Roles' }
+            ]
          
         }
       },
@@ -144,12 +156,16 @@ const routes = [
         path: '/users',
         component: UserList,
         meta:{
-            title:`users`,
+            title:`Users List`,
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions
             ],
-            permissions:["view-user-role-permission-management"]
+            permissions:["view-user-role-permission-management"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Users' }
+            ]
         }
       },
       {
@@ -170,12 +186,16 @@ const routes = [
         path: '/invitelink',
         component: InviteLink,
         meta:{
-            title:`invitelink`, 
+            title:`Invite Link`, 
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:["view-invite-link"]
+            permissions:["view-invite-link"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Invite Link' }
+            ]
         }
       },
       

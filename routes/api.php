@@ -34,5 +34,6 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::resource('permission', PermissionController::class);
     Route::get('getAllPermission', [App\Http\Controllers\PermissionController::class, 'getAllPermissions']);
     Route::get('getUserRolePermission',[App\Http\Controllers\UsersController::class,'getUserHasRolePermission']);
+    Route::resource('invite', UserInvitationController::class);
 
 });

@@ -1,15 +1,7 @@
 <template>
   <div class="viewprofile">
     <main id="main" class="main">
-      <div class="pagetitle">
-        <h1>Roles</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Roles</li>
-          </ol>
-        </nav>
-      </div>
+      <Breadcrumb> </Breadcrumb>
       <!-- End Page Title -->
 
       <section class="section profile">
@@ -18,20 +10,7 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Role List</h5>
-                <span v-if="success && showTableStatus">
-                  <div
-                    class="alert alert-success alert-dismissible fade show"
-                    role="alert"
-                  >
-                    {{ success }}
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="alert"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                </span>
+                <Alert :data ="success" v-if="showTableStatus"></Alert>
                 <table class="table table-sm table-responsive-sm">
                   <thead>
                     <tr>
@@ -62,8 +41,12 @@
                           ><i class="bi bi-trash me-1"></i> Delete</span
                         >
                       </td>
-                      <td >
-                        <span class="badge bg-success m-1" v-for="per in rl.permissions" :key="per">
+                      <td>
+                        <span
+                          class="badge bg-success m-1"
+                          v-for="per in rl.permissions"
+                          :key="per"
+                        >
                           <i class="fbi bi-star me-1"></i>{{ per.slug }}
                         </span>
                       </td>
@@ -87,38 +70,7 @@
                 "
               >
                 <h5 class="card-title">{{ this.btnName }}</h5>
-                <div v-if="showStatus">
-                  <span v-if="errors">
-                    <div
-                      class="alert alert-danger alert-dismissible fade show"
-                      role="alert"
-                      v-for="error in errors"
-                      :key="error"
-                    >
-                      {{ error[0] }}
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                  </span>
-                  <span v-if="success">
-                    <div
-                      class="alert alert-success alert-dismissible fade show"
-                      role="alert"
-                    >
-                      {{ success }}
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                  </span>
-                </div>
+                <Alert :data ="success"></Alert>
                 <!-- Vertical Form -->
 
                 <div class="row g-3 col-12">
@@ -132,7 +84,11 @@
                       placeholder="Add New Role"
                       v-model="role"
                     />
-                    <span role="button" style="float:right" @click="reset" v-if="editRoleId"
+                    <span
+                      role="button"
+                      style="float: right"
+                      @click="reset"
+                      v-if="editRoleId"
                       >Reset</span
                     >
                   </div>
@@ -157,7 +113,7 @@
                     </div>
                   </div>
                 </div>
-               
+
                 <div class="text-center p-2">
                   <button
                     type="submit"
@@ -188,9 +144,15 @@
 </template>
 
 <script>
+import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
+import Alert from ".../../../resources/js/Components/Layouts/Alert";
 import { mapGetters } from "vuex";
 export default {
   name: "list",
+  components: {
+    Breadcrumb,
+    Alert
+  },
   data() {
     return {
       roleList: [],
@@ -237,7 +199,7 @@ export default {
           this.showStatus = true;
           this.getRole();
           this.role = "";
-          this.assign_permissions=[];
+          this.assign_permissions = [];
         })
         .catch((err) => {
           this.showStatus = true;
@@ -256,11 +218,12 @@ export default {
       this.role = this.roleList[index].name;
       this.editRoleId = this.roleList[index].id;
       this.btnName = "Update Role";
-      this.assign_permissions = this.roleList[index].permissions.includes([slug]);
-      
+      this.assign_permissions = this.roleList[index].permissions.includes([
+        slug,
+      ]);
     },
     updateRole() {
-      let data = { name: this.role };
+      let data = { name: this.role, permission: this.assign_permissions };
       axios
         .put(this.api + "/" + this.editRoleId, data)
         .then((response) => {
@@ -277,9 +240,8 @@ export default {
       this.role = "";
       this.editRoleId = "";
       this.btnName = "Add Role";
-      this.assign_permissions =[]
+      this.assign_permissions = [];
     },
-    
   },
   created() {},
 };

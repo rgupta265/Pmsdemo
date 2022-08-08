@@ -196,6 +196,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -216,8 +266,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   created: function created() {
     if (this.isLoggedIn) {
-      this.$store.dispatch('getWebDetails');
-      this.$store.dispatch('getUserDetails');
+      this.$store.dispatch("getWebDetails");
+      this.$store.dispatch("getUserDetails");
     }
   },
   methods: {
@@ -230,10 +280,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.$store.dispatch('logout');
+                return _this.$store.dispatch("logout");
 
               case 2:
-                _this.$router.push('/');
+                _this.$router.push("/");
 
               case 3:
               case "end":
@@ -428,7 +478,7 @@ var render = function() {
                   "ul",
                   {
                     staticClass:
-                      "dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+                      "\n              dropdown-menu dropdown-menu-end dropdown-menu-arrow\n              profile\n            "
                   },
                   [
                     _c("li", { staticClass: "dropdown-header" }, [
@@ -483,7 +533,7 @@ var render = function() {
                         },
                         [
                           _c("i", { staticClass: "bi bi-box-arrow-up" }),
-                          _vm._v("Sign Out")
+                          _vm._v("Sign Out\n              ")
                         ]
                       )
                     ])
@@ -524,7 +574,7 @@ var render = function() {
                 _c(
                   "ul",
                   {
-                    staticClass: "nav-content collapse ",
+                    staticClass: "nav-content collapse",
                     attrs: {
                       id: "components-nav",
                       "data-bs-parent": "#sidebar-nav"
@@ -614,7 +664,7 @@ var render = function() {
                       attrs: { to: { name: "invitelink" } }
                     },
                     [
-                      _c("i", { staticClass: "bi bi-person" }),
+                      _c("i", { staticClass: "bi bi-link" }),
                       _vm._v(" "),
                       _c("span", [_vm._v("Invite Link")])
                     ]
@@ -654,7 +704,7 @@ var render = function() {
       _vm._v(" "),
       _c("footer", { staticClass: "footer", attrs: { id: "footer" } }, [
         _c("div", { staticClass: "copyright" }, [
-          _vm._v("\n      © Copyright "),
+          _vm._v("\n      © Copyright\n      "),
           _c("strong", [
             _c("span", [_vm._v(_vm._s(_vm.webInfo.company_name))])
           ]),
@@ -662,7 +712,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "credits" }, [
-          _vm._v("\n      Designed by "),
+          _vm._v("\n      Designed by\n      "),
           _c(
             "a",
             { attrs: { href: _vm.webInfo.company_website, target: "_blank" } },
@@ -713,7 +763,7 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "nav-link nav-icon search-bar-toggle ",
+          staticClass: "nav-link nav-icon search-bar-toggle",
           attrs: { href: "#" }
         },
         [_c("i", { staticClass: "bi bi-search" })]
