@@ -41,10 +41,10 @@ export default {
     data: Object,
   },
   data() {
-    return {};
+    return {  };
   },
   computed: {
-    ...mapGetters({ errors: "getError" ,success :"getSuccess"}),
+    ...mapGetters({ errors: "getError"}),
   },
 };
 </script>

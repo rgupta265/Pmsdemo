@@ -2,14 +2,14 @@
   <div class="viewprofile">
     <main id="main" class="main">
       <Breadcrumb> </Breadcrumb>
-      <Alert :data="message"></Alert>
+
       <!-- Send Invite Start -->
       <div class="row">
-  
+        <Alert :data="message"></Alert>
         <div class="col-xl-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Send Invite Link</h5>
+              <h5 class="card-title">Send Invitation Request</h5>
               <form
                 class="row g-1"
                 method="post"
@@ -62,28 +62,53 @@
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Invite Users List</h5>
+                <h5 class="card-title">Invitation Request List</h5>
                 <table class="table table-sm table-responsive-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
+                      <th scope="col">Invite Email</th>
                       <th scope="col">Role Name</th>
-                      <th scope="col">Added Time</th>
-                      <th scope="col">Action</th>
-                      <th scope="col">Users Permission</th>
+                      <th scope="col">Send Time</th>
+                      <th scope="col">Expire Time</th>
+                      <th scope="col">Joined Status</th>
+                      <th scope="col">Sender Details</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row"></th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr v-for="(invite, index) in InviteList" :key="index">
+                      <td scope="row">{{ ++index }}</td>
+                      <td>{{ invite.email }}</td>
+                      <td>{{ invite.inviterole.name }}</td>
+                      <td>{{ invite.created_at | formatDate }}</td>
+                      <td>{{ invite.valid_till | formatDate }}</td>
+                      <td>
+                        <span
+                          class="badge bg-warning"
+                          v-if="invite.status == 'pending'"
+                          >{{ invite.status }}</span
+                        >
+                        <span
+                          class="badge bg-success"
+                          v-if="invite.status == 'successful'"
+                          >{{ invite.status }}</span
+                        >
+                        <span
+                          class="badge bg-danger"
+                          v-if="invite.status == 'canceled'"
+                          >{{ invite.status }}</span
+                        >
+                        <span
+                          class="badge bg-secondary"
+                          v-if="invite.status == 'expired'"
+                          >{{ invite.status }}</span
+                        >
+                      </td>
+                      <td>
+                        {{ invite.inviteuser.name }} ({{
+                          invite.inviteuser.email
+                        }})
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -104,7 +129,7 @@ export default {
   name: "list",
   components: {
     Breadcrumb,
-    Alert
+    Alert,
   },
   data() {
     return {
@@ -113,8 +138,9 @@ export default {
         email: "",
         role_id: "",
       },
-      roleList: [],
+      InviteList: [],
       message: "",
+      roleList: [],
     };
   },
 
@@ -125,6 +151,11 @@ export default {
   },
 
   methods: {
+    getInvite() {
+      axios.get(this.api).then((response) => {
+        this.InviteList = response.data;
+      });
+    },
     sendInvite() {
       let data = { email: this.form.email, role_id: this.form.role_id };
       axios
@@ -132,12 +163,20 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.message = response.data.success;
+            this.getInvite();
+            this.resetData();
           }
         })
-        .catch((err) => {
-          
-        });
+        .catch((err) => {});
     },
+    resetData() {
+      this.form.email = "";
+      this.form.role_id = "";
+    },
+  },
+  created() {
+    this.getInvite();
+    this.roleList();
   },
 };
 </script>

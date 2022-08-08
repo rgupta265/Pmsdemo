@@ -20,7 +20,7 @@ class UserInvitationController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(UserInvitation::with('inviteuser','inviterole')->get());
     }
 
     /**

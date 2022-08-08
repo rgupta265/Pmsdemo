@@ -17,8 +17,10 @@ class CreateUserInvitationsTable extends Migration
             $table->BigIncrements('id');
             $table->string('code')->index();
             $table->string('email');
-            $table->BigInteger('role_id')->unsigned()->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->BigInteger('sender_user_id')->unsigned()->foreign('sender_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('sender_user_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('sender_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'successful','canceled','expired'])->default('pending');
             $table->datetime('valid_till');            
             $table->timestamps();

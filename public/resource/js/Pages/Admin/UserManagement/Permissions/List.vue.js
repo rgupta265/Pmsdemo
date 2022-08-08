@@ -61,8 +61,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    errors: "getError",
-    success: "getSuccess"
+    errors: "getError"
   }))
 });
 
