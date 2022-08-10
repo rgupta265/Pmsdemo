@@ -7,11 +7,11 @@
 
       <section class="section profile">
         <div class="row">
-          <div class="col-xl-12">
-            <div class="card">
+          <div class="col-xl-12 ">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Users List</h5>
-                <table class="table table-sm table-responsive-sm">
+                <table class="table table-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>

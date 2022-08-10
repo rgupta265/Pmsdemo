@@ -24,6 +24,8 @@ class UserInvitationController extends Controller
      */
     public function index()
     {
+        //write conditions seprate for admin and not admin because admin see all request while 
+        // non admin user see only their invitation request 
         return response()->json(UserInvitation::with('inviteuser','inviterole')->get());
     }
 
@@ -56,6 +58,8 @@ class UserInvitationController extends Controller
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
                 $tokenValidity =Carbon::now()->addHours(48);
+
+                
                 $sendInvite =UserInvitation::create(array_merge(
                     $validator->validated(),
                 [
@@ -68,7 +72,7 @@ class UserInvitationController extends Controller
             ));
             if($sendInvite)
             {
-                $inviteLink ='register?token='.$sendInvite->code;
+                $inviteLink ='register?token='.$sendInvite->code;//generate a link with token
                 $email =$sendInvite->email;
                 $roleName =Role::find($request->role_id);
                 $data =[
@@ -77,7 +81,7 @@ class UserInvitationController extends Controller
                     'token_validity'=>$tokenValidity
                 ];
 
-                Notification::route('mail', $email)
+                Notification::route('mail', $email)//here mail is basically via notifiable method inside Noificationclass it can be ['mail','database','sms'].pass multiple also with new route('database','email')
                 ->notify(new SendInviteLinkNotification($data));
                 return response()->json(['success' =>'Invite send Successfully']);  
             }

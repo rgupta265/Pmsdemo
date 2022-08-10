@@ -60,7 +60,7 @@
       <section class="section profile">
         <div class="row">
           <div class="col-xl-12">
-            <div class="card">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Invitation Request List</h5>
                 <table class="table table-sm table-responsive-sm">
@@ -73,6 +73,7 @@
                       <th scope="col">Expire Time</th>
                       <th scope="col">Joined Status</th>
                       <th scope="col">Sender Details</th>
+                      <th scope="col">View User</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,6 +109,14 @@
                         {{ invite.inviteuser.name }} ({{
                           invite.inviteuser.email
                         }})
+                      </td>
+                      <td>
+                        <span
+                          class="badge bg-info"
+                          role="button"
+                          v-if="invite.status == 'successful'"
+                          >View</span
+                        >
                       </td>
                     </tr>
                   </tbody>

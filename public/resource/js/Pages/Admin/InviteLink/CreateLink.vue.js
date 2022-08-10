@@ -257,6 +257,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -605,7 +614,7 @@ var render = function() {
         _c("section", { staticClass: "section profile" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xl-12" }, [
-              _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card table-responsive" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _c("h5", { staticClass: "card-title" }, [
                     _vm._v("Invitation Request List")
@@ -683,6 +692,19 @@ var render = function() {
                                   _vm._s(invite.inviteuser.email) +
                                   ")\n                    "
                               )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              invite.status == "successful"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass: "badge bg-info",
+                                      attrs: { role: "button" }
+                                    },
+                                    [_vm._v("View")]
+                                  )
+                                : _vm._e()
                             ])
                           ])
                         }),
@@ -731,7 +753,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Joined Status")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Sender Details")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Sender Details")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("View User")])
       ])
     ])
   }

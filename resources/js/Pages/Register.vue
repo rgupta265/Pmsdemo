@@ -11,18 +11,14 @@
         justify-content-center
         py-4
       "
+      v-if="tokenStatus.status != 'pending'"
     >
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading">Success Heading</h4>
+      <div :class="alertClass" role="alert">
+        <h4 class="alert-heading">{{ this.alertTitle }}</h4>
         <p>
-          Et suscipit deserunt earum itaque dignissimos recusandae dolorem qui.
-          Molestiae rerum perferendis laborum. Occaecati illo at laboriosam rem
-          molestiae sint.
+          {{ alertDescription }}
         </p>
         <hr />
-        <p class="mb-0">
-          Temporibus quis et qui aspernatur laboriosam sit eveniet qui sunt.
-        </p>
       </div>
     </div>
     <!-- Warning Message End -->
@@ -37,8 +33,9 @@
         justify-content-center
         py-4
       "
+      v-if="tokenStatus.status == 'pending'"
     >
-      <div class="container" v-if="tokenStatus.status == 'pending'">
+      <div class="container">
         <div class="row justify-content-center">
           <div
             class="
@@ -56,8 +53,9 @@
                   >Welcome To PMS Register Form</span
                 >
               </a>
-              <Alert :data="success"></Alert>
+              
             </div>
+            <Alert :data="success"></Alert>
             <!-- End Logo -->
             <div class="card mb-3">
               <div class="card-body">
@@ -194,24 +192,33 @@ export default {
       api: "invite-token",
       tokenStatus: "",
       isDisabled: true,
-      theme: "",
+      alertClass: "",
+      alertTitle: "",
+      alertDescription: "",
     };
   },
   mounted() {
     axios.get(this.api + "/" + this.invitetoken).then((response) => {
       this.tokenStatus = response.data[0];
       this.form.email = response.data[0].email;
-      // if (response.data[0].status == "successful") {
-      //   this.theme = "alert alert-success alert-dismissible fade show";
-      // }
-      // if (response.data[0].status == "expired") {
-      //   this.theme = "alert alert-danger alert-dismissible fade show";
-      // }
-      // if (response.data[0].status == "canceled") {
-      //   this.theme = "alert alert-secondary alert-dismissible fade show";
-      // } else {
-      //   this.theme = "alert alert-primary alert-dismissible fade show";
-      // }
+      if (response.data[0].status == "successful") {
+        this.alertClass = "alert alert-success alert-dismissible fade show";
+        this.alertTitle = "Already used this Link";
+        this.alertDescription =
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      }
+      if (response.data[0].status == "expired") {
+        this.alertClass = "alert alert-danger alert-dismissible fade show";
+        this.alertTitle = "Link is Expired";
+        this.alertDescription =
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      }
+      if (response.data[0].status == "canceled") {
+        this.alertClass = "alert alert-secondary alert-dismissible fade show";
+        this.alertTitle = "Link is Canceled";
+        this.alertDescription =
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      } 
     });
   },
   computed: {
@@ -241,6 +248,7 @@ export default {
         .dispatch("Register", data)
         .then((response) => {
           this.success = response.data.success;
+          this.reset();
           this.$router.push("/register");
         })
         .catch((err) => {
@@ -252,7 +260,7 @@ export default {
         (this.form.email = ""),
         (this.form.password = ""),
         (this.form.password_confirmation = ""),
-        (this.form.invitetoken = false);
+        (this.terms = false);
     },
   },
   created() {

@@ -4,10 +4,10 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <img src="assets/img/logo.png" alt="" />
+          <img src="backendTheme/assets/img/logo.png" alt="" />
           <span class="d-none d-lg-block">{{ webInfo.web_name }}</span>
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <i class="bi bi-list toggle-sidebar-btn" @click="toggleSidebar"></i>
       </div>
       <!-- End Logo -->
 
@@ -248,7 +248,20 @@ export default {
       await this.$store.dispatch("logout");
       this.$router.push("/");
     },
+    toggleSidebar() {
+      const getClass = (document.getElementById("deMo").className);
+      if (getClass =='noclass') {
+        document.getElementById("deMo").classList.remove("noclass");
+        document.getElementById("deMo").classList.add("toggle-sidebar");
+      }
+      if(getClass =='toggle-sidebar'){
+        document.getElementById("deMo").classList.remove("toggle-sidebar");
+        document.getElementById("deMo").classList.add("noclass");
+      }
+
+    },
   },
 };
 </script>
+
 

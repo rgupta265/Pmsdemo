@@ -549,7 +549,7 @@ var render = function() {
         _c("section", { staticClass: "section profile" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-xl-9" }, [
-              _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card table-responsive" }, [
                 _c(
                   "div",
                   { staticClass: "card-body" },

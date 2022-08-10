@@ -54,19 +54,31 @@ class AuthController extends Controller
 
         if(($getInvite->valid_till > $curretDateTime) && $getInvite->status=='pending')
         {
-                $user = User::create(array_merge(
-                    $validator->validated(),
-                    [
-                        'name'=> $request->name,
-                        'email'=> $request->email,
-                        'password' => Hash::make($request->password),
-                    ]
-                ));
-                $role=$user->roles()->attach($getInvite->role_id);//assign user to roleId
-                $permissions =DB::table('roles_permissions')->where('role_id',$getInvite->role_id)->get()->pluck('permission_id');
-                $user->permissions()->attach($permissions);//assign permissionId to user
 
-            return response()->json(['success' => 'User Created and Permission assigned successful'], 200);
+            DB::beginTransaction();
+
+                try {
+                    $user = User::create(array_merge(
+                        $validator->validated(),
+                        [
+                            'name'=> $request->name,
+                            'email'=> $request->email,
+                            'password' => Hash::make($request->password),
+                        ]
+                    ));
+                    $role=$user->roles()->attach($getInvite->role_id);//assign user to roleId
+                    $permissions =DB::table('roles_permissions')->where('role_id',$getInvite->role_id)->get()->pluck('permission_id');
+                    $user->permissions()->attach($permissions);//assign permissionId to user
+                    $getInvite->update(['status'=>'successful']);
+                    DB::commit();
+                    return response()->json(['success' => 'User Created and Permission assigned successful'], 200);
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    return response()->json(['error'=>'Something Went Wrong.It may be due to user assigned roles/permission']);
+                }
+                
+
+            
         }
 
         else{

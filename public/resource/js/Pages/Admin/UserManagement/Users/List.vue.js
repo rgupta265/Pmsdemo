@@ -254,87 +254,81 @@ var render = function() {
         _vm._v(" "),
         _c("section", { staticClass: "section profile" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-xl-12" }, [
-              _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "col-xl-12 " }, [
+              _c("div", { staticClass: "card table-responsive" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _c("h5", { staticClass: "card-title" }, [
                     _vm._v("Users List")
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "table",
-                    { staticClass: "table table-sm table-responsive-sm" },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.userRolePermissions, function(user, index) {
-                          return _c("tr", { key: index }, [
-                            _c("th", { attrs: { scope: "row" } }, [
-                              _vm._v(_vm._s(++index))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.name))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(user.email))]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              _vm._l(user.roles, function(role) {
-                                return _c(
-                                  "span",
-                                  {
-                                    key: role,
-                                    staticClass: "badge bg-success m-1"
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "bi bi-person-badge"
-                                    }),
-                                    _vm._v(" " + _vm._s(role.slug))
-                                  ]
-                                )
-                              }),
-                              0
-                            ),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(_vm._f("formatDate")(user.created_at))
+                  _c("table", { staticClass: "table table-sm" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.userRolePermissions, function(user, index) {
+                        return _c("tr", { key: index }, [
+                          _c("th", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(++index))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(user.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(user.email))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            _vm._l(user.roles, function(role) {
+                              return _c(
+                                "span",
+                                {
+                                  key: role,
+                                  staticClass: "badge bg-success m-1"
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "bi bi-person-badge"
+                                  }),
+                                  _vm._v(" " + _vm._s(role.slug))
+                                ]
                               )
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(1, true),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              _vm._l(user.permissions, function(per) {
-                                return _c(
-                                  "span",
-                                  {
-                                    key: per,
-                                    staticClass: "badge bg-secondary m-1"
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fbi bi-star me-1"
-                                    }),
-                                    _vm._v(
-                                      _vm._s(per.slug) +
-                                        "\n                      "
-                                    )
-                                  ]
-                                )
-                              }),
-                              0
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(_vm._f("formatDate")(user.created_at))
                             )
-                          ])
-                        }),
-                        0
-                      )
-                    ]
-                  )
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(1, true),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            _vm._l(user.permissions, function(per) {
+                              return _c(
+                                "span",
+                                {
+                                  key: per,
+                                  staticClass: "badge bg-secondary m-1"
+                                },
+                                [
+                                  _c("i", { staticClass: "fbi bi-star me-1" }),
+                                  _vm._v(
+                                    _vm._s(per.slug) +
+                                      "\n                      "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
                 ])
               ])
             ])

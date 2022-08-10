@@ -8,7 +8,7 @@
       <section class="section profile">
         <div class="row">
           <div class="col-xl-9">
-            <div class="card">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Permission List</h5>
                 <Alert :data="success" v-if="showTableStatus"></Alert>

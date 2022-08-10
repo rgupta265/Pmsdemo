@@ -290,8 +290,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -313,7 +311,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       api: "invite-token",
       tokenStatus: "",
       isDisabled: true,
-      theme: ""
+      alertClass: "",
+      alertTitle: "",
+      alertDescription: ""
     };
   },
   mounted: function mounted() {
@@ -321,17 +321,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     axios.get(this.api + "/" + this.invitetoken).then(function (response) {
       _this.tokenStatus = response.data[0];
-      _this.form.email = response.data[0].email; // if (response.data[0].status == "successful") {
-      //   this.theme = "alert alert-success alert-dismissible fade show";
-      // }
-      // if (response.data[0].status == "expired") {
-      //   this.theme = "alert alert-danger alert-dismissible fade show";
-      // }
-      // if (response.data[0].status == "canceled") {
-      //   this.theme = "alert alert-secondary alert-dismissible fade show";
-      // } else {
-      //   this.theme = "alert alert-primary alert-dismissible fade show";
-      // }
+      _this.form.email = response.data[0].email;
+
+      if (response.data[0].status == "successful") {
+        _this.alertClass = "alert alert-success alert-dismissible fade show";
+        _this.alertTitle = "Already used this Link";
+        _this.alertDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      }
+
+      if (response.data[0].status == "expired") {
+        _this.alertClass = "alert alert-danger alert-dismissible fade show";
+        _this.alertTitle = "Link is Expired";
+        _this.alertDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      }
+
+      if (response.data[0].status == "canceled") {
+        _this.alertClass = "alert alert-secondary alert-dismissible fade show";
+        _this.alertTitle = "Link is Canceled";
+        _this.alertDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. ";
+      }
     });
   },
   computed: _objectSpread({
@@ -356,13 +364,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch("Register", data).then(function (response) {
         _this2.success = response.data.success;
 
+        _this2.reset();
+
         _this2.$router.push("/register");
       })["catch"](function (err) {
         _this2.showError = true;
       });
     },
     reset: function reset() {
-      this.form.name = "", this.form.email = "", this.form.password = "", this.form.password_confirmation = "", this.form.invitetoken = false;
+      this.form.name = "", this.form.email = "", this.form.password = "", this.form.password_confirmation = "", this.terms = false;
     }
   }),
   created: function created() {
@@ -520,17 +530,38 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "about" }, [
-    _vm._m(0),
+    _vm.tokenStatus.status != "pending"
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "\n      container-fluid\n      min-vh-100\n      d-flex\n      flex-column\n      align-items-center\n      justify-content-center\n      py-4\n    "
+          },
+          [
+            _c("div", { class: _vm.alertClass, attrs: { role: "alert" } }, [
+              _c("h4", { staticClass: "alert-heading" }, [
+                _vm._v(_vm._s(this.alertTitle))
+              ]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("\n        " + _vm._s(_vm.alertDescription) + "\n      ")
+              ]),
+              _vm._v(" "),
+              _c("hr")
+            ])
+          ]
+        )
+      : _vm._e(),
     _vm._v(" "),
-    _c(
-      "section",
-      {
-        staticClass:
-          "\n      section\n      register\n      min-vh-100\n      d-flex\n      flex-column\n      align-items-center\n      justify-content-center\n      py-4\n    "
-      },
-      [
-        _vm.tokenStatus.status == "pending"
-          ? _c("div", { staticClass: "container" }, [
+    _vm.tokenStatus.status == "pending"
+      ? _c(
+          "section",
+          {
+            staticClass:
+              "\n      section\n      register\n      min-vh-100\n      d-flex\n      flex-column\n      align-items-center\n      justify-content-center\n      py-4\n    "
+          },
+          [
+            _c("div", { staticClass: "container" }, [
               _c("div", { staticClass: "row justify-content-center" }, [
                 _c(
                   "div",
@@ -539,20 +570,13 @@ var render = function() {
                       "\n            col-lg-6 col-md-6\n            d-flex\n            flex-column\n            align-items-center\n            justify-content-center\n          "
                   },
                   [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center py-4" },
-                      [
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _c("Alert", { attrs: { data: _vm.success } })
-                      ],
-                      1
-                    ),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("Alert", { attrs: { data: _vm.success } }),
                     _vm._v(" "),
                     _c("div", { staticClass: "card mb-3" }, [
                       _c("div", { staticClass: "card-body" }, [
-                        _vm._m(2),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c(
                           "form",
@@ -777,7 +801,7 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _vm._m(3)
+                                _vm._m(2)
                               ])
                             ]),
                             _vm._v(" "),
@@ -844,13 +868,14 @@ var render = function() {
                         [_vm._v(_vm._s(_vm.webInfo.company_name))]
                       )
                     ])
-                  ]
+                  ],
+                  1
                 )
               ])
             ])
-          : _vm._e()
-      ]
-    )
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -858,53 +883,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "\n      container-fluid\n      min-vh-100\n      d-flex\n      flex-column\n      align-items-center\n      justify-content-center\n      py-4\n    "
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "alert alert-success alert-dismissible fade show",
-            attrs: { role: "alert" }
-          },
-          [
-            _c("h4", { staticClass: "alert-heading" }, [
-              _vm._v("Success Heading")
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n        Et suscipit deserunt earum itaque dignissimos recusandae dolorem qui.\n        Molestiae rerum perferendis laborum. Occaecati illo at laboriosam rem\n        molestiae sint.\n      "
-              )
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("p", { staticClass: "mb-0" }, [
-              _vm._v(
-                "\n        Temporibus quis et qui aspernatur laboriosam sit eveniet qui sunt.\n      "
-              )
-            ])
-          ]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "logo d-flex align-items-center w-auto" }, [
-      _c("img", {
-        attrs: { src: "backendTheme/assets/img/logo.png", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "d-none d-lg-block" }, [
-        _vm._v("Welcome To PMS Register Form")
+    return _c("div", { staticClass: "d-flex justify-content-center py-4" }, [
+      _c("a", { staticClass: "logo d-flex align-items-center w-auto" }, [
+        _c("img", {
+          attrs: { src: "backendTheme/assets/img/logo.png", alt: "" }
+        }),
+        _vm._v(" "),
+        _c("span", { staticClass: "d-none d-lg-block" }, [
+          _vm._v("Welcome To PMS Register Form")
+        ])
       ])
     ])
   },

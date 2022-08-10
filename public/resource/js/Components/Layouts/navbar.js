@@ -292,6 +292,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee);
       }))();
+    },
+    toggleSidebar: function toggleSidebar() {
+      var getClass = document.getElementById("deMo").className;
+
+      if (getClass == 'noclass') {
+        document.getElementById("deMo").classList.remove("noclass");
+        document.getElementById("deMo").classList.add("toggle-sidebar");
+      }
+
+      if (getClass == 'toggle-sidebar') {
+        document.getElementById("deMo").classList.remove("toggle-sidebar");
+        document.getElementById("deMo").classList.add("noclass");
+      }
     }
   }
 });
@@ -424,7 +437,9 @@ var render = function() {
                   attrs: { href: "index.html" }
                 },
                 [
-                  _c("img", { attrs: { src: "assets/img/logo.png", alt: "" } }),
+                  _c("img", {
+                    attrs: { src: "backendTheme/assets/img/logo.png", alt: "" }
+                  }),
                   _vm._v(" "),
                   _c("span", { staticClass: "d-none d-lg-block" }, [
                     _vm._v(_vm._s(_vm.webInfo.web_name))
@@ -432,7 +447,10 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("i", { staticClass: "bi bi-list toggle-sidebar-btn" })
+              _c("i", {
+                staticClass: "bi bi-list toggle-sidebar-btn",
+                on: { click: _vm.toggleSidebar }
+              })
             ]
           ),
           _vm._v(" "),
