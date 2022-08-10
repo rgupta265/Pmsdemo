@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\UserInvitation;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\SendInviteLinkNotification;
 
 class UserInvitationController extends Controller
 {
@@ -51,8 +55,8 @@ class UserInvitationController extends Controller
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
-        $tokenValidity =Carbon::now()->addHours(48);
-                UserInvitation::create(array_merge(
+                $tokenValidity =Carbon::now()->addHours(48);
+                $sendInvite =UserInvitation::create(array_merge(
                     $validator->validated(),
                 [
                 'code'=>Str::random(20),
@@ -62,9 +66,23 @@ class UserInvitationController extends Controller
                 'valid_till'=>$tokenValidity
                 ]
             ));
-                
-     return response()->json(['success' =>'Invite send Successfully']);    
-            
+            if($sendInvite)
+            {
+                $inviteLink ='register?token='.$sendInvite->code;
+                $email =$sendInvite->email;
+                $roleName =Role::find($request->role_id);
+                $data =[
+                    'role_name'=>Str::upper($roleName->name),
+                    'inviteurl'=>env('APP_URL').$inviteLink,
+                    'token_validity'=>$tokenValidity
+                ];
+
+                Notification::route('mail', $email)
+                ->notify(new SendInviteLinkNotification($data));
+                return response()->json(['success' =>'Invite send Successfully']);  
+            }
+               
+                        
     }
 
     /**
@@ -75,6 +93,7 @@ class UserInvitationController extends Controller
      */
     public function show(UserInvitation $userInvitation)
     {
+
         
     }
 
@@ -111,4 +130,10 @@ class UserInvitationController extends Controller
     {
         //
     }
+    public function getUserData(Request $inviteToken)
+    {
+        $invite =UserInvitation::where('code',$inviteToken->token)->get();
+        return response()->json($invite);
+    }
+    
 }

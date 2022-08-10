@@ -78276,7 +78276,7 @@ var routes = [{
     middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].guest]
   }
 }, {
-  path: '/register',
+  path: '/register/',
   component: Register,
   name: 'register',
   meta: {
@@ -78474,21 +78474,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     Register: function Register(_ref2, user) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
           url: 'register',
           data: user,
           method: 'POST'
         }).then(function (resp) {
-          var token = 'Bearer ' + resp.data.access_token;
           var user = resp.data.user;
-          localStorage.setItem('token', token);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = token;
-          commit('auth_success', token, user);
           commit('handle_error', '');
           resolve(resp);
         })["catch"](function (error) {
-          localStorage.removeItem('token');
           reject(error);
         });
       });

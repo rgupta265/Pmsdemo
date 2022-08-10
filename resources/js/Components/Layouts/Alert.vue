@@ -38,7 +38,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "alert",
   props: {
-    data: Object,
+    data: '',
   },
   data() {
     return {  };
