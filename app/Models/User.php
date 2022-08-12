@@ -21,6 +21,10 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+
+    protected static $logName = 'user';
+    protected static $logAttributes = ['name', 'email'];
+
     protected $fillable = [
         'name',
         'email',
@@ -46,7 +50,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected static $logAttributes = ['name', 'email','password'];
 
     public function getJWTIdentifier() {
         return $this->getKey();
@@ -59,9 +62,9 @@ class User extends Authenticatable implements JWTSubject
     public function roles() {
 
         return $this->belongsToMany(Role::class,'users_roles');
-    
+
     }
- 
+
     public function hasRole( ... $roles ) {
                 //$user->hasRole('admin','user)
         return $this->roles->where('slug', $roles)->count();
@@ -70,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
     public function permissions() {
 
         return $this->belongsToMany(Permission::class,'users_permissions');
-    
+
         }
     public function invitations()
     {
