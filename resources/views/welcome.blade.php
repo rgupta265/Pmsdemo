@@ -31,7 +31,7 @@
 
     <title>{{env('APP_NAME')}}</title>
 </head>
-<body >
+<body class="noclass" id="deMo">
     <div id="app">
         <router-view></router-view>
         <!-- <App></App> -->

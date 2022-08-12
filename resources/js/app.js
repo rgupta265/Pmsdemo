@@ -18,6 +18,13 @@ Vue.filter('formatDate', function(value) {
       return moment(String(value)).format('DD/MM/YYYY hh:mm:ss a')
   }
 });
+//delay alert timeout
+Vue.directive('delay', {
+  params: ['cb'],
+  bind: function () {
+    setTimeout(this.params.cb, 3000)
+  }
+})
 const options = {
     timeout: 3000,
     position: "top-right",

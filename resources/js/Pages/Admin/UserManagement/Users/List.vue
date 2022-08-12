@@ -1,24 +1,17 @@
 <template>
   <div class="list">
-    <main id="main" class="main">
-      <div class="pagetitle">
-        <h1>Users List</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Users</li>
-          </ol>
-        </nav>
-      </div>
+    <main id="main" class="main"> 
+        <!-- Start Page Title -->
+        <Breadcrumb></Breadcrumb>
       <!-- End Page Title -->
 
       <section class="section profile">
         <div class="row">
-          <div class="col-xl-12">
-            <div class="card">
+          <div class="col-xl-12 ">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Users List</h5>
-                <table class="table table-sm table-responsive-sm">
+                <table class="table table-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -83,9 +76,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
 export default {
   name: "list",
+  components: {
+    Breadcrumb
+  },
   data() {
     return {
       showTableStatus: false,

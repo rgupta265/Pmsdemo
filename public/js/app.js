@@ -6424,7 +6424,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "body, html, #app, .app {\n  padding: 0;\n  margin: 0;\n  background-color: #e6e6e6;\n  text-align: center;\n}\n\nh1 {\n  font-size: 10em;\n  margin-top: 0;\n}\n\n.logo {\n  margin-top: 5px;\n}\n\n.navBar {\n  padding: 5px;\n  background-color: #FFF;\n}\n.navBar__link {\n  display: flex;\n  margin: 0;\n}\n.navBar__link li {\n  margin: 10px;\n  list-style-type: none;\n  font-size: 17px;\n}\n.navBar__link li a {\n  text-decoration: none;\n  color: #555555;\n}\n\nbutton {\n  padding: 10px;\n  background-color: #FFF;\n  border: 1px solid #555555;\n  color: #555555;\n  cursor: pointer;\n  outline: none;\n  width: 200px;\n}\n\nbutton:hover {\n  background-color: #000;\n  color: #FFF;\n}", ""]);
+exports.push([module.i, "body, html, #app, .app {\n  padding: 0;\n  margin: 0;\n  background-color: #e6e6e6;\n}\n\nh1 {\n  font-size: 10em;\n  margin-top: 0;\n}\n\n.logo {\n  margin-top: 5px;\n}\n\n.navBar {\n  padding: 5px;\n  background-color: #FFF;\n}\n.navBar__link {\n  display: flex;\n  margin: 0;\n}\n.navBar__link li {\n  margin: 10px;\n  list-style-type: none;\n  font-size: 17px;\n}\n.navBar__link li a {\n  text-decoration: none;\n  color: #555555;\n}\n\nbutton {\n  padding: 10px;\n  background-color: #FFF;\n  border: 1px solid #555555;\n  color: #555555;\n  cursor: pointer;\n  outline: none;\n  width: 200px;\n}\n\nbutton:hover {\n  background-color: #000;\n  color: #FFF;\n}", ""]);
 
 // exports
 
@@ -78249,7 +78249,7 @@ var AddPmsAttribute = function AddPmsAttribute() {
 };
 
 var InviteLink = function InviteLink() {
-  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/InviteLink/CreateLink.vue */ "resource/js/Pages/Admin/InviteLink/CreateLink.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/InviteLink/CreateLink.vue */ "./resources/js/Pages/Admin/InviteLink/CreateLink.vue"));
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/InviteLink/CreateLink.vue */ "resource/js/Pages/Admin/InviteLink/CreateLink.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/InviteLink/List.vue */ "./resources/js/Pages/Admin/InviteLink/List.vue"));
 }; // Authenticated Component End
 
 
@@ -78276,7 +78276,7 @@ var routes = [{
     middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].guest]
   }
 }, {
-  path: '/register',
+  path: '/register/',
   component: Register,
   name: 'register',
   meta: {
@@ -78310,35 +78310,59 @@ var routes = [{
     path: '/profile',
     component: ViewProfile,
     meta: {
-      title: "profile",
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth]
+      title: "My Profile",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Profile'
+      }]
     }
   }, {
     name: "permission",
     path: '/permission',
     component: PermissionList,
     meta: {
-      title: "permission",
+      title: "Permission List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Permission'
+      }]
     }
   }, {
     name: "roles",
     path: '/roles',
     component: RoleList,
     meta: {
-      title: "roles",
+      title: "Roles List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Roles'
+      }]
     }
   }, {
     name: "users",
     path: '/users',
     component: UserList,
     meta: {
-      title: "users",
+      title: "Users List",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-user-role-permission-management"]
+      permissions: ["view-user-role-permission-management"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Users'
+      }]
     }
   }, {
     name: "pmsattribute",
@@ -78354,9 +78378,15 @@ var routes = [{
     path: '/invitelink',
     component: InviteLink,
     meta: {
-      title: "invitelink",
+      title: "Invite Link",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-invite-link"]
+      permissions: ["view-invite-link"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Invite Link'
+      }]
     }
   }]
 } // Dashboard layout and their Integrated children component End 
@@ -78444,21 +78474,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     Register: function Register(_ref2, user) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_2___default()({
           url: 'register',
           data: user,
           method: 'POST'
         }).then(function (resp) {
-          var token = 'Bearer ' + resp.data.access_token;
           var user = resp.data.user;
-          localStorage.setItem('token', token);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = token;
-          commit('auth_success', token, user);
           commit('handle_error', '');
           resolve(resp);
         })["catch"](function (error) {
-          localStorage.removeItem('token');
           reject(error);
         });
       });
@@ -78607,6 +78631,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('formatDate', function (value) {
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_9___default()(String(value)).format('DD/MM/YYYY hh:mm:ss a');
+  }
+}); //delay alert timeout
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('delay', {
+  params: ['cb'],
+  bind: function bind() {
+    setTimeout(this.params.cb, 3000);
   }
 });
 var options = {

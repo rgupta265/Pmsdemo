@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 // use App\Traits\HasPermissionsTrait;
 
-use function GuzzleHttp\Promise\all;
 
 class RoleController extends Controller
 {
-    
+  
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +44,10 @@ class RoleController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required','unique:roles,name'],
             // 'permission' => ['nullable']
+        ],
+        [
+            'name.required' => 'Role name is Mandatory',
+            'name.unique' => 'This Role name is alreday Exist',
         ]);
 
         if($validator->fails()){
@@ -99,17 +102,20 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required','unique:roles,name'],
+            'name' => ['required'],
         ]);
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-       $update= $role->update([
+       $update = $role->update([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name)
         ]);
+        if($request->has("permission")){
+            $role->permissions()->attach($request->permission);
+        }
         if($update){
             return response()->json(['success'=>'Role Updated Successfully']);
         }

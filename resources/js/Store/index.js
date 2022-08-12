@@ -10,7 +10,7 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     error : '',
     userDetails:{},
-    webDetails: {},
+    webDetails: {}
   },
   mutations: {
     auth_request(state){
@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     setWebDetails(state,webDetails){
       state.webDetails = webDetails
-    }
+    },
   },
   actions: {
     //declare all mapActions methods routes of different methods (GET,POST etc)
@@ -61,19 +61,13 @@ export default new Vuex.Store({
     },
     Register({commit}, user){
       return new Promise((resolve, reject) => {
-        commit('auth_request')
         axios({url: 'register', data: user, method: 'POST' })
         .then(resp => {
-          const token = 'Bearer '+resp.data.access_token
           const user = resp.data.user
-          localStorage.setItem('token', token)
-          axios.defaults.headers.common['Authorization'] = token
-          commit('auth_success', token, user)
           commit('handle_error', '')
           resolve(resp)
         })
         .catch(error => {
-          localStorage.removeItem('token')
           reject(error)
         })
       })
@@ -113,7 +107,7 @@ export default new Vuex.Store({
           resolve(res)
         })
       }); 
-    }
+    },
   },
   getters : {
     //decalre only route/api of getting data
@@ -122,7 +116,7 @@ export default new Vuex.Store({
     getUser: state=> state.user,
     getError: state=> state.error,
     getUserDetails :state=>state.userDetails,
-    getWebDetails :state=>state.webDetails
+    getWebDetails :state=>state.webDetails,
   }
 })
 

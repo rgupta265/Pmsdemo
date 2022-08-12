@@ -24,10 +24,5 @@ class Role extends Model
       return $this->permissions()->where('slug', $permissions)->count();
    }
 
-     
-   //   public function users() {
-     
-   //      return $this->belongsToMany(User::class,'users_roles');
-            
-   //   }
+  
 }
