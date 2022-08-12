@@ -11,6 +11,7 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 import can from './helpers/can';
+
 import moment from 'moment';
 Vue.filter('formatDate', function(value) {
   if (value) {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
-
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
-        return response()->json(Permission::get());
+        return response()->json(Permission::all());
     }
 
     /**
@@ -39,24 +37,24 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         $validator = Validator::make($request->all(), [
             'name' => ['required','unique:permissions,name'],
+            // 'permission' => ['nullable']
         ]);
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-        $create = Permission::create(array_merge(
+        $per = Permission::create(array_merge(
             $validator->validated(),
             [
                 'name' => $request->name,
                 'slug'=>Str::slug($request->name)
             ]
         ));
-        if($create)
+       
+        if($per)
         {
             return response()->json(['success'=>'Permission Added Successfully.']);
         }
@@ -93,7 +91,6 @@ class PermissionController extends Controller
      */
     public function update(Request $request, Permission $permission)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => ['required','unique:permissions,name'],
         ]);
@@ -109,7 +106,6 @@ class PermissionController extends Controller
         if($update){
             return response()->json(['success'=>'Permission Updated Successfully']);
         }
-        
     }
 
     /**
@@ -123,5 +119,12 @@ class PermissionController extends Controller
         $permission->delete();
 
         return response()->json(['success'=>'Permission Deleted Successfully']);
+    }
+    public function getAllPermissions(){
+        $permissions = Permission::all();
+
+        return response()->json([
+            'permissions' => $permissions
+        ], 200);
     }
 }

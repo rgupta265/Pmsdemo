@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Illuminate\Support\Str;
+
+use App\Models\PmsAttribute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-// use App\Traits\HasPermissionsTrait;
+use Auth;
 
-use function GuzzleHttp\Promise\all;
 
-class RoleController extends Controller
+class PmsAttributeController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $roles= Role::with('permissions')->get();
-        return response()->json($roles);
+    {
+        //
+        return response()->json(PmsAttribute::with('userInfo')->get());
     }
 
     /**
@@ -31,7 +30,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -42,8 +41,9 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        //
         $validator = Validator::make($request->all(), [
-            'name' => ['required','unique:roles,name'],
+            'name' => ['required','unique:pms_attributes,title'],
             // 'permission' => ['nullable']
         ]);
 
@@ -51,29 +51,30 @@ class RoleController extends Controller
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
         
-        $role = Role::create(array_merge(
+        $per = PmsAttribute::create(array_merge(
             $validator->validated(),
             [
-                'name' => $request->name,
+                'title' => $request->name,
+                'max_rating' => 5,
+                'added_by' => Auth::user()->id,
                 'slug'=>Str::slug($request->name)
             ]
         ));
-        if($request->has("permission")){
-            $role->permissions()->attach($request->permission);
-        }
-        if($role)
+       
+        if($per)
         {
-            return response()->json(['success'=>'Role and Permission assigned Successfully.']);
+            return response()->json(['success'=>'Pms Added Successfully.']);
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
         //
     }
@@ -81,10 +82,10 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
         //
     }
@@ -93,39 +94,42 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, PmsAttribute $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required','unique:roles,name'],
-        ]);
-
-        if($validator->fails()){
-            return response()->json(['error'=>$validator->errors()->toJson()], 400);
-        }
-        
-       $update= $role->update([
-            'name'=>$request->name,
-            'slug'=>Str::slug($request->name)
-        ]);
-        if($update){
-            return response()->json(['success'=>'Role Updated Successfully']);
-        }
+      
+            $validator = Validator::make($request->all(), [
+                'name' => ['required','unique:pms_attributes,title'],
+            ]);
+    
+            if($validator->fails()){
+                return response()->json(['error'=>$validator->errors()->toJson()], 400);
+            }
+            
+           $update= $id->update([
+                'title'=>$request->name,
+                'max_rating' => 5,
+                'added_by' => Auth::user()->id,
+                'slug'=>Str::slug($request->name)
+            ]);
+            if($update){
+                return response()->json(['success'=>'Pms Updated Successfully']);
+            }
         
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(PmsAttribute $id)
     {
-        $role->delete();
+        $id->delete();
 
-        return response()->json(['success'=>'Role Deleted Successfully']);
+        return response()->json(['success'=>'Permission Deleted Successfully']);
     }
 }

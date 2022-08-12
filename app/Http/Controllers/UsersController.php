@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,11 @@ class UsersController extends Controller
     }
     public function changePassword(Request $request){
        
-            $validator = Validator::make($request->all(), [
-                'new_password' => ['required', 'min:8'],
-                'confirm_password' => ['same:new_password']
-            ]);
+        $validator = Validator::make($request->all(), [
+            'new_password' => ['required', 'min:8'],
+            'confirm_password' => ['same:new_password']
+        ]);
         
-
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
@@ -34,6 +34,12 @@ class UsersController extends Controller
             return response()->json(['success'=>'Password Change Successful.Please Login with your new Password.']);
         }
 
+    }
+
+    public function getUserHasRolePermission()
+    {
+        $data = User::with('roles','permissions')->get();
+        return response()->json(['data'=>$data]);
     }
 
 }

@@ -160,13 +160,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "list",
   data: function data() {
     return {
-      PermissionList: [],
-      permission: "",
+      permissionList: [],
+      permission_name: "",
       showTableStatus: false,
       showStatus: false,
       success: "",
@@ -176,31 +190,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   mounted: function mounted() {
-    this.getRole();
+    this.getPermission();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     errors: "getError"
   })),
   methods: {
-    getRole: function getRole() {
+    getPermission: function getPermission() {
       var _this = this;
 
       axios.get(this.api).then(function (response) {
-        _this.PermissionList = response.data;
+        _this.permissionList = response.data;
       });
     },
     addPermission: function addPermission() {
       var _this2 = this;
 
       axios.post(this.api, {
-        name: this.permission
+        name: this.permission_name
       }).then(function (response) {
         _this2.success = response.data.success;
         _this2.showStatus = true;
 
-        _this2.getRole();
+        _this2.getPermission();
 
-        _this2.permission = "";
+        _this2.reset(); // this.permission_name = "";
+
       })["catch"](function (err) {
         _this2.showStatus = true;
       });
@@ -208,29 +223,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deletePermission: function deletePermission(index) {
       var _this3 = this;
 
-      axios["delete"](this.api + "/" + this.PermissionList[index].id).then(function (response) {
+      axios["delete"](this.api + "/" + this.permissionList[index].id).then(function (response) {
         _this3.success = response.data.success;
         _this3.showTableStatus = true;
 
-        _this3.getRole();
+        _this3.getPermission();
       });
     },
     editPermission: function editPermission(index) {
-      this.permission = this.PermissionList[index].name;
-      this.editPermissionId = this.PermissionList[index].id;
+      this.permission_name = this.permissionList[index].name;
+      this.editPermissionId = this.permissionList[index].id;
       this.btnName = "Update Permission";
     },
     updatePermission: function updatePermission() {
       var _this4 = this;
 
       var data = {
-        name: this.permission
+        name: this.permission_name
       };
       axios.put(this.api + "/" + this.editPermissionId, data).then(function (response) {
         _this4.success = response.data.success;
         _this4.showStatus = true;
 
-        _this4.getRole();
+        _this4.getPermission();
 
         _this4.reset();
       })["catch"](function (err) {
@@ -238,8 +253,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     reset: function reset() {
-      this.permission = "";
-      this.editPermission = '';
+      this.permission_name = "";
+      this.editPermissionId = "";
       this.btnName = "Add Permission";
     }
   },
@@ -309,20 +324,16 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.PermissionList, function(rl, index) {
+                    _vm._l(_vm.permissionList, function(per, index) {
                       return _c("tr", { key: index }, [
                         _c("th", { attrs: { scope: "row" } }, [
                           _vm._v(_vm._s(++index))
                         ]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(rl.name))]),
+                        _c("td", [_vm._v(_vm._s(per.name))]),
                         _vm._v(" "),
                         _c("td", [
-                          _vm._v(_vm._s(_vm._f("formatDate")(rl.created_at)))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm._f("formatDate")(rl.updated_at)))
+                          _vm._v(_vm._s(_vm._f("formatDate")(per.created_at)))
                         ]),
                         _vm._v(" "),
                         _c("td", [
@@ -456,7 +467,7 @@ var render = function() {
                         staticClass: "form-label",
                         attrs: { for: "inputNanme4" }
                       },
-                      [_vm._v("Permission name")]
+                      [_vm._v("Permission Name")]
                     ),
                     _vm._v(" "),
                     _c("input", {
@@ -464,8 +475,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.permission,
-                          expression: "permission"
+                          value: _vm.permission_name,
+                          expression: "permission_name"
                         }
                       ],
                       staticClass: "form-control form-control-sm",
@@ -473,13 +484,13 @@ var render = function() {
                         type: "text",
                         placeholder: "Add New Permission"
                       },
-                      domProps: { value: _vm.permission },
+                      domProps: { value: _vm.permission_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.permission = $event.target.value
+                          _vm.permission_name = $event.target.value
                         }
                       }
                     }),
@@ -507,7 +518,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Submit\n                  "
+                              "\n                  Submit\n                "
                             )
                           ]
                         )
@@ -523,7 +534,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Update\n                  "
+                              "\n                  Update\n                "
                             )
                           ]
                         )
@@ -549,7 +560,7 @@ var staticRenderFns = [
       _c("nav", [
         _c("ol", { staticClass: "breadcrumb" }, [
           _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "index.html" } }, [_vm._v("Home")])
+            _c("a", { attrs: { href: "" } }, [_vm._v("Home")])
           ]),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
@@ -570,8 +581,6 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Permission Name")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Added Time")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Updated Time")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
       ])
