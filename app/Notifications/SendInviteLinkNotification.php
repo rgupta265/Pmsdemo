@@ -44,8 +44,8 @@ class SendInviteLinkNotification extends Notification implements ShouldQueue
                     ->greeting('Hello User!')
                     ->line('You have invited as '.$this->data['role_name'])
                     ->action('Click Here to Register', url($this->data['inviteurl']))
-                    ->line('You can also copy this link to register. This link will be valid till next '.$this->data['token_validity'].'hours')
-                    ->line('Copy and Paste this link into your browser ');
+                    ->line('You can also copy this link to register. This link will be valid till '.$this->data['token_validity'])
+                    ->line('Copy and Paste this link into your browser' .url($this->data['inviteurl']));
     }
 
     /**

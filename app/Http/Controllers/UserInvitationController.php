@@ -16,7 +16,7 @@ use App\Notifications\SendInviteLinkNotification;
 
 class UserInvitationController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +24,8 @@ class UserInvitationController extends Controller
      */
     public function index()
     {
-        //write conditions seprate for admin and not admin because admin see all request while 
-        // non admin user see only their invitation request 
+        //write conditions seprate for admin and not admin because admin see all request while
+        // non admin user see only their invitation request
         return response()->json(UserInvitation::with('inviteuser','inviterole')->get());
     }
 
@@ -49,7 +49,7 @@ class UserInvitationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => ['unique:user_invitations,email,NULL,id,role_id,' . $request->role_id],
-           
+
         ],
         [
             'email.unique' => 'This Email Invitation is already sent with seletcted Role',
@@ -59,7 +59,7 @@ class UserInvitationController extends Controller
         }
                 $tokenValidity =Carbon::now()->addHours(48);
 
-                
+
                 $sendInvite =UserInvitation::create(array_merge(
                     $validator->validated(),
                 [
@@ -78,15 +78,15 @@ class UserInvitationController extends Controller
                 $data =[
                     'role_name'=>Str::upper($roleName->name),
                     'inviteurl'=>env('APP_URL').$inviteLink,
-                    'token_validity'=>$tokenValidity
+                    'token_validity'=>$tokenValidity->format('d-m-y H:i')
                 ];
 
                 Notification::route('mail', $email)//here mail is basically via notifiable method inside Noificationclass it can be ['mail','database','sms'].pass multiple also with new route('database','email')
                 ->notify(new SendInviteLinkNotification($data));
-                return response()->json(['success' =>'Invite send Successfully']);  
+                return response()->json(['success' =>'Invite send Successfully']);
             }
-               
-                        
+
+
     }
 
     /**
@@ -98,7 +98,7 @@ class UserInvitationController extends Controller
     public function show(UserInvitation $userInvitation)
     {
 
-        
+
     }
 
     /**
@@ -139,5 +139,5 @@ class UserInvitationController extends Controller
         $invite =UserInvitation::where('code',$inviteToken->token)->get();
         return response()->json($invite);
     }
-    
+
 }

@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class UserInvitation extends Model
 {
-    use HasFactory;
+    use HasFactory,LogsActivity;
 
     protected $fillable =['code','email','role_id','sender_user_id','status','valid_till'];
+    protected static $logName = 'invitation';
     protected static $logAttributes = ['code','email','role_id','sender_user_id','status','valid_till'];
 
 
@@ -23,5 +25,5 @@ class UserInvitation extends Model
         return $this->belongsTo(Role::class,'role_id');
     }
 
-    
+
 }
