@@ -10,7 +10,8 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     error : '',
     userDetails:{},
-    webDetails: {}
+    webDetails: {},
+    notifyDetails:{}
   },
   mutations: {
     auth_request(state){
@@ -36,6 +37,10 @@ export default new Vuex.Store({
     setWebDetails(state,webDetails){
       state.webDetails = webDetails
     },
+    setNotifyDetails(state,notifyDetails)
+    {
+      state.notifyDetails = notifyDetails
+    }
   },
   actions: {
     //declare all mapActions methods routes of different methods (GET,POST etc)
@@ -108,6 +113,14 @@ export default new Vuex.Store({
         })
       }); 
     },
+    getAllNotification({commit}){
+      return new Promise((resolve, reject) => {
+        axios({url:'notification',method:'GET'}).then(res =>{
+          commit('setNotifyDetails',res.data)
+          resolve(res)
+        })
+      }); 
+    },
   },
   getters : {
     //decalre only route/api of getting data
@@ -117,6 +130,7 @@ export default new Vuex.Store({
     getError: state=> state.error,
     getUserDetails :state=>state.userDetails,
     getWebDetails :state=>state.webDetails,
+    getAllNotification :state=>state.notifyDetails
   }
 })
 

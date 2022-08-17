@@ -3,10 +3,10 @@
 <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <a role="button" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
                   <span class="d-none d-lg-block">PMS</span>
                 </a>
@@ -27,15 +27,13 @@
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="" v-model="form.email" class="form-control">
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input type="text" name="" v-model="form.email" class="form-control">  
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="" v-model="form.password" class="form-control" >
-                      <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">
@@ -53,12 +51,15 @@
               </div>
 
               <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed © {{new Date().getFullYear() }} 
-              </div>
+              Designed © {{ new Date().getFullYear() }}
+              <strong
+                ><span>{{ webInfo.company_name }}</span></strong
+              >. All Rights Reserved <br />
+              Designed by
+              <a :href="webInfo.company_website" target="_blank">{{
+                webInfo.company_name
+              }}</a>
+            </div>
 
             </div>
           </div>
@@ -69,7 +70,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
    export default{
     name:'Login',
     data(){
@@ -81,7 +82,9 @@ import { mapActions } from 'vuex'
       	showError: false,
       }
     },
-
+computed: {
+    ...mapGetters({ errors: "getError", webInfo: "getWebDetails" }),
+  },
     methods:{
     	...mapActions(["login"]),
 
@@ -94,8 +97,10 @@ import { mapActions } from 'vuex'
           })
           
         }
-    }
-
+    },
+created() {
+    this.$store.dispatch("getWebDetails");
+  },
 
    }
 </script>
@@ -104,8 +109,5 @@ import { mapActions } from 'vuex'
 
 <style>
 
-.form-holder{
-   margin-top:20%;
-   margin-bottom:20%;
-}
+
 </style>

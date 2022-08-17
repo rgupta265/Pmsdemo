@@ -18,13 +18,9 @@ Vue.filter('formatDate', function(value) {
       return moment(String(value)).format('DD/MM/YYYY hh:mm:ss a')
   }
 });
-//delay alert timeout
-Vue.directive('delay', {
-  params: ['cb'],
-  bind: function () {
-    setTimeout(this.params.cb, 3000)
-  }
-})
+Vue.filter('humanReadableTime', function (value) {
+  return moment(value).fromNow();
+});//get time like 2hrs ago,50 seconds ago
 const options = {
     timeout: 3000,
     position: "top-right",

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Str;
 use App\Models\PmsAttribute;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Auth;
 
 
 class PmsAttributeController extends Controller
@@ -20,7 +20,7 @@ class PmsAttributeController extends Controller
     public function index()
     {
         //
-        return response()->json(PmsAttribute::with('userInfo')->get());
+        return response()->json(PmsAttribute::with('userInfo')->latest()->get());
     }
 
     /**
@@ -41,11 +41,15 @@ class PmsAttributeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
         $validator = Validator::make($request->all(), [
             'name' => ['required','unique:pms_attributes,title'],
-            // 'permission' => ['nullable']
-        ]);
+        ],
+        [
+            'name.required' => 'Attribute Name cannot be empty',
+            'name.unique' =>'Attribute Name is Already Exists',
+        ]
+    );
 
         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
@@ -55,9 +59,10 @@ class PmsAttributeController extends Controller
             $validator->validated(),
             [
                 'title' => $request->name,
+                'slug'=>Str::slug($request->name),
                 'max_rating' => 5,
-                'added_by' => Auth::user()->id,
-                'slug'=>Str::slug($request->name)
+                'added_by' => Auth::user()->id
+               
             ]
         ));
        
@@ -94,10 +99,10 @@ class PmsAttributeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\PmsAttribute  $pmsattribute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PmsAttribute $id)
+    public function update(Request $request, PmsAttribute $pmsattribute)
     {
       
             $validator = Validator::make($request->all(), [
@@ -108,7 +113,7 @@ class PmsAttributeController extends Controller
                 return response()->json(['error'=>$validator->errors()->toJson()], 400);
             }
             
-           $update= $id->update([
+           $update= $pmsattribute->update([
                 'title'=>$request->name,
                 'max_rating' => 5,
                 'added_by' => Auth::user()->id,
@@ -123,12 +128,12 @@ class PmsAttributeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     *  @param  \App\Models\PmsAttribute $pmsattribute
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PmsAttribute $id)
+    public function destroy(PmsAttribute $pmsattribute)
     {
-        $id->delete();
+        $pmsattribute->delete();
 
         return response()->json(['success'=>'Permission Deleted Successfully']);
     }

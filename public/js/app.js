@@ -78369,9 +78369,15 @@ var routes = [{
     path: '/pmsattribute',
     component: AddPmsAttribute,
     meta: {
-      title: "pmsattribute",
+      title: "PMS Attribute",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-pms-master"]
+      permissions: ["view-pms-master"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'PMS Attribute'
+      }]
     }
   }, {
     name: "invitelink",
@@ -78419,7 +78425,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     token: localStorage.getItem('token') || '',
     error: '',
     userDetails: {},
-    webDetails: {}
+    webDetails: {},
+    notifyDetails: {}
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -78444,6 +78451,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setWebDetails: function setWebDetails(state, webDetails) {
       state.webDetails = webDetails;
+    },
+    setNotifyDetails: function setNotifyDetails(state, notifyDetails) {
+      state.notifyDetails = notifyDetails;
     }
   },
   actions: {
@@ -78534,6 +78544,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           resolve(res);
         });
       });
+    },
+    getAllNotification: function getAllNotification(_ref7) {
+      var commit = _ref7.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()({
+          url: 'notification',
+          method: 'GET'
+        }).then(function (res) {
+          commit('setNotifyDetails', res.data);
+          resolve(res);
+        });
+      });
     }
   },
   getters: {
@@ -78555,6 +78577,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     getWebDetails: function getWebDetails(state) {
       return state.webDetails;
+    },
+    getAllNotification: function getAllNotification(state) {
+      return state.notifyDetails;
     }
   }
 }));
@@ -78632,14 +78657,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('formatDate', function (value)
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_9___default()(String(value)).format('DD/MM/YYYY hh:mm:ss a');
   }
-}); //delay alert timeout
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive('delay', {
-  params: ['cb'],
-  bind: function bind() {
-    setTimeout(this.params.cb, 3000);
-  }
 });
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('humanReadableTime', function (value) {
+  return moment__WEBPACK_IMPORTED_MODULE_9___default()(value).fromNow();
+}); //get time like 2hrs ago,50 seconds ago
+
 var options = {
   timeout: 3000,
   position: "top-right" // You can set your default options here
@@ -78897,13 +78919,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! /opt/php80/PMSPROJECT/Pmsdemo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/php80/PMSPROJECT/Pmsdemo/resources/css/app.css */"./resources/css/app.css");
-=======
-__webpack_require__(/*! /var/www/html/RGProject/Pmsdemo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/RGProject/Pmsdemo/resources/css/app.css */"./resources/css/app.css");
->>>>>>> 60c2922e6da248b57ab20bfc6585117357217aa2
+__webpack_require__(/*! /opt/php74/Demo-Laravel-vue-NiceAdmin/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/php74/Demo-Laravel-vue-NiceAdmin/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })

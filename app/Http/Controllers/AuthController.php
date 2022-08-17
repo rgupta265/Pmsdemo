@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use Carbon\Carbon;
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\UserInvitation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\WelcomeNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\WelcomeNotificationMessageToInvitedByUser;
 
 class AuthController extends Controller
 {
@@ -71,6 +76,26 @@ class AuthController extends Controller
                     $user->permissions()->attach($permissions);//assign permissionId to user
                     $getInvite->update(['status'=>'successful']);
                     DB::commit();
+                    //send Welcome Email
+                    $email =$user->email;
+                    $roleName =Role::find($getInvite->role_id);
+                    $dataUser =[
+                        'name'=>$user->name,
+                        'role_name'=>Str::upper($roleName->name),
+                        'email'=>$email,
+                    ];
+                    $invitedByUser = User::find($getInvite->sender_user_id); //get invited by user
+                    $dataInvited =[
+                        'invitedByName'=>$invitedByUser->name,
+                        'invitedToName'=>$user->name,
+                        'invitedToRole'=>Str::upper($roleName->name),
+                        'invitedToEmail'=>$email,
+                    ];
+    
+                    Notification::route('mail', $email)//here mail is basically via notifiable method inside Noificationclass it can be ['mail','database','sms'].pass multiple also with new route('database','email')
+                    ->notify(new WelcomeNotification($dataUser));
+                    // Notification::send($email, new WelcomeNotification($dataUser));//register user
+                    $invitedByUser->notify(new WelcomeNotificationMessageToInvitedByUser($dataInvited));//store notification in table (invited by)
                     return response()->json(['success' => 'User Created and Permission assigned successful'], 200);
                 } catch (\Exception $e) {
                     DB::rollback();
