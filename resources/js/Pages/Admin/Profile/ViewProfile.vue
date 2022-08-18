@@ -137,7 +137,8 @@
                     id="profile-edit"
                   >
                     <!-- Profile Edit Form -->
-                    <form>
+                    <form  method="post"
+                       @submit.prevent="saveData()"> 
                       <div class="row mb-3">
                         <label
                           for="profileImage"
@@ -200,16 +201,16 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                       <div class="row mb-3">
                         <label
-                          for="company"
+                          for="user id"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Company</label
+                          >User Id</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="company"
+                            name="user id"
                             type="text"
                             class="form-control"
-                            id="company"
+                            id="user id"
                             value=""
                           />
                         </div>
@@ -217,16 +218,17 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                       <div class="row mb-3">
                         <label
-                          for="Job"
+                          for="empcode"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Job</label
+                          >Employee code</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="job"
+                            name="empcode"
                             type="text"
                             class="form-control"
-                            id="Job"
+                            id="empcode"
+                        
                             value=""
                           />
                         </div>
@@ -234,16 +236,33 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                       <div class="row mb-3">
                         <label
-                          for="Country"
+                          for="designation"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Country</label
+                          >Designation</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="country"
+                            name="designation"
                             type="text"
                             class="form-control"
-                            id="Country"
+                            id="designation"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
+                       <div class="row mb-3">
+                        <label
+                          for="father name"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Father name</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            name="father name"
+                            type="text"
+                            class="form-control"
+                            id="father name"
                             value=""
                           />
                         </div>
@@ -251,7 +270,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                       <div class="row mb-3">
                         <label
-                          for="Address"
+                          for="address"
                           class="col-md-4 col-lg-3 col-form-label"
                           >Address</label
                         >
@@ -260,7 +279,24 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                             name="address"
                             type="text"
                             class="form-control"
-                            id="Address"
+                            id="address"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label
+                          for="Correspondence Address"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Correspondence Address</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            name="correspondence address"
+                            type="text"
+                            class="form-control"
+                            id="correspondence address"
                             value=""
                           />
                         </div>
@@ -283,6 +319,23 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         </div>
                       </div>
 
+                        <div class="row mb-3">
+                        <label
+                          for="emergency contactno"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Emergency contactno.</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            name="emergency contactno"
+                            type="text"
+                            class="form-control"
+                            id="emergency contactno"
+                          />
+                        </div>
+                      </div>
+
+
                       <div class="row mb-3">
                         <label
                           for="Email"
@@ -300,56 +353,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         </div>
                       </div>
 
-                      <div class="row mb-3">
-                        <label
-                          for="Twitter"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Twitter Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="twitter"
-                            type="text"
-                            class="form-control"
-                            id="Twitter"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="Facebook"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Facebook Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="facebook"
-                            type="text"
-                            class="form-control"
-                            id="Facebook"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="Instagram"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Instagram Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="instagram"
-                            type="text"
-                            class="form-control"
-                            id="Instagram"
-                            value=""
-                          />
-                        </div>
-                      </div>
+                    
 
                       <div class="row mb-3">
                         <label
@@ -367,6 +371,41 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                           />
                         </div>
                       </div>
+
+                      <div class="row mb-3">
+                        <label
+                          for="status"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Status</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            name="status"
+                            type="text"
+                            class="form-control"
+                            id="status"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
+                        <div class="row mb-3">
+                        <label
+                          for="added by"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Added by</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            name="added by"
+                            type="text"
+                            class="form-control"
+                            id="added by"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
 
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary">
@@ -394,7 +433,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         <div class="col-md-8 col-lg-9">
                           <input
                             type="password"
-                            v-model="userPass.new_password"
+                             v-model="userPass.new_password"
                             class="form-control"
                           />
                         </div>
@@ -409,7 +448,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         <div class="col-md-8 col-lg-9">
                           <input
                             type="password"
-                            v-model="userPass.confirm_password"
+                             v-model="userPass.confirm_password"
                             class="form-control"
                           />
                         </div>
@@ -482,4 +521,30 @@ export default {
     },
   },
 };
+// export default {
+// data(){
+//   return{
+//     'userdetail':{
+//        'user_id':'',
+//         'image':'',
+//         'emp_code':'',
+//         'designation':'',
+//         'father_name':'',
+//         'address':'',
+//         'correspondence_address':'',
+//         'phone',
+//         'emergency_contactno':'',
+//         'linkedin_id':'',
+//         'status':'',
+//         'added_by':'',
+//     }
+//   }
+// }
+// methods:
+// {
+//   saveData(){
+
+//   }
+// }
+// }
 </script>

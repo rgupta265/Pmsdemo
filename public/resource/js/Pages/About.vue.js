@@ -577,6 +577,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -624,7 +663,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   })
-});
+}); // export default {
+// data(){
+//   return{
+//     'userdetail':{
+//        'user_id':'',
+//         'image':'',
+//         'emp_code':'',
+//         'designation':'',
+//         'father_name':'',
+//         'address':'',
+//         'correspondence_address':'',
+//         'phone',
+//         'emergency_contactno':'',
+//         'linkedin_id':'',
+//         'status':'',
+//         'added_by':'',
+//     }
+//   }
+// }
+// methods:
+// {
+//   saveData(){
+//   }
+// }
+// }
 
 /***/ }),
 
@@ -882,7 +945,60 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(7),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "tab-pane fade profile-edit pt-3",
+                        attrs: { id: "profile-edit" }
+                      },
+                      [
+                        _c(
+                          "form",
+                          {
+                            attrs: { method: "post" },
+                            on: {
+                              submit: function($event) {
+                                $event.preventDefault()
+                                return _vm.saveData()
+                              }
+                            }
+                          },
+                          [
+                            _vm._m(7),
+                            _vm._v(" "),
+                            _vm._m(8),
+                            _vm._v(" "),
+                            _vm._m(9),
+                            _vm._v(" "),
+                            _vm._m(10),
+                            _vm._v(" "),
+                            _vm._m(11),
+                            _vm._v(" "),
+                            _vm._m(12),
+                            _vm._v(" "),
+                            _vm._m(13),
+                            _vm._v(" "),
+                            _vm._m(14),
+                            _vm._v(" "),
+                            _vm._m(15),
+                            _vm._v(" "),
+                            _vm._m(16),
+                            _vm._v(" "),
+                            _vm._m(17),
+                            _vm._v(" "),
+                            _vm._m(18),
+                            _vm._v(" "),
+                            _vm._m(19),
+                            _vm._v(" "),
+                            _vm._m(20),
+                            _vm._v(" "),
+                            _vm._m(21),
+                            _vm._v(" "),
+                            _vm._m(22)
+                          ]
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -989,7 +1105,7 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _vm._m(8)
+                            _vm._m(23)
                           ]
                         )
                       ],
@@ -1141,333 +1257,397 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "tab-pane fade profile-edit pt-3",
-        attrs: { id: "profile-edit" }
-      },
-      [
-        _c("form", [
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "profileImage" }
-              },
-              [_vm._v("Profile Image")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("img", {
-                attrs: {
-                  src: "backendTheme/assets/img/profile-img.jpg",
-                  alt: "Profile"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "pt-2" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { href: "#", title: "Upload new profile image" }
-                  },
-                  [_c("i", { staticClass: "bi bi-upload" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-danger btn-sm",
-                    attrs: { href: "#", title: "Remove my profile image" }
-                  },
-                  [_c("i", { staticClass: "bi bi-trash" })]
-                )
-              ])
-            ])
-          ]),
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "profileImage" }
+        },
+        [_vm._v("Profile Image")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("img", {
+          attrs: {
+            src: "backendTheme/assets/img/profile-img.jpg",
+            alt: "Profile"
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "pt-2" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-primary btn-sm",
+              attrs: { href: "#", title: "Upload new profile image" }
+            },
+            [_c("i", { staticClass: "bi bi-upload" })]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "fullName" }
-              },
-              [_vm._v("Full Name")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "fullName",
-                  type: "text",
-                  id: "fullName",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "about" }
-              },
-              [_vm._v("About")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c(
-                "textarea",
-                {
-                  staticClass: "form-control",
-                  staticStyle: { height: "100px" },
-                  attrs: { name: "about", id: "about" }
-                },
-                [
-                  _vm._v(
-                    "Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde."
-                  )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "company" }
-              },
-              [_vm._v("Company")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "company",
-                  type: "text",
-                  id: "company",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Job" }
-              },
-              [_vm._v("Job")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { name: "job", type: "text", id: "Job", value: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Country" }
-              },
-              [_vm._v("Country")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "country",
-                  type: "text",
-                  id: "Country",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Address" }
-              },
-              [_vm._v("Address")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "address",
-                  type: "text",
-                  id: "Address",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Phone" }
-              },
-              [_vm._v("Phone")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { name: "phone", type: "text", id: "Phone", value: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Email" }
-              },
-              [_vm._v("Email")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { name: "email", type: "email", id: "Email", value: "" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Twitter" }
-              },
-              [_vm._v("Twitter Profile")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "twitter",
-                  type: "text",
-                  id: "Twitter",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Facebook" }
-              },
-              [_vm._v("Facebook Profile")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "facebook",
-                  type: "text",
-                  id: "Facebook",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Instagram" }
-              },
-              [_vm._v("Instagram Profile")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "instagram",
-                  type: "text",
-                  id: "Instagram",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mb-3" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-lg-3 col-form-label",
-                attrs: { for: "Linkedin" }
-              },
-              [_vm._v("Linkedin Profile")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8 col-lg-9" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  name: "linkedin",
-                  type: "text",
-                  id: "Linkedin",
-                  value: ""
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "text-center" }, [
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-              [
-                _vm._v(
-                  "\n                          Save Changes\n                        "
-                )
-              ]
-            )
-          ])
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-danger btn-sm",
+              attrs: { href: "#", title: "Remove my profile image" }
+            },
+            [_c("i", { staticClass: "bi bi-trash" })]
+          )
         ])
-      ]
-    )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "fullName" }
+        },
+        [_vm._v("Full Name")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "fullName", type: "text", id: "fullName", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "about" }
+        },
+        [_vm._v("About")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c(
+          "textarea",
+          {
+            staticClass: "form-control",
+            staticStyle: { height: "100px" },
+            attrs: { name: "about", id: "about" }
+          },
+          [
+            _vm._v(
+              "Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde."
+            )
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "user id" }
+        },
+        [_vm._v("User Id")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "user id", type: "text", id: "user id", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "empcode" }
+        },
+        [_vm._v("Employee code")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "empcode", type: "text", id: "empcode", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "designation" }
+        },
+        [_vm._v("Designation")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "designation",
+            type: "text",
+            id: "designation",
+            value: ""
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "father name" }
+        },
+        [_vm._v("Father name")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "father name",
+            type: "text",
+            id: "father name",
+            value: ""
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "address" }
+        },
+        [_vm._v("Address")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "address", type: "text", id: "address", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "Correspondence Address" }
+        },
+        [_vm._v("Correspondence Address")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "correspondence address",
+            type: "text",
+            id: "correspondence address",
+            value: ""
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "Phone" }
+        },
+        [_vm._v("Phone")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "phone", type: "text", id: "Phone", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "emergency contactno" }
+        },
+        [_vm._v("Emergency contactno.")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "emergency contactno",
+            type: "text",
+            id: "emergency contactno"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "Email" }
+        },
+        [_vm._v("Email")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "email", type: "email", id: "Email", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "Linkedin" }
+        },
+        [_vm._v("Linkedin Profile")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "linkedin", type: "text", id: "Linkedin", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "status" }
+        },
+        [_vm._v("Status")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "status", type: "text", id: "status", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-4 col-lg-3 col-form-label",
+          attrs: { for: "added by" }
+        },
+        [_vm._v("Added by")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-lg-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "added by", type: "text", id: "added by", value: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [
+          _vm._v(
+            "\n                          Save Changes\n                        "
+          )
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this

@@ -18,11 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-<<<<<<< HEAD
-// Route::get('/roles', [App\Http\Controllers\PermissionController::class,'Permission']);//create dummy data
-=======
 Route::get('/dummy-data', [App\Http\Controllers\PermissionController::class,'Permission']);//create dummy data
->>>>>>> 60c2922e6da248b57ab20bfc6585117357217aa2
 Route::get('/constants', [App\Http\Controllers\ConstantsController::class, 'index']);//get roles and all permission data to checked user permissions
 
 Route::get('/invite-token/{token}', [App\Http\Controllers\UserInvitationController::class,'getUserData']);
@@ -42,5 +38,6 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::get('getAllPermission', [App\Http\Controllers\PermissionController::class, 'getAllPermissions']);
     Route::get('getUserRolePermission',[App\Http\Controllers\UsersController::class,'getUserHasRolePermission']);
     Route::resource('invite', UserInvitationController::class);
+    Route::resource('userdetail', UserInvitationController::class);
 
 });
