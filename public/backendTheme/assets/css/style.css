@@ -722,9 +722,13 @@ h6 {
   color: #899bbd;
 }
 
-.sidebar-nav .nav-link:hover {
+/* .sidebar-nav .nav-link:hover {
   color: #4154f1;
   background: #f6f9ff;
+} */
+.nav-link.active {
+  background-color: lightseagreen;
+  color: white;
 }
 
 .sidebar-nav .nav-link:hover i {
@@ -764,9 +768,9 @@ h6 {
   border-radius: 50%;
 }
 
-.sidebar-nav .nav-content a:hover,
+/* .sidebar-nav .nav-content a:hover, */
 .sidebar-nav .nav-content a.active {
-  color: #4154f1;
+  color: white;
 }
 
 .sidebar-nav .nav-content a.active i {

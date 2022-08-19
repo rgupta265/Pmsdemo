@@ -6,7 +6,6 @@ import axios from 'axios'
 // import VueAxios from 'vue-axios'
 import router from './Router/index'
 import store from './Store/index';
-import App from './App.vue';
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
@@ -26,6 +25,7 @@ const options = {
     position: "top-right",
   // You can set your default options here
 };
+
 
 Vue.use(Toast, options);
 
@@ -61,16 +61,17 @@ axios.interceptors.response.use(undefined, function (error) {
     }
   }
 })
+import { VuejsDatatableFactory } from 'vuejs-datatable';
+Vue.use(VuejsDatatableFactory);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
-
-axios.get('constants').then((response)=>{
-  Vue.prototype.$constants =response.data;
+axios.get('constants').then((res)=>{
+  Vue.prototype.$constants =res.data;
 
     const app = new Vue({
       el: '#app',
       router,
       store,
-      // components: { App }
     });
     
 });

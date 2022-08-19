@@ -16,7 +16,7 @@
                 action=""
                 @submit.prevent="sendInvite"
               >
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <select
                     class="form-select form-select-sm"
                     v-model="form.role_id"
@@ -26,15 +26,18 @@
                       Invite As a...
                     </option>
                     <option
-                      v-for="(rl, item) in roleList"
-                      :value="rl.id"
-                      :key="item"
+                      :value="roleList.invite_to_role_id"
                     >
-                      {{ rl.name }}
+                      {{ roleList.invite_to_role_id }}
                     </option>
                   </select>
-                </div>
-
+                </div> -->
+                <input
+                  type="hidden"
+                  class="form-control form-control-sm"
+                  placeholder="Enter Role"
+                  v-model="form.role_id"
+                />
                 <div class="col-md-4">
                   <input
                     required
@@ -53,6 +56,29 @@
               </form>
             </div>
           </div>
+          <!-- search start -->
+          <div class="card">
+            <div class="card-body py-2">
+              <strong
+                >Showing
+                <span
+                  >{{ resultInfo.from ? resultInfo.from : 0 }} –
+                  {{ resultInfo.to ? resultInfo.to : 0 }} of
+                  {{ resultInfo.total ? resultInfo.total : 0 }} Invitation
+                  Request.</span
+                >
+              </strong>
+              <div style="float: right">
+                <input
+                  class="form-control-sm"
+                  placeholder="Search..."
+                  type="text"
+                  v-model="inviteSearch"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- search End -->
         </div>
       </div>
       <!-- End Invite -->
@@ -77,7 +103,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(invite, index) in InviteList" :key="index">
+                    <tr
+                      v-for="(invite, index) in filteredInviteList"
+                      :key="index"
+                    >
                       <td scope="row">{{ ++index }}</td>
                       <td>{{ invite.email }}</td>
                       <td>{{ invite.inviterole.name }}</td>
@@ -123,6 +152,20 @@
                 </table>
               </div>
             </div>
+            <!-- Pagination start -->
+            <div class="card">
+              <div class="card-body py-1">
+                <div style="float: right">
+                  <pagination
+                    :data="resultInfo"
+                    @pagination-change-page="getInvite"
+                    :limit="0"
+                    size="small"
+                  ></pagination>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination End -->
           </div>
         </div>
       </section>
@@ -149,21 +192,47 @@ export default {
       },
       InviteList: [],
       message: "",
-      roleList: [],
+      roleList: "",
+      inviteSearch: "",
+      resultInfo: "",
     };
   },
 
   mounted() {
-    axios.get("roles").then((response) => {
+    axios.get("getInviteRoles").then((response) => {
       this.roleList = response.data;
+      this.form.role_id = this.roleList.invite_to_role_id;
     });
   },
-
-  methods: {
-    getInvite() {
-      axios.get(this.api).then((response) => {
-        this.InviteList = response.data;
+  computed: {
+    filteredInviteList() {
+      return this.InviteList.filter((invite) => {
+        return (
+          invite.email
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase()) ||
+          invite.status
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase()) ||
+          invite.inviterole.name
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase())
+        );
       });
+    },
+  },
+  methods: {
+    getInvite(page = 1) {
+      axios
+        .get(this.api, {
+          params: {
+            page: page,
+          },
+        })
+        .then((response) => {
+          this.InviteList = response.data.data;
+          this.resultInfo = response.data;
+        });
     },
     sendInvite() {
       let data = { email: this.form.email, role_id: this.form.role_id };
@@ -185,7 +254,6 @@ export default {
   },
   created() {
     this.getInvite();
-    this.roleList();
   },
 };
 </script>

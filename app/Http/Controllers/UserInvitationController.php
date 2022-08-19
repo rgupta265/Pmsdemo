@@ -26,7 +26,7 @@ class UserInvitationController extends Controller
     {
         //write conditions seprate for admin and not admin because admin see all request while
         // non admin user see only their invitation request
-        return response()->json(UserInvitation::with('inviteuser','inviterole')->get());
+        return response()->json(UserInvitation::with('inviteuser','inviterole')->paginate(10));
     }
 
     /**

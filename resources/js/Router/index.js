@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router';
 import routes from './routes';
-import store from '../Store/index'
 
 
 const router = new VueRouter({
   mode: 'history',
+  linkExactActiveClass: "active",
   routes
 });
 

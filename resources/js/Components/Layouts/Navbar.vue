@@ -15,7 +15,7 @@
         <form
           class="search-form d-flex align-items-center"
           method="POST"
-          action="#"
+          action=""
         >
           <input
             type="text"
@@ -42,7 +42,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
               <i class="bi bi-bell"></i>
-              <span class="badge bg-primary badge-number">4</span> </a
+              <span class="badge bg-primary badge-number"> {{ notifications.length }}</span> </a
             ><!-- End Notification Icon -->
 
             <Notification></Notification>
@@ -143,17 +143,17 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <router-link :to="{ name: 'roles' }">
+              <router-link :to="{ name: 'roles' }" class="nav-link">
                 <i class="bi bi-circle"></i><span>Role</span>
               </router-link>
             </li>
             <li>
-              <router-link :to="{ name: 'permission' }">
+              <router-link :to="{ name: 'permission' }" class="nav-link">
                 <i class="bi bi-circle"></i><span>Permission</span>
               </router-link>
             </li>
             <li>
-              <router-link :to="{ name: 'users' }">
+              <router-link :to="{ name: 'users' }" class="nav-link">
                 <i class="bi bi-circle"></i><span>Users</span>
               </router-link>
             </li>
@@ -164,7 +164,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-          <router-link :to="{ name: 'profile' }" class="nav-link collapsed">
+          <router-link :to="{ name: 'profile' }" class="nav-link">
             <i class="bi bi-person"></i>
             <span>Profile</span>
           </router-link>
@@ -172,9 +172,17 @@
         <!-- End Profile Page Nav -->
 
         <li class="nav-item" v-if="$can($constants.permissions.viewInviteLink)">
-          <router-link :to="{ name: 'invitelink' }" class="nav-link collapsed">
+          <router-link :to="{ name: 'invitelink' }" class="nav-link">
             <i class="bi bi-link"></i>
             <span>Invite Link</span>
+          </router-link>
+        </li>
+
+
+        <li class="nav-item" v-if="$can($constants.permissions.viewMyReport)">
+          <router-link :to="{ name: 'viewMyReport' }" class="nav-link">
+            <i class="bi bi-link"></i>
+            <span>My Report</span>
           </router-link>
         </li>
 
@@ -183,7 +191,7 @@
         <li class="nav-item" v-if="$can($constants.permissions.viewPmsMaster)">
           <router-link
             :to="{ name: 'pmsattribute' }"
-            class="nav-link collapsed"
+            class="nav-link"
           >
             <i class="bi bi-person"></i>
             <span>PMS Attribute</span>
@@ -231,7 +239,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters({ userDetails: "getUserDetails", webInfo: "getWebDetails" }),
+    ...mapGetters({
+      userDetails: "getUserDetails",
+      webInfo: "getWebDetails",
+      notifications: "getAllNotification",
+    }),
 
     isLoggedIn: function () {
       return this.$store.getters.isLoggedIn;
@@ -241,6 +253,7 @@ export default {
     if (this.isLoggedIn) {
       this.$store.dispatch("getWebDetails");
       this.$store.dispatch("getUserDetails");
+      this.$store.dispatch("getAllNotification");
     }
   },
   methods: {
@@ -249,19 +262,21 @@ export default {
       this.$router.push("/");
     },
     toggleSidebar() {
-      const getClass = (document.getElementById("deMo").className);
-      if (getClass =='noclass') {
+      const getClass = document.getElementById("deMo").className;
+      if (getClass == "noclass") {
         document.getElementById("deMo").classList.remove("noclass");
         document.getElementById("deMo").classList.add("toggle-sidebar");
       }
-      if(getClass =='toggle-sidebar'){
+      if (getClass == "toggle-sidebar") {
         document.getElementById("deMo").classList.remove("toggle-sidebar");
         document.getElementById("deMo").classList.add("noclass");
       }
-
     },
   },
 };
 </script>
 
+<style>
 
+
+</style>
