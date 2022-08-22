@@ -173,12 +173,16 @@ const routes = [
         path: '/pmsattribute',
         component: AddPmsAttribute,
         meta:{
-            title:`pmsattribute`, 
+            title:`PMS Attribute`, 
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:["view-pms-master"]
+            permissions:["view-pms-master"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'PMS Attribute' }
+            ]
         }
       },
       {

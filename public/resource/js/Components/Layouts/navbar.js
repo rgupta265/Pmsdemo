@@ -320,6 +320,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -351,48 +358,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'notification',
+  name: "notification",
   data: function data() {
     return {};
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    notifications: "getAllNotification"
+  })),
+  created: function created() {
+    this.$store.dispatch("getAllNotification");
   }
 });
 
@@ -882,94 +858,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "ul",
+    {
+      staticClass:
+        "dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+    },
+    [
+      _c("li", { staticClass: "dropdown-header" }, [
+        _vm._v(
+          "\n    You have " +
+            _vm._s(_vm.notifications.length) +
+            " new notifications\n    "
+        ),
+        _vm._m(0)
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.notifications, function(notify, index) {
+        return _c("div", { key: index, staticClass: "notification" }, [
+          _vm._m(1, true),
+          _vm._v(" "),
+          _c("li", { staticClass: "notification-item" }, [
+            _c("i", { staticClass: "bi bi-check-circle text-success" }),
+            _vm._v(" "),
+            _c("div", [
+              _c("p", [_vm._v(_vm._s(notify.data.description))]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(_vm._s(_vm._f("humanReadableTime")(notify.created_at)))
+              ])
+            ])
+          ])
+        ])
+      }),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _vm._m(3)
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass:
-          "dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
-      },
-      [
-        _c("li", { staticClass: "dropdown-header" }, [
-          _vm._v("\n          You have 4 new notifications\n          "),
-          _c("a", { attrs: { href: "#" } }, [
-            _c(
-              "span",
-              { staticClass: "badge rounded-pill bg-primary p-2 ms-2" },
-              [_vm._v("View all")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-        _vm._v(" "),
-        _c("li", { staticClass: "notification-item" }, [
-          _c("i", { staticClass: "bi bi-exclamation-circle text-warning" }),
-          _vm._v(" "),
-          _c("div", [
-            _c("h4", [_vm._v("Lorem Ipsum")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Quae dolorem earum veritatis oditseno")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("30 min. ago")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-        _vm._v(" "),
-        _c("li", { staticClass: "notification-item" }, [
-          _c("i", { staticClass: "bi bi-x-circle text-danger" }),
-          _vm._v(" "),
-          _c("div", [
-            _c("h4", [_vm._v("Atque rerum nesciunt")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Quae dolorem earum veritatis oditseno")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("1 hr. ago")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-        _vm._v(" "),
-        _c("li", { staticClass: "notification-item" }, [
-          _c("i", { staticClass: "bi bi-check-circle text-success" }),
-          _vm._v(" "),
-          _c("div", [
-            _c("h4", [_vm._v("Sit rerum fuga")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Quae dolorem earum veritatis oditseno")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("2 hrs. ago")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-        _vm._v(" "),
-        _c("li", { staticClass: "notification-item" }, [
-          _c("i", { staticClass: "bi bi-info-circle text-primary" }),
-          _vm._v(" "),
-          _c("div", [
-            _c("h4", [_vm._v("Dicta reprehenderit")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("Quae dolorem earum veritatis oditseno")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("4 hrs. ago")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-        _vm._v(" "),
-        _c("li", { staticClass: "dropdown-footer" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Show all notifications")])
-        ])
-      ]
-    )
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("span", { staticClass: "badge rounded-pill bg-primary p-2 ms-2" }, [
+        _vm._v("View all")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "dropdown-footer" }, [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Show all notifications")])
+    ])
   }
 ]
 render._withStripped = true

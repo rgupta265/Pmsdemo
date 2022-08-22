@@ -83,6 +83,8 @@ class UserInvitationController extends Controller
 
                 Notification::route('mail', $email)//here mail is basically via notifiable method inside Noificationclass it can be ['mail','database','sms'].pass multiple also with new route('database','email')
                 ->notify(new SendInviteLinkNotification($data));
+                // $user = User::find(3);
+                // $user->notify(new SendInviteLinkNotification($data));//store notification in table
                 return response()->json(['success' =>'Invite send Successfully']);
             }
 

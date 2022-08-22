@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SendInviteLinkNotification extends Notification implements ShouldQueue
+class WelcomeNotificationMessageToInvitedByUser extends Notification implements ShouldQueue
 {
     use Queueable;
-    public $data;
+    public $dataInvited;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($dataInvited)
     {
-        $this->data = $data;
+        $this->dataInvited = $dataInvited;
     }
 
     /**
@@ -29,7 +29,7 @@ class SendInviteLinkNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -41,14 +41,12 @@ class SendInviteLinkNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Invitation Link')
-                    ->greeting('Hello User!')
-                    ->line('You have invited as '.$this->data['role_name'])
-                    ->action('Click Here to Register', url($this->data['inviteurl']))
-                    ->line('You can also copy this link to register. This link will be valid till '.$this->data['token_validity'])
-                    ->line('Copy and Paste this link into your browser ' .url($this->data['inviteurl']));
+                ->subject('Invited User Joined')
+                ->greeting('Hello '.$this->dataInvited['invitedByName'].' !')
+                ->line($this->dataInvited['invitedToName'].' - ( '.$this->dataInvited['invitedToRole'].' ) '.$this->dataInvited['invitedToEmail'].' Successfully Joined by your Invitation Link',)
+                ->action('Click here to login your account to view details', url('/'));
     }
-       
+
     /**
      * Get the array representation of the notification.
      *
@@ -57,6 +55,8 @@ class SendInviteLinkNotification extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        
+        return [
+            'description' => $this->dataInvited['invitedToName'].' - ('.$this->dataInvited['invitedToRole'].' ) '.$this->dataInvited['invitedToEmail'].' Successfully Joined by your Invitation Link', 
+        ];
     }
 }

@@ -137,7 +137,8 @@
                     id="profile-edit"
                   >
                     <!-- Profile Edit Form -->
-                    <form  method="post"
+                    <form 
+                    method="post"
                        @submit.prevent="saveData()"> 
                       <div class="row mb-3">
                         <label
@@ -175,8 +176,8 @@
                             name="fullName"
                             type="text"
                             class="form-control"
-                            id="fullName"
-                            value=""
+                            readonly
+                          v-model="userDetails.name"
                           />
                         </div>
                       </div>
@@ -199,22 +200,7 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         </div>
                       </div>
 
-                      <div class="row mb-3">
-                        <label
-                          for="user id"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >User Id</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="user id"
-                            type="text"
-                            class="form-control"
-                            id="user id"
-                            value=""
-                          />
-                        </div>
-                      </div>
+                   
 
                       <div class="row mb-3">
                         <label
@@ -224,12 +210,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="empcode"
                             type="text"
                             class="form-control"
-                            id="empcode"
-                        
-                            value=""
+                           v-model="user.emp_code"
                           />
                         </div>
                       </div>
@@ -242,10 +225,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="designation"
                             type="text"
                             class="form-control"
-                            id="designation"
+                            v-model="user.designation"
                             value=""
                           />
                         </div>
@@ -259,10 +241,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="father name"
                             type="text"
                             class="form-control"
-                            id="father name"
+                            v-model="user.father_name"
                             value=""
                           />
                         </div>
@@ -276,10 +257,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="address"
                             type="text"
                             class="form-control"
-                            id="address"
+                             v-model="user.address"
                             value=""
                           />
                         </div>
@@ -293,10 +273,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="correspondence address"
                             type="text"
                             class="form-control"
-                            id="correspondence address"
+                             v-model="user.correspondence_address"
                             value=""
                           />
                         </div>
@@ -310,10 +289,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="phone"
                             type="text"
                             class="form-control"
-                            id="Phone"
+                             v-model="user.phone"
                             value=""
                           />
                         </div>
@@ -327,10 +305,9 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="emergency contactno"
                             type="text"
                             class="form-control"
-                            id="emergency contactno"
+                             v-model="user.emergency_contactno"
                           />
                         </div>
                       </div>
@@ -344,11 +321,10 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="email"
                             type="email"
                             class="form-control"
-                            id="Email"
-                            value=""
+                            readonly
+                            v-model="userDetails.email"
                           />
                         </div>
                       </div>
@@ -363,49 +339,17 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="linkedin"
                             type="text"
                             class="form-control"
-                            id="Linkedin"
                             value=""
+                            v-model="user.linkedin_id"
+                  
                           />
                         </div>
                       </div>
 
-                      <div class="row mb-3">
-                        <label
-                          for="status"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Status</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="status"
-                            type="text"
-                            class="form-control"
-                            id="status"
-                            value=""
-                          />
-                        </div>
-                      </div>
 
-                        <div class="row mb-3">
-                        <label
-                          for="added by"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Added by</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="added by"
-                            type="text"
-                            class="form-control"
-                            id="added by"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
+                       
 
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary">
@@ -485,6 +429,20 @@ export default {
   },
   data() {
     return {
+       user:{
+       user_id:'',
+        image:'',
+        emp_code:'',
+        designation:'',
+        father_name:'',
+        address:'',
+        correspondence_address:'',
+        phone:'',
+        emergency_contactno:'',
+        linkedin_id:'',
+        status:'',
+        added_by:'',
+    },
       userPass: {
         new_password: "",
         confirm_password: "",
@@ -519,32 +477,18 @@ export default {
           // this.showError = true;
         });
     },
+     saveData()
+  {
+    axios.post('userdetail',this.user).then(
+      response => {
+       console.log(response)
+      }
+    ). catch(error => {
+      console.log('Error here');
+    })
+  }
   },
+ 
 };
-// export default {
-// data(){
-//   return{
-//     'userdetail':{
-//        'user_id':'',
-//         'image':'',
-//         'emp_code':'',
-//         'designation':'',
-//         'father_name':'',
-//         'address':'',
-//         'correspondence_address':'',
-//         'phone',
-//         'emergency_contactno':'',
-//         'linkedin_id':'',
-//         'status':'',
-//         'added_by':'',
-//     }
-//   }
-// }
-// methods:
-// {
-//   saveData(){
 
-//   }
-// }
-// }
 </script>

@@ -1,44 +1,23 @@
 <template>
   <div class="viewprofile">
     <main id="main" class="main">
-      <div class="pagetitle">
-        <h1>PMS ATTRIBUTES</h1>
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Roles</li>
-          </ol>
-        </nav>
-      </div>
+      <Breadcrumb></Breadcrumb>
       <!-- End Page Title -->
 
       <section class="section profile">
         <div class="row">
-          <div class="col-xl-9">
+          <div class="col-xl-9">  
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Pms Attributes List</h5>
-                <span v-if="success && showTableStatus">
-                  <div
-                    class="alert alert-success alert-dismissible fade show"
-                    role="alert"
-                  >
-                    {{ success }}
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="alert"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                </span>
+                <Alert :data="success" v-if="showTableStatus"></Alert>
                 <table class="table table-sm table-responsive-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Title</th> 
                       <th scope="col">Max-rating</th>
-                      <th scope="col">Addedby</th>
+                      <th scope="col">Added by</th>
                       <th scope="col">Status</th>
                       <th scope="col">Action</th>
                 
@@ -90,44 +69,13 @@
                 "
               >
                 <h5 class="card-title">{{ this.btnName }}</h5>
-                <div v-if="showStatus">
-                  <span v-if="errors">
-                    <div
-                      class="alert alert-danger alert-dismissible fade show"
-                      role="alert"
-                      v-for="error in errors"
-                      :key="error"
-                    >
-                      {{ error[0] }}
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                  </span>
-                  <span v-if="success">
-                    <div
-                      class="alert alert-success alert-dismissible fade show"
-                      role="alert"
-                    >
-                      {{ success }}
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                  </span>
-                </div>
+                <Alert :data="success"></Alert>
                 <!-- Vertical Form -->
 
                 <div class="row g-3 col-12">
                   <div class="col-12">
                     <label for="inputNanme4" class="form-label"
-                      ><strong>PMS RATING</strong></label
+                      ><strong>Attribute Name</strong></label
                     >
                     <input
                       type="text"
@@ -171,8 +119,14 @@
 
 <script>
 import { mapGetters } from "vuex";
+import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
+import Alert from ".../../../resources/js/Components/Layouts/Alert";
 export default {
   name: "list",
+  components: {
+    Breadcrumb,
+    Alert
+  },
   data() {
     return {
       PmsAttributeList: [],
@@ -183,7 +137,6 @@ export default {
       api: "pmsattribute",
       btnName: "Add PmsAttribute",
       editpmsAttributeId: "",
-      permissions: [],
       assign_permissions: [],
     };
   },
@@ -194,14 +147,6 @@ export default {
     ...mapGetters({ errors: "getError" }),
   },
   methods: {
-    getPmsAttribute() {
-      axios
-        .get("/getAllPermission")
-        .then((response) => {
-          this.permissions = response.data.permissions;
-        })
-        .catch(() => {});
-    },
     getPmsAttribute() {
       axios.get(this.api).then((response) => {
         this.PmsAttributeList = response.data;
@@ -215,43 +160,28 @@ export default {
         })
         .then((response) => {
           this.success = response.data.success;
-          this.showStatus = true;
           this.getPmsAttribute();
-          this.title = "";
+          this.reset();
         
         })
         .catch((err) => {
           this.showStatus = true;
         });
     },
-    // addpmsattribute() {
-    //         axios
-    //             .post(this.api, { title: this.title })
-    //             .then((response) => {
-    //                 this.success = response.data.success;
-    //                 this.showStatus = true;
-    //                 this.getPmsattribute();
-    //                 this.reset();
-    //                 this.title = "";
-    //             })
-    //             .catch((err) => {
-    //                 this.showStatus = true;
-    //             });
-    //     },
     deletepmsattribute(index) {
       axios
         .delete(this.api + "/" + this.PmsAttributeList[index].id)
         .then((response) => {
           this.success = response.data.success;
           this.showTableStatus = true;
+           this.showStatus=false;
           this.getPmsAttribute();
         });
     },
  editpmsattribute(index) {
       this.title = this.PmsAttributeList[index].title;
       this.editpmsAttributeId = this.PmsAttributeList[index].id;
-      this.btnName = "update PmsAttribute";
-      this.assign_permissions = this.PmsAttributeList[index].permissions.includes([slug]);
+      this.btnName = "Update PmsAttribute";
       
     },
     updatepmsAttribute() {
@@ -260,7 +190,6 @@ export default {
         .put(this.api + "/" + this.editpmsAttributeId, data)
         .then((response) => {
           this.success = response.data.success;
-          this.showStatus = true;
           this.getPmsAttribute();
           this.reset();
         })
@@ -272,7 +201,6 @@ export default {
       this.title = "";
       this.editpmsAttributeId = "";
       this.btnName = "Add PmsAttribute ";
-      this.assign_permissions =[]
     },
     
   },
