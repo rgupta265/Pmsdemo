@@ -399,7 +399,7 @@ var render = function render() {
     staticClass: "card-title"
   }, [_vm._v("Invitation Request List")]), _vm._v(" "), _c("table", {
     staticClass: "table table-sm table-responsive-sm"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", _vm._l(_vm.filteredInviteList, function (invite, index) {
+  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredInviteList, function (invite, index) {
     return _c("tr", {
       key: index
     }, [_c("td", {
@@ -420,7 +420,12 @@ var render = function render() {
         role: "button"
       }
     }, [_vm._v("View")]) : _vm._e()])]);
-  }), 0)])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.filteredInviteList.length == 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "8"
+    }
+  }, [_vm._v("There is no data available.")])]) : _vm._e()], 2)])])]), _vm._v(" "), _c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body py-1"

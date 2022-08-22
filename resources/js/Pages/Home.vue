@@ -16,14 +16,3 @@ export default {
   // }
 }
 </script>
-    <div class="credits">
-    &copy; Copyright © {{ new Date().getFullYear() }}
-        <strong
-          ><span>{{ webInfo.company_name }}</span></strong
-        >. All Rights Reserved</div>
-        </div>
-    Designed by
-        <a :href="webInfo.company_website" target="_blank">{{
-          webInfo.company_name
-        }}</a>
-      </div>

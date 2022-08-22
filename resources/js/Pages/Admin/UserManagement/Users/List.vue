@@ -28,7 +28,7 @@
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ user.name }}</td>
                        <td>{{ user.email }}</td>
-                    <td><span v-for="role in user.roles" :key="role" class="badge bg-success m-1"><i class="bi bi-person-badge"></i>&nbsp;{{role.slug}}</span></td>
+                    <td><span v-for="(role,we) in user.roles" :key="we" class="badge bg-success m-1"><i class="bi bi-person-badge"></i>&nbsp;{{role.slug}}</span></td>
                       <td>{{ user.created_at | formatDate }}</td>
                       <td>
                         <span
@@ -43,7 +43,7 @@
                         >
                       </td>
                       <td >
-                        <span class="badge bg-secondary m-1" v-for="per in user.permissions" :key="per">
+                        <span class="badge bg-secondary m-1" v-for="(per,idx) in user.permissions" :key="idx">
                           <i class="fbi bi-star me-1"></i>{{ per.slug }}
                         </span>
                       </td>
@@ -54,21 +54,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-lg-3">
-            <div class="card">
-              <div
-                class="
-                  card-body
-                  role-card
-                  pt-4
-                  d-flex
-                  flex-column
-                  align-items-center
-                "
-              >
-              </div>
-            </div>
-          </div> -->
         </div>
       </section>
     </main>

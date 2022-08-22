@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["resource/js/Pages/Admin/Report/ViewMyReport.vue"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["resource/js/Pages/Admin/MReport/ViewMyReport.vue"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/MyReport/ViewMyReport.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\

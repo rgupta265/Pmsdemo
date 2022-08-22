@@ -14,7 +14,7 @@ class UserInvitation extends Model
 
     protected $fillable =['code','email','role_id','sender_user_id','status','valid_till'];
     protected static $logName = 'invitation';
-    protected static $logAttributes = ['code','email','role_id','sender_user_id','status','valid_till'];
+    protected static $logAttributes = ['email','role_id','sender_user_id','status','valid_till'];
 
 
     public function inviteuser()

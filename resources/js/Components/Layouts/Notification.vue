@@ -1,5 +1,5 @@
 <template>
-  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications " >
     <li class="dropdown-header">
       You have {{ notifications.length }} new notifications
       <a href="#"
@@ -10,6 +10,7 @@
       class="notification"
       v-for="(notify, index) in notifications"
       :key="index"
+      
     >
       <li>
         <hr class="dropdown-divider" />
@@ -29,8 +30,9 @@
     <li>
       <hr class="dropdown-divider" />
     </li>
+    
     <li class="dropdown-footer">
-      <a href="#">Show all notifications</a>
+      <router-link :to="{name:'dashboard'}"><span>Show all notifications</span></router-link>
     </li>
   </ul>
   <!-- End Notification Dropdown Items -->
