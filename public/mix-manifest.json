@@ -11,5 +11,8 @@
     "/resource/js/Pages/Admin/UserManagement/Roles/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Roles/List.vue.js",
     "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js",
     "/resource/js/Pages/Login.js": "/resource/js/Pages/Login.js",
-    "/resource/js/Pages/Register.js": "/resource/js/Pages/Register.js"
+    "/resource/js/Pages/Register.js": "/resource/js/Pages/Register.js",
+    "/resource/js/Pages/Admin/MyReport/ViewMyReport.vue.js": "/resource/js/Pages/Admin/MyReport/ViewMyReport.vue.js",
+    "/resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js": "/resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js",
+    "/resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue.js": "/resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue.js"
 }

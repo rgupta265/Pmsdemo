@@ -153,7 +153,7 @@ var render = function render() {
   }, [_c("a", {
     staticClass: "logo d-flex align-items-center",
     attrs: {
-      href: "index.html"
+      href: "#"
     }
   }, [_c("img", {
     attrs: {
@@ -167,11 +167,11 @@ var render = function render() {
     on: {
       click: _vm.toggleSidebar
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("nav", {
+  })]), _vm._v(" "), _c("nav", {
     staticClass: "header-nav ms-auto"
   }, [_c("ul", {
     staticClass: "d-flex align-items-center"
-  }, [_vm._m(1), _vm._v(" "), _c("li", {
+  }, [_c("li", {
     staticClass: "nav-item dropdown"
   }, [_c("a", {
     staticClass: "nav-link nav-icon",
@@ -203,7 +203,7 @@ var render = function render() {
     staticClass: "dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
   }, [_c("li", {
     staticClass: "dropdown-header"
-  }, [_c("h6", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("span", [_vm._v("Web Designer")])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("li", [_c("router-link", {
+  }, [_c("h6", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("span", [_vm._v("Web Designer")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
       to: {
         name: "profile"
@@ -213,7 +213,7 @@ var render = function render() {
     staticClass: "dropdown-item d-flex align-items-center"
   }, [_c("i", {
     staticClass: "bi bi-person"
-  }), _vm._v(" "), _c("span", [_vm._v("My Profile")])])])], 1), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _c("li", [_c("button", {
+  }), _vm._v(" "), _c("span", [_vm._v("My Profile")])])])], 1), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("li", [_c("button", {
     staticClass: "dropdown-item d-flex align-items-center",
     attrs: {
       type: "button"
@@ -248,7 +248,7 @@ var render = function render() {
     staticClass: "bi bi-grid"
   }), _vm._v(" "), _c("span", [_vm._v("Dashboard")])])], 1), _vm._v(" "), _vm.$can(_vm.$constants.permissions.viewUserRolePermissionManagement) ? _c("li", {
     staticClass: "nav-item"
-  }, [_vm._m(5), _vm._v(" "), _c("ul", {
+  }, [_vm._m(3), _vm._v(" "), _c("ul", {
     staticClass: "nav-content collapse",
     attrs: {
       id: "components-nav",
@@ -281,9 +281,33 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-circle"
-  }), _c("span", [_vm._v("Users")])])], 1)])]) : _vm._e(), _vm._v(" "), _c("li", {
-    staticClass: "nav-heading"
-  }, [_vm._v("Pages")]), _vm._v(" "), _c("li", {
+  }), _c("span", [_vm._v("Users")])])], 1)])]) : _vm._e(), _vm._v(" "), _vm.$can(_vm.$constants.permissions.createReport || _vm.$constants.permissions.viewCreatedReport) ? _c("li", {
+    staticClass: "nav-item"
+  }, [_vm._m(4), _vm._v(" "), _c("ul", {
+    staticClass: "nav-content collapse",
+    attrs: {
+      id: "components-report",
+      "data-bs-parent": "#sidebar-nav"
+    }
+  }, [_vm.$can(_vm.$constants.permissions.createReport) ? _c("li", [_c("router-link", {
+    staticClass: "nav-link",
+    attrs: {
+      to: {
+        name: "createReport"
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-circle"
+  }), _c("span", [_vm._v("Create Report")])])], 1) : _vm._e(), _vm._v(" "), _vm.$can(_vm.$constants.permissions.viewCreatedReport) ? _c("li", [_c("router-link", {
+    staticClass: "nav-link",
+    attrs: {
+      to: {
+        name: "viewCreatedReport"
+      }
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-circle"
+  }), _c("span", [_vm._v("Created Report List")])])], 1) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "nav-item"
   }, [_c("router-link", {
     staticClass: "nav-link",
@@ -315,7 +339,7 @@ var render = function render() {
       }
     }
   }, [_c("i", {
-    staticClass: "bi bi-link"
+    staticClass: "bi bi-file-earmark-arrow-up"
   }), _vm._v(" "), _c("span", [_vm._v("My Report")])])], 1) : _vm._e(), _vm._v(" "), _c("li", {
     staticClass: "nav-heading"
   }, [_vm._v("Master")]), _vm._v(" "), _vm.$can(_vm.$constants.permissions.viewPmsMaster) ? _c("li", {
@@ -343,51 +367,10 @@ var render = function render() {
       href: _vm.webInfo.company_website,
       target: "_blank"
     }
-  }, [_vm._v(_vm._s(_vm.webInfo.company_name))])])]), _vm._v(" "), _vm._m(6)], 1);
+  }, [_vm._v(_vm._s(_vm.webInfo.company_name))])])]), _vm._v(" "), _vm._m(5)], 1);
 };
 
 var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "search-bar"
-  }, [_c("form", {
-    staticClass: "search-form d-flex align-items-center",
-    attrs: {
-      method: "POST",
-      action: ""
-    }
-  }, [_c("input", {
-    attrs: {
-      type: "text",
-      name: "query",
-      placeholder: "Search",
-      title: "Enter search keyword"
-    }
-  }), _vm._v(" "), _c("button", {
-    attrs: {
-      type: "submit",
-      title: "Search"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-search"
-  })])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("li", {
-    staticClass: "nav-item d-block d-lg-none"
-  }, [_c("a", {
-    staticClass: "nav-link nav-icon search-bar-toggle",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-search"
-  })])]);
-}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
@@ -422,6 +405,22 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "bi bi-person-lines-fill"
   }), _c("span", [_vm._v("User Management")]), _c("i", {
+    staticClass: "bi bi-chevron-down ms-auto"
+  })]);
+}, function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("a", {
+    staticClass: "nav-link collapsed",
+    attrs: {
+      "data-bs-target": "#components-report",
+      "data-bs-toggle": "collapse",
+      href: "#"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-file-earmark-arrow-up"
+  }), _c("span", [_vm._v("Progress Report")]), _c("i", {
     staticClass: "bi bi-chevron-down ms-auto"
   })]);
 }, function () {
@@ -470,7 +469,15 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "bi bi-check-circle text-success"
     }), _vm._v(" "), _c("div", [_c("p", [_c("strong", [_vm._v(_vm._s(notify.data.description))])]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm._f("humanReadableTime")(notify.created_at)))])])])]);
-  }), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)], 2);
+  }), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("li", {
+    staticClass: "dropdown-footer"
+  }, [_c("router-link", {
+    attrs: {
+      to: {
+        name: "dashboard"
+      }
+    }
+  }, [_c("span", [_vm._v("Show all notifications")])])], 1)], 2);
 };
 
 var staticRenderFns = [function () {
@@ -498,17 +505,6 @@ var staticRenderFns = [function () {
   return _c("li", [_c("hr", {
     staticClass: "dropdown-divider"
   })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("li", {
-    staticClass: "dropdown-footer"
-  }, [_c("a", {
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Show all notifications")])]);
 }];
 render._withStripped = true;
 

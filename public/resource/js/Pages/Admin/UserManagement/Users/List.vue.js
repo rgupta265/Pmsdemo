@@ -169,16 +169,16 @@ var render = function render() {
       attrs: {
         scope: "row"
       }
-    }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(user.email))]), _vm._v(" "), _c("td", _vm._l(user.roles, function (role) {
+    }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(user.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(user.email))]), _vm._v(" "), _c("td", _vm._l(user.roles, function (role, we) {
       return _c("span", {
-        key: role,
+        key: we,
         staticClass: "badge bg-success m-1"
       }, [_c("i", {
         staticClass: "bi bi-person-badge"
       }), _vm._v(" " + _vm._s(role.slug))]);
-    }), 0), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("formatDate")(user.created_at)))]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c("td", _vm._l(user.permissions, function (per) {
+    }), 0), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm._f("formatDate")(user.created_at)))]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c("td", _vm._l(user.permissions, function (per, idx) {
       return _c("span", {
-        key: per,
+        key: idx,
         staticClass: "badge bg-secondary m-1"
       }, [_c("i", {
         staticClass: "fbi bi-star me-1"

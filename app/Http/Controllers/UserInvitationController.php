@@ -26,7 +26,16 @@ class UserInvitationController extends Controller
     {
         //write conditions seprate for admin and not admin because admin see all request while
         // non admin user see only their invitation request
-        return response()->json(UserInvitation::with('inviteuser','inviterole')->paginate(10));
+        $loggedInRoleName =Auth::user()->roles->pluck('slug');
+        
+        if($loggedInRoleName[0] =='admin')
+        {
+            $data =UserInvitation::with('inviteuser','inviterole')->paginate(10);
+        }
+        else{
+            $data =UserInvitation::with('inviteuser','inviterole')->where('sender_user_id',Auth::user()->id)->paginate(10);
+        }
+        return response()->json($data);
     }
 
     /**

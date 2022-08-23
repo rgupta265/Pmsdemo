@@ -16,22 +16,6 @@
                 action=""
                 @submit.prevent="sendInvite"
               >
-                <!-- <div class="col-md-4">
-                  <select
-                    class="form-select form-select-sm"
-                    v-model="form.role_id"
-                    required
-                  >
-                    <option selected="" disabled="" value="">
-                      Invite As a...
-                    </option>
-                    <option
-                      :value="roleList.invite_to_role_id"
-                    >
-                      {{ roleList.invite_to_role_id }}
-                    </option>
-                  </select>
-                </div> -->
                 <input
                   type="hidden"
                   class="form-control form-control-sm"
@@ -147,6 +131,9 @@
                           >View</span
                         >
                       </td>
+                    </tr>
+                    <tr v-if="filteredInviteList.length == 0">
+                      <td colspan="8" class="text-center">There is no data available.</td>
                     </tr>
                   </tbody>
                 </table>

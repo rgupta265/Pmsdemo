@@ -11,7 +11,8 @@ export default new Vuex.Store({
     error : '',
     userDetails:{},
     webDetails: {},
-    notifyDetails:{}
+    notifyDetails:{},
+    activityDetails:{}
   },
   mutations: {
     auth_request(state){
@@ -40,6 +41,10 @@ export default new Vuex.Store({
     setNotifyDetails(state,notifyDetails)
     {
       state.notifyDetails = notifyDetails
+    },
+    setActivityDetails(state,activityDetails)
+    {
+      state.activityDetails = activityDetails
     }
   },
   actions: {
@@ -121,6 +126,14 @@ export default new Vuex.Store({
         })
       }); 
     },
+    getAllActivity({commit}){
+      return new Promise((resolve, reject) => {
+        axios({url:'getActivity',method:'GET'}).then(res =>{
+          commit('setActivityDetails',res.data)
+          resolve(res)
+        })
+      }); 
+    },
   },
   getters : {
     //decalre only route/api of getting data
@@ -130,7 +143,8 @@ export default new Vuex.Store({
     getError: state=> state.error,
     getUserDetails :state=>state.userDetails,
     getWebDetails :state=>state.webDetails,
-    getAllNotification :state=>state.notifyDetails
+    getAllNotification :state=>state.notifyDetails,
+    getAllActivity :state=>state.activityDetails
   }
 })
 

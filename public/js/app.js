@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/Report/ViewMyReport.vue":"resource/js/Pages/Admin/Report/ViewMyReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -79522,7 +79522,15 @@ var InviteLink = function InviteLink() {
 };
 
 var ViewMyReport = function ViewMyReport() {
-  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/Report/ViewMyReport.vue */ "resource/js/Pages/Admin/Report/ViewMyReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/Report/ViewMyReport.vue */ "./resources/js/Pages/Admin/Report/ViewMyReport.vue"));
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/MyReport/ViewMyReport.vue */ "resource/js/Pages/Admin/MyReport/ViewMyReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/MyReport/ViewMyReport.vue */ "./resources/js/Pages/Admin/MyReport/ViewMyReport.vue"));
+};
+
+var CreateReport = function CreateReport() {
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/CreateReport.vue */ "resource/js/Pages/Admin/ProgressReport/CreateReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/CreateReport.vue */ "./resources/js/Pages/Admin/ProgressReport/CreateReport.vue"));
+};
+
+var ViewCreatedReport = function ViewCreatedReport() {
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue */ "resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/ViewCreatedReport.vue */ "./resources/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue"));
 }; // Authenticated Component End
 
 
@@ -79576,7 +79584,13 @@ var routes = [{
     meta: {
       title: "Dashboard",
       text: 'Dashboard',
-      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth]
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth],
+      breadcrumb: [{
+        name: 'Home',
+        link: 'dashboard'
+      }, {
+        name: 'Dashboard'
+      }]
     }
   }, {
     name: "profile",
@@ -79682,6 +79696,36 @@ var routes = [{
         name: 'My Report'
       }]
     }
+  }, {
+    name: "createReport",
+    path: '/create-report',
+    component: CreateReport,
+    meta: {
+      title: "Create Report",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["create-report"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Create Report'
+      }]
+    }
+  }, {
+    name: "viewCreatedReport",
+    path: '/view-created-report',
+    component: ViewCreatedReport,
+    meta: {
+      title: "View Created Report",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["view-created-report"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'View Created Report'
+      }]
+    }
   }]
 } // Dashboard layout and their Integrated children component End 
 ];
@@ -79714,7 +79758,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     error: '',
     userDetails: {},
     webDetails: {},
-    notifyDetails: {}
+    notifyDetails: {},
+    activityDetails: {}
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -79742,6 +79787,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setNotifyDetails: function setNotifyDetails(state, notifyDetails) {
       state.notifyDetails = notifyDetails;
+    },
+    setActivityDetails: function setActivityDetails(state, activityDetails) {
+      state.activityDetails = activityDetails;
     }
   },
   actions: {
@@ -79844,6 +79892,18 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           resolve(res);
         });
       });
+    },
+    getAllActivity: function getAllActivity(_ref8) {
+      var commit = _ref8.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()({
+          url: 'getActivity',
+          method: 'GET'
+        }).then(function (res) {
+          commit('setActivityDetails', res.data);
+          resolve(res);
+        });
+      });
     }
   },
   getters: {
@@ -79868,6 +79928,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     getAllNotification: function getAllNotification(state) {
       return state.notifyDetails;
+    },
+    getAllActivity: function getAllActivity(state) {
+      return state.activityDetails;
     }
   }
 }));

@@ -24,7 +24,9 @@ const UserList = () => import('../Pages/Admin/UserManagement/Users/List.vue' /* 
 //PMS Master
 const AddPmsAttribute = () => import('../Pages/Admin/PmsMaster/AddPmsAttribute.vue' /* webpackChunkName: "resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue" */)
 const InviteLink = () => import('../Pages/Admin/InviteLink/List.vue' /* webpackChunkName: "resource/js/Pages/Admin/InviteLink/CreateLink.vue" */)
-const ViewMyReport = () => import('../Pages/Admin/Report/ViewMyReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/Report/ViewMyReport.vue" */)
+const ViewMyReport = () => import('../Pages/Admin/MyReport/ViewMyReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/MyReport/ViewMyReport.vue" */)
+const CreateReport = () => import('../Pages/Admin/ProgressReport/CreateReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/CreateReport.vue" */)
+const ViewCreatedReport = () => import('../Pages/Admin/ProgressReport/ViewCreatedReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue" */)
 // Authenticated Component End
 
 
@@ -94,9 +96,12 @@ const routes = [
                 title:`Dashboard`,
                 text: 'Dashboard',
                 middleware :[
-                  Middlewares.auth, 
-                  
+                  Middlewares.auth,   
                 ],
+                breadcrumb: [
+                  { name: 'Home', link: 'dashboard' },
+                  { name: 'Dashboard' }
+                ]
                 
             }
         },
@@ -217,6 +222,40 @@ const routes = [
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
               { name: 'My Report' }
+            ]
+        }
+      },
+      {
+        name:"createReport",
+        path: '/create-report',
+        component: CreateReport,
+        meta:{
+            title:`Create Report`, 
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions 
+            ],
+            permissions:["create-report"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Create Report' }
+            ]
+        }
+      },
+      {
+        name:"viewCreatedReport",
+        path: '/view-created-report',
+        component: ViewCreatedReport,
+        meta:{
+            title:`View Created Report`, 
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions 
+            ],
+            permissions:["view-created-report"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'View Created Report' }
             ]
         }
       },

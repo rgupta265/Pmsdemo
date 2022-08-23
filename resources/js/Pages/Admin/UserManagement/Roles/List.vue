@@ -44,8 +44,8 @@
                       <td>
                         <span
                           class="badge bg-success m-1"
-                          v-for="per in rl.permissions"
-                          :key="per"
+                          v-for="(per,idx) in rl.permissions"
+                          :key="idx"
                         >
                           <i class="fbi bi-star me-1"></i>{{ per.slug }}
                         </span>

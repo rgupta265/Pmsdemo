@@ -42,4 +42,5 @@ Route::group(['middleware'=>'jwt.verify'],function(){
 
     Route::get('notification', [App\Http\Controllers\NotificationController::class, 'getAllNotification']);
     Route::get('getInviteRoles', [App\Http\Controllers\InvitatioinHierarchyController::class, 'getInviteRoleId']);
+    Route::get('getActivity', [App\Http\Controllers\DashboardController::class, 'getLoggedInUserActivity']);
 });

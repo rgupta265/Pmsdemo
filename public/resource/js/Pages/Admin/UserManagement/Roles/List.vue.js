@@ -366,9 +366,9 @@ var render = function render() {
       }
     }, [_c("i", {
       staticClass: "bi bi-trash me-1"
-    }), _vm._v(" Delete")])]), _vm._v(" "), _c("td", _vm._l(rl.permissions, function (per) {
+    }), _vm._v(" Delete")])]), _vm._v(" "), _c("td", _vm._l(rl.permissions, function (per, idx) {
       return _c("span", {
-        key: per,
+        key: idx,
         staticClass: "badge bg-success m-1"
       }, [_c("i", {
         staticClass: "fbi bi-star me-1"

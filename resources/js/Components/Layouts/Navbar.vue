@@ -3,40 +3,17 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
       <div class="d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
+        <a href="#" class="logo d-flex align-items-center">
           <img src="backendTheme/assets/img/logo.png" alt="" />
           <span class="d-none d-lg-block">{{ webInfo.web_name }}</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn" @click="toggleSidebar"></i>
       </div>
       <!-- End Logo -->
-
-      <div class="search-bar">
-        <form
-          class="search-form d-flex align-items-center"
-          method="POST"
-          action=""
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search"
-            title="Enter search keyword"
-          />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
       <!-- End Search Bar -->
 
       <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-          <li class="nav-item d-block d-lg-none">
-            <a class="nav-link nav-icon search-bar-toggle" href="#">
-              <i class="bi bi-search"></i>
-            </a>
-          </li>
           <!-- End Search Icon-->
 
           <li class="nav-item dropdown">
@@ -159,9 +136,40 @@
             </li>
           </ul>
         </li>
+        <li
+          class="nav-item"
+          v-if="$can($constants.permissions.createReport || $constants.permissions.viewCreatedReport)"
+        >
+          <a
+          
+            class="nav-link collapsed"
+            data-bs-target="#components-report"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i class="bi bi-file-earmark-arrow-up"></i><span>Progress Report</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="components-report"
+            class="nav-content collapse"
+            data-bs-parent="#sidebar-nav"
+          >
+            <li v-if="$can($constants.permissions.createReport)">
+              <router-link :to="{ name: 'createReport' }" class="nav-link">
+                <i class="bi bi-circle"></i><span>Create Report</span>
+              </router-link>
+            </li>
+            <li v-if="$can($constants.permissions.viewCreatedReport)">
+              <router-link :to="{ name: 'viewCreatedReport' }" class="nav-link">
+                <i class="bi bi-circle"></i><span>Created Report List</span>
+              </router-link>
+            </li>
+          </ul>
+        </li>
         <!-- End Components Nav -->
 
-        <li class="nav-heading">Pages</li>
+        <!-- <li class="nav-heading">Pages</li> -->
 
         <li class="nav-item">
           <router-link :to="{ name: 'profile' }" class="nav-link">
@@ -181,7 +189,7 @@
 
         <li class="nav-item" v-if="$can($constants.permissions.viewMyReport)">
           <router-link :to="{ name: 'viewMyReport' }" class="nav-link">
-            <i class="bi bi-link"></i>
+            <i class="bi bi-file-earmark-arrow-up"></i>
             <span>My Report</span>
           </router-link>
         </li>
