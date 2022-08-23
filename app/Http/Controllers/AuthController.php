@@ -25,11 +25,20 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
 
         if (! $token = JWTAuth::attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $check =User::where('email',$request->email)->first();
+        if($check->status == 0)
+        {
+            return response()->json(['error'=>$validator->errors()->add('warning', 'Your Account is Deactive.Please contact your administrator')->toJson()], 400); 
+        }
+        if($check->status == 2)
+        {
+            return response()->json(['error'=>$validator->errors()->add('warning', 'Your Account is Suspended.Please contact your administrator')->toJson()], 400); 
         }
         return $this->createNewToken($token);
     }

@@ -67,7 +67,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getUserRolePermissions();
   },
-  computed: {},
   methods: {
     getUserRolePermissions: function getUserRolePermissions() {
       var _this = this;

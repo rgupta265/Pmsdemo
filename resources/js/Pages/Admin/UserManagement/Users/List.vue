@@ -79,8 +79,6 @@ export default {
   mounted() {
     this.getUserRolePermissions();
   },
-  computed: {
-  },
   methods: {
     getUserRolePermissions() {
       axios

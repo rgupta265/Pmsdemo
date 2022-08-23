@@ -136,8 +136,13 @@
                     class="tab-pane fade profile-edit pt-3"
                     id="profile-edit"
                   >
+                    <Alert :data="showError"></Alert>
                     <!-- Profile Edit Form -->
-                    <form>
+                    <form
+                      method="post"
+                      @submit.prevent="updateProfile"
+                      enctype="multipart/form-data"
+                    >
                       <div class="row mb-3">
                         <label
                           for="profileImage"
@@ -145,20 +150,17 @@
                           >Profile Image</label
                         >
                         <div class="col-md-8 col-lg-9">
-                          <img src="backendTheme/assets/img/profile-img.jpg" alt="Profile" />
+                          <img
+                            src="backendTheme/assets/img/profile-img.jpg"
+                            alt="Profile"
+                          />
                           <div class="pt-2">
-                            <a
-                              href="#"
-                              class="btn btn-primary btn-sm"
-                              title="Upload new profile image"
-                              ><i class="bi bi-upload"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger btn-sm"
-                              title="Remove my profile image"
-                              ><i class="bi bi-trash"></i
-                            ></a>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              class="form-control"
+                              @change="onFileChange"
+                            />
                           </div>
                         </div>
                       </div>
@@ -174,76 +176,68 @@
                             name="fullName"
                             type="text"
                             class="form-control"
-                            id="fullName"
-                            value=""
+                            disabled
+                            v-model="userDetails.name"
                           />
                         </div>
                       </div>
 
                       <div class="row mb-3">
                         <label
-                          for="about"
+                          for="Email"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >About</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <textarea
-                            name="about"
-                            class="form-control"
-                            id="about"
-                            style="height: 100px"
-                          >
-Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea
-                          >
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="company"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Company</label
+                          >Email</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="company"
-                            type="text"
+                            type="email"
                             class="form-control"
-                            id="company"
-                            value=""
+                            disabled
+                            v-model="userDetails.email"
                           />
                         </div>
                       </div>
 
                       <div class="row mb-3">
                         <label
-                          for="Job"
+                          for="empcode"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Job</label
+                          >Employee code</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="job"
                             type="text"
+                            required
                             class="form-control"
-                            id="Job"
-                            value=""
+                            v-model="userProfile.emp_code"
                           />
                         </div>
                       </div>
-
                       <div class="row mb-3">
                         <label
-                          for="Country"
+                          for="empcode"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Country</label
+                          >Joining Date</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="country"
+                            type="date"
+                            class="form-control"
+                            v-model="userProfile.joining_date"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label
+                          for="designation"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Designation</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
                             type="text"
                             class="form-control"
-                            id="Country"
+                            v-model="userProfile.designation"
                             value=""
                           />
                         </div>
@@ -251,16 +245,47 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                       <div class="row mb-3">
                         <label
-                          for="Address"
+                          for="father name"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Father name</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="userProfile.father_name"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label
+                          for="address"
                           class="col-md-4 col-lg-3 col-form-label"
                           >Address</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="address"
                             type="text"
                             class="form-control"
-                            id="Address"
+                            v-model="userProfile.address"
+                            value=""
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label
+                          for="Correspondence Address"
+                          class="col-md-4 col-lg-3 col-form-label"
+                          >Correspondence Address</label
+                        >
+                        <div class="col-md-8 col-lg-9">
+                          <input
+                            type="text"
+                            class="form-control"
+                            v-model="userProfile.correspondence_address"
                             value=""
                           />
                         </div>
@@ -274,79 +299,24 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="phone"
                             type="text"
                             class="form-control"
-                            id="Phone"
-                            value=""
+                            v-model="userProfile.phone"
                           />
                         </div>
                       </div>
 
                       <div class="row mb-3">
                         <label
-                          for="Email"
+                          for="emergency contactno"
                           class="col-md-4 col-lg-3 col-form-label"
-                          >Email</label
+                          >Emergency contactno.</label
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="email"
-                            type="email"
-                            class="form-control"
-                            id="Email"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="Twitter"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Twitter Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="twitter"
                             type="text"
                             class="form-control"
-                            id="Twitter"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="Facebook"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Facebook Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="facebook"
-                            type="text"
-                            class="form-control"
-                            id="Facebook"
-                            value=""
-                          />
-                        </div>
-                      </div>
-
-                      <div class="row mb-3">
-                        <label
-                          for="Instagram"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Instagram Profile</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <input
-                            name="instagram"
-                            type="text"
-                            class="form-control"
-                            id="Instagram"
-                            value=""
+                            v-model="userProfile.emergency_contactno"
                           />
                         </div>
                       </div>
@@ -359,18 +329,17 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
                         >
                         <div class="col-md-8 col-lg-9">
                           <input
-                            name="linkedin"
                             type="text"
                             class="form-control"
-                            id="Linkedin"
                             value=""
+                            v-model="userProfile.linkedin_id"
                           />
                         </div>
                       </div>
 
                       <div class="text-center">
                         <button type="submit" class="btn btn-primary">
-                          Save Changes
+                          Update Profile
                         </button>
                       </div>
                     </form>
@@ -379,7 +348,8 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                  <Alert :data="showError"></Alert>
+                    <Alert v-if="showError"></Alert>
+                    <Alert :data="success"></Alert>
                     <form
                       method="post"
                       action=""
@@ -435,27 +405,40 @@ Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Temp
 </template>
 
 <script>
-import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
+import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
 import Alert from ".../../../resources/js/Components/Layouts/Alert";
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "viewprofile",
   components: {
     Breadcrumb,
-    Alert
+    Alert,
   },
   data() {
     return {
+      userProfile: {
+        image: "",
+        emp_code: "",
+        designation: "",
+        father_name: "",
+        address: "",
+        correspondence_address: "",
+        phone: "",
+        emergency_contactno: "",
+        linkedin_id: "",
+        joining_date: "",
+      },
       userPass: {
         new_password: "",
         confirm_password: "",
       },
       showError: false,
+      api: "userProfile",
+      success: "",
     };
   },
   computed: {
     ...mapGetters({ userDetails: "getUserDetails", errors: "getError" }),
-
     isLoggedIn: function () {
       return this.$store.getters.isLoggedIn;
     },
@@ -472,13 +455,42 @@ export default {
         .dispatch("ChangePassword", data)
         .then((resp) => {
           this.showError = false;
-          this.$toast.success(resp.data.success, {});
-           this.$store.dispatch("logout");
-           this.$router.push("/");
+          this.$toast.success(resp.data.success);
+          this.$store.dispatch("logout");
+          this.$router.push("/");
         })
         .catch((err) => {
           // this.showError = true;
         });
+    },
+    onFileChange(e) {
+      this.userProfile.image = e.target.files[0];
+    },
+    updateProfile() {
+      let formData = new FormData();
+      formData.append("image", this.userProfile.image);
+      formData.append("emp_code", this.userProfile.emp_code);
+      formData.append("designation", this.userProfile.designation);
+      formData.append("father_name", this.userProfile.father_name);
+      formData.append("address", this.userProfile.address);
+      formData.append(
+        "correspondence_address",
+        this.userProfile.correspondence_address
+      );
+      formData.append("phone", this.userProfile.phone);
+      formData.append(
+        "emergency_contactno",
+        this.userProfile.emergency_contactno
+      );
+      formData.append("linkedin_id", this.userProfile.linkedin_id);
+      formData.append("joining_date", this.userProfile.joining_date);
+      // send upload request
+      axios
+        .post(this.api, formData)
+        .then(function (response) {
+          this.success = response.data.success;
+        })
+        .catch(function (error) {});
     },
   },
 };

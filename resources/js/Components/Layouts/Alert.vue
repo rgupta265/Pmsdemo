@@ -4,12 +4,6 @@
     <span v-if="data">
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ data }}
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
       </div>
     </span>
     <!-- if Success End -->
@@ -18,16 +12,11 @@
       <div
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
-        v-for="error in errors"
-        :key="error"
+        v-for="(error,index) in errors"
+        :key="index"
       >
         {{ error[0] }}
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
+        
       </div>
     </span>
     <!-- If Error End -->
@@ -38,13 +27,14 @@ import { mapGetters } from "vuex";
 export default {
   name: "alert",
   props: {
-    data: '',
+    data: "",
   },
   data() {
-    return {  };
+    return {};
   },
   computed: {
-    ...mapGetters({ errors: "getError"}),
+    ...mapGetters({ errors: "getError" }),
   },
+  
 };
 </script>

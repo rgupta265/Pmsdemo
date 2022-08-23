@@ -20,7 +20,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "alert",
   props: {
-    data: ''
+    data: ""
   },
   data: function data() {
     return {};
@@ -186,28 +186,14 @@ var render = function render() {
     attrs: {
       role: "alert"
     }
-  }, [_vm._v("\n      " + _vm._s(_vm.data) + "\n      "), _c("button", {
-    staticClass: "btn-close",
-    attrs: {
-      type: "button",
-      "data-bs-dismiss": "alert",
-      "aria-label": "Close"
-    }
-  })])]) : _vm._e(), _vm._v(" "), _vm.errors ? _c("span", _vm._l(_vm.errors, function (error) {
+  }, [_vm._v("\n      " + _vm._s(_vm.data) + "\n    ")])]) : _vm._e(), _vm._v(" "), _vm.errors ? _c("span", _vm._l(_vm.errors, function (error, index) {
     return _c("div", {
-      key: error,
+      key: index,
       staticClass: "alert alert-danger alert-dismissible fade show",
       attrs: {
         role: "alert"
       }
-    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      "), _c("button", {
-      staticClass: "btn-close",
-      attrs: {
-        type: "button",
-        "data-bs-dismiss": "alert",
-        "aria-label": "Close"
-      }
-    })]);
+    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      \n    ")]);
   }), 0) : _vm._e()]);
 };
 

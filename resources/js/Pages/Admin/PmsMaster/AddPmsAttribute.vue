@@ -12,10 +12,7 @@
               <div class="card-body">
                 <h5 class="card-title">Pms Attributes List</h5>
                 <Alert :data="success" v-if="showTableStatus"></Alert>
-                <table
-                  class="table table-sm"
-                  id="dataTableSearch"
-                >
+                <table class="table table-sm" id="dataTableSearch">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -50,7 +47,7 @@
                       <td>
                         <span
                           class="badge bg-success m-1"
-                          v-for="(per,idx) in rl.permissions"
+                          v-for="(per, idx) in rl.permissions"
                           :key="idx"
                         >
                           <i class="fbi bi-star me-1"></i>{{ per.slug }}
@@ -76,7 +73,7 @@
                 "
               >
                 <h5 class="card-title">{{ this.btnName }}</h5>
-                <Alert :data="success"></Alert>
+                <Alert :data="success" v-if="!showTableStatus"></Alert>
                 <!-- Vertical Form -->
 
                 <div class="row g-3 col-12">
@@ -130,7 +127,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
 import Alert from ".../../../resources/js/Components/Layouts/Alert";
 
@@ -156,9 +152,6 @@ export default {
   mounted() {
     this.getPmsAttribute();
   },
-  computed: {
-    ...mapGetters({ errors: "getError" }),
-  },
   methods: {
     getPmsAttribute() {
       axios.get(this.api).then((response) => {
@@ -176,7 +169,7 @@ export default {
           this.reset();
         })
         .catch((err) => {
-          this.showStatus = true;
+          // this.showStatus = true;
         });
     },
     deletepmsattribute(index) {

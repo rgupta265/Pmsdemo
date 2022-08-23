@@ -109,7 +109,6 @@
 <script>
 import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
 import Alert from ".../../../resources/js/Components/Layouts/Alert";
-import { mapGetters } from "vuex";
 export default {
   name: "list",
   components: {
@@ -131,9 +130,7 @@ export default {
   mounted() {
     this.getPermission();
   },
-  computed: {
-    ...mapGetters({ errors: "getError" }),
-  },
+  
   methods: {
     getPermission() {
       axios.get(this.api).then((response) => {

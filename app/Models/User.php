@@ -23,12 +23,13 @@ class User extends Authenticatable implements JWTSubject
      */
 
     protected static $logName = 'user';
-    protected static $logAttributes = ['name', 'email'];
+    protected static $logAttributes = ['name', 'email','status'];
 
     protected $fillable = [
         'name',
         'email',
         'password',
+        'status'
     ];
 
     /**

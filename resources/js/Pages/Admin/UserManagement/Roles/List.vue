@@ -146,7 +146,6 @@
 <script>
 import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
 import Alert from ".../../../resources/js/Components/Layouts/Alert";
-import { mapGetters } from "vuex";
 export default {
   name: "list",
   components: {
@@ -171,9 +170,7 @@ export default {
     this.getRole();
     this.getPermissions();
   },
-  computed: {
-    ...mapGetters({ errors: "getError" }),
-  },
+  
   methods: {
     getPermissions() {
       axios

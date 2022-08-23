@@ -20,7 +20,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "alert",
   props: {
-    data: ''
+    data: ""
   },
   data: function data() {
     return {};
@@ -80,23 +80,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Breadcrumb */ "./resources/js/Components/Layouts/Breadcrumb.vue");
-/* harmony import */ var _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Alert */ "./resources/js/Components/Layouts/Alert.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
+/* harmony import */ var _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Breadcrumb */ "./resources/js/Components/Layouts/Breadcrumb.vue");
+/* harmony import */ var _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Alert */ "./resources/js/Components/Layouts/Alert.vue");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "list",
   components: {
-    Breadcrumb: _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Alert: _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Breadcrumb: _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Alert: _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -114,9 +106,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.getPmsAttribute();
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    errors: "getError"
-  })),
   methods: {
     getPmsAttribute: function getPmsAttribute() {
       var _this = this;
@@ -136,8 +125,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.getPmsAttribute();
 
         _this2.reset();
-      })["catch"](function (err) {
-        _this2.showStatus = true;
+      })["catch"](function (err) {// this.showStatus = true;
       });
     },
     deletepmsattribute: function deletepmsattribute(index) {
@@ -205,28 +193,14 @@ var render = function render() {
     attrs: {
       role: "alert"
     }
-  }, [_vm._v("\n      " + _vm._s(_vm.data) + "\n      "), _c("button", {
-    staticClass: "btn-close",
-    attrs: {
-      type: "button",
-      "data-bs-dismiss": "alert",
-      "aria-label": "Close"
-    }
-  })])]) : _vm._e(), _vm._v(" "), _vm.errors ? _c("span", _vm._l(_vm.errors, function (error) {
+  }, [_vm._v("\n      " + _vm._s(_vm.data) + "\n    ")])]) : _vm._e(), _vm._v(" "), _vm.errors ? _c("span", _vm._l(_vm.errors, function (error, index) {
     return _c("div", {
-      key: error,
+      key: index,
       staticClass: "alert alert-danger alert-dismissible fade show",
       attrs: {
         role: "alert"
       }
-    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      "), _c("button", {
-      staticClass: "btn-close",
-      attrs: {
-        type: "button",
-        "data-bs-dismiss": "alert",
-        "aria-label": "Close"
-      }
-    })]);
+    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      \n    ")]);
   }), 0) : _vm._e()]);
 };
 
@@ -370,11 +344,11 @@ var render = function render() {
     staticClass: "card-body role-card pt-4 d-flex flex-column align-items-center"
   }, [_c("h5", {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(this.btnName))]), _vm._v(" "), _c("Alert", {
+  }, [_vm._v(_vm._s(this.btnName))]), _vm._v(" "), !_vm.showTableStatus ? _c("Alert", {
     attrs: {
       data: _vm.success
     }
-  }), _vm._v(" "), _c("div", {
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "row g-3 col-12"
   }, [_c("div", {
     staticClass: "col-12"

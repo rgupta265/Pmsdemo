@@ -38,7 +38,10 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::get('getAllPermission', [App\Http\Controllers\PermissionController::class, 'getAllPermissions']);
     Route::get('getUserRolePermission',[App\Http\Controllers\UsersController::class,'getUserHasRolePermission']);
     Route::resource('invite', UserInvitationController::class);
+    Route::resource('userdetail', UserdetailController::class);
+
     Route::get('notification', [App\Http\Controllers\NotificationController::class, 'getAllNotification']);
     Route::get('getInviteRoles', [App\Http\Controllers\InvitatioinHierarchyController::class, 'getInviteRoleId']);
     Route::get('getActivity', [App\Http\Controllers\DashboardController::class, 'getLoggedInUserActivity']);
+    Route::resource('userProfile', UserdetailController::class);
 });
