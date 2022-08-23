@@ -139,7 +139,7 @@
                     <!-- Profile Edit Form -->
                     <form 
                     method="post"
-                       @submit.prevent="saveData()"> 
+                       @submit.prevent="saveData()" enctype="multipart/form-data"> 
                       <div class="row mb-3">
                         <label
                           for="profileImage"
@@ -149,18 +149,11 @@
                         <div class="col-md-8 col-lg-9">
                           <img src="backendTheme/assets/img/profile-img.jpg" alt="Profile" />
                           <div class="pt-2">
-                            <a
-                              href="#"
-                              class="btn btn-primary btn-sm"
-                              title="Upload new profile image"
-                              ><i class="bi bi-upload"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger btn-sm"
-                              title="Remove my profile image"
-                              ><i class="bi bi-trash"></i
-                            ></a>
+                            <input
+                            type="file"
+                            class="form-control"
+                            @change="onFileChange"
+                                  />
                           </div>
                         </div>
                       </div>
@@ -477,9 +470,15 @@ export default {
           // this.showError = true;
         });
     },
+   onFileChange(e)
+   {
+     this.user.image = e.target.fileS[0];
+   },
      saveData()
   {
-    axios.post('userdetail',this.user).then(
+    const formData = new FormData
+    formData.set('image',this.user.image)
+    axios.post('userdetail',this.user,formData).then(
       response => {
        console.log(response)
       }
@@ -488,7 +487,7 @@ export default {
     })
   }
   },
- 
 };
+
 
 </script>

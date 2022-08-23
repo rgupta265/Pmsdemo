@@ -7,7 +7,7 @@ use App\Models\Userdetails;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Auth;
 class UserdetailController extends Controller
 {
     /**
@@ -38,7 +38,10 @@ class UserdetailController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = new Userdetails;
+        $data->image=$request->file('image')->store('image','public');
+        $data->user_id=Auth::user()->id;
         $data->emp_code=$request->emp_code;
         $data->designation=$request->designation;
         $data->father_name=$request->father_name;
@@ -47,6 +50,7 @@ class UserdetailController extends Controller
         $data->phone=$request->phone;
         $data->emergency_contactno=$request->emergency_contactno;
         $data->linkedin_id=$request->linkedin_id;
+       $data->added_by=Auth::user()->id;
       $data->save();
         
 

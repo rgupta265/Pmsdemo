@@ -17,6 +17,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Permission Name</th>
+                      <th scope="col">Slug Name</th>
                       <th scope="col">Added Time</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -25,7 +26,7 @@
                     <tr v-for="(per, index) in permissionList" :key="index">
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ per.name }}</td>
-                     
+                      <td>{{ per.slug }}</td>
                       <td>{{ per.created_at | formatDate }}</td>
                       <td>
                         <span

@@ -6,16 +6,22 @@
         ><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a
       >
     </li>
-    <div class="notification" v-for="(notify, index) in notifications" :key="index">
-      <li >
+    <div
+      class="notification"
+      v-for="(notify, index) in notifications"
+      :key="index"
+    >
+      <li>
         <hr class="dropdown-divider" />
       </li>
 
       <li class="notification-item">
         <i class="bi bi-check-circle text-success"></i>
         <div>
-          <p>{{notify.data.description}}</p>
-          <p>{{notify.created_at | humanReadableTime}}</p>
+          <p>
+            <strong>{{ notify.data.description }}</strong>
+          </p>
+          <p>{{ notify.created_at | humanReadableTime }}</p>
         </div>
       </li>
     </div>
@@ -34,8 +40,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "notification",
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapGetters({ notifications: "getAllNotification" }),

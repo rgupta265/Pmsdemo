@@ -23,7 +23,12 @@
         "vue": "^2.6.12",
         "vue-router": "^3.4.9",
         "vue-template-compiler": "^2.6.12",
-        "vuex": "^3.6.0"
+        "vuex": "^3.6.0",
+        "datatables.net": "^1.10.20",
+        "datatables.net-bs4": "^1.10.20",
+        "datatables.net-dt": "^1.10.20",
+        "laravel-vue-pagination": "^2.3.1",
+        "vuejs-datatable": "^2.0.0-alpha.7"
     },
     "dependencies": {
         "babel-helper-vue-jsx-merge-props": "^2.0.3",

@@ -24,6 +24,7 @@ const UserList = () => import('../Pages/Admin/UserManagement/Users/List.vue' /* 
 //PMS Master
 const AddPmsAttribute = () => import('../Pages/Admin/PmsMaster/AddPmsAttribute.vue' /* webpackChunkName: "resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue" */)
 const InviteLink = () => import('../Pages/Admin/InviteLink/List.vue' /* webpackChunkName: "resource/js/Pages/Admin/InviteLink/CreateLink.vue" */)
+const ViewMyReport = () => import('../Pages/Admin/Report/ViewMyReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/Report/ViewMyReport.vue" */)
 // Authenticated Component End
 
 
@@ -199,6 +200,23 @@ const routes = [
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
               { name: 'Invite Link' }
+            ]
+        }
+      },
+      {
+        name:"viewMyReport",
+        path: '/view-my-report',
+        component: ViewMyReport,
+        meta:{
+            title:`My Report`, 
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions 
+            ],
+            permissions:["view-my-report"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'My Report' }
             ]
         }
       },
