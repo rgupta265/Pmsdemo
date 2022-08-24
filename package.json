@@ -13,8 +13,12 @@
         "axios": "^0.19",
         "bootstrap": "^4.6.0",
         "cross-env": "^7.0",
+        "datatables.net": "^1.10.20",
+        "datatables.net-bs4": "^1.10.20",
+        "datatables.net-dt": "^1.10.20",
         "jquery": "^3.6",
         "laravel-mix": "^5.0.1",
+        "laravel-vue-pagination": "^2.3.1",
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "resolve-url-loader": "^3.1.0",
@@ -23,16 +27,13 @@
         "vue": "^2.6.12",
         "vue-router": "^3.4.9",
         "vue-template-compiler": "^2.6.12",
-        "vuex": "^3.6.0",
-        "datatables.net": "^1.10.20",
-        "datatables.net-bs4": "^1.10.20",
-        "datatables.net-dt": "^1.10.20",
-        "laravel-vue-pagination": "^2.3.1",
-        "vuejs-datatable": "^2.0.0-alpha.7"
+        "vuejs-datatable": "^2.0.0-alpha.7",
+        "vuex": "^3.6.0"
     },
     "dependencies": {
         "babel-helper-vue-jsx-merge-props": "^2.0.3",
         "moment": "^2.29.4",
+        "vue-multiselect": "^2.1.6",
         "vue-toastification": "^1.7.14"
     }
 }

@@ -30,10 +30,10 @@ class UserInvitationController extends Controller
         
         if($loggedInRoleName[0] =='admin')
         {
-            $data =UserInvitation::with('inviteuser','inviterole')->paginate(10);
+            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug')->paginate(10);
         }
         else{
-            $data =UserInvitation::with('inviteuser','inviterole')->where('sender_user_id',Auth::user()->id)->paginate(10);
+            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug')->where('sender_user_id',Auth::user()->id)->paginate(10);
         }
         return response()->json($data);
     }

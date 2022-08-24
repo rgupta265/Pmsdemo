@@ -138,7 +138,7 @@
         </li>
         <li
           class="nav-item"
-          v-if="$can($constants.permissions.createReport || $constants.permissions.viewCreatedReport)"
+          v-if="$can($constants.permissions.createPmsReport || $constants.permissions.viewCreatedPmsReport)"
         >
           <a
           
@@ -147,7 +147,7 @@
             data-bs-toggle="collapse"
             href="#"
           >
-            <i class="bi bi-file-earmark-arrow-up"></i><span>Progress Report</span
+            <i class="bi bi-file-earmark-arrow-up"></i><span>PMS Report</span
             ><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul
@@ -155,14 +155,14 @@
             class="nav-content collapse"
             data-bs-parent="#sidebar-nav"
           >
-            <li v-if="$can($constants.permissions.createReport)">
+            <li v-if="$can($constants.permissions.createPmsReport)">
               <router-link :to="{ name: 'createReport' }" class="nav-link">
-                <i class="bi bi-circle"></i><span>Create Report</span>
+                <i class="bi bi-circle"></i><span>Create PMS Report</span>
               </router-link>
             </li>
-            <li v-if="$can($constants.permissions.viewCreatedReport)">
+            <li v-if="$can($constants.permissions.viewCreatedPmsReport)">
               <router-link :to="{ name: 'viewCreatedReport' }" class="nav-link">
-                <i class="bi bi-circle"></i><span>Created Report List</span>
+                <i class="bi bi-circle"></i><span>PMS Report List</span>
               </router-link>
             </li>
           </ul>
@@ -187,10 +187,10 @@
         </li>
 
 
-        <li class="nav-item" v-if="$can($constants.permissions.viewMyReport)">
+        <li class="nav-item" v-if="$can($constants.permissions.viewMyPmsReport)">
           <router-link :to="{ name: 'viewMyReport' }" class="nav-link">
             <i class="bi bi-file-earmark-arrow-up"></i>
-            <span>My Report</span>
+            <span>My PMS Report</span>
           </router-link>
         </li>
 

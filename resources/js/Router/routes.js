@@ -218,7 +218,7 @@ const routes = [
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:["view-my-report"],
+            permissions:["view-my-pms-report"],
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
               { name: 'My Report' }
@@ -230,15 +230,15 @@ const routes = [
         path: '/create-report',
         component: CreateReport,
         meta:{
-            title:`Create Report`, 
+            title:`Create PMS Report`, 
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:["create-report"],
+            permissions:["create-pms-report"],
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
-              { name: 'Create Report' }
+              { name: 'Create PMS Report' }
             ]
         }
       },
@@ -247,15 +247,15 @@ const routes = [
         path: '/view-created-report',
         component: ViewCreatedReport,
         meta:{
-            title:`View Created Report`, 
+            title:`View PMS Created Report`, 
             middleware :[
               Middlewares.auth,
               Middlewares.checkPermissions 
             ],
-            permissions:["view-created-report"],
+            permissions:["view-created-pms-report"],
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
-              { name: 'View Created Report' }
+              { name: 'View PMS Created Report' }
             ]
         }
       },

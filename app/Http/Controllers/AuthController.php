@@ -83,7 +83,7 @@ class AuthController extends Controller
                     $role=$user->roles()->attach($getInvite->role_id);//assign user to roleId
                     $permissions =DB::table('roles_permissions')->where('role_id',$getInvite->role_id)->get()->pluck('permission_id');
                     $user->permissions()->attach($permissions);//assign permissionId to user
-                    $getInvite->update(['status'=>'successful']);
+                    $getInvite->update(['status'=>'successful','user_id'=>$user->id]);
                     DB::commit();
                     //send Welcome Email
                     $email =$user->email;

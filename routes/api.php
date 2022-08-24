@@ -44,4 +44,5 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::get('getInviteRoles', [App\Http\Controllers\InvitatioinHierarchyController::class, 'getInviteRoleId']);
     Route::get('getActivity', [App\Http\Controllers\DashboardController::class, 'getLoggedInUserActivity']);
     Route::resource('userProfile', UserdetailController::class);
+    Route::get('getJoinedUser', [App\Http\Controllers\PmsReportController::class, 'getAllJoinedUser']);
 });

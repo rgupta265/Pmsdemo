@@ -236,7 +236,6 @@ export default {
     },
     resetData() {
       this.form.email = "";
-      this.form.role_id = "";
     },
   },
   created() {

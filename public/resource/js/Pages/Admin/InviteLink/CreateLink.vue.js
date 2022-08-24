@@ -154,7 +154,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetData: function resetData() {
       this.form.email = "";
-      this.form.role_id = "";
     }
   },
   created: function created() {

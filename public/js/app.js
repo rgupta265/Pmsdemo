@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -79526,7 +79526,7 @@ var ViewMyReport = function ViewMyReport() {
 };
 
 var CreateReport = function CreateReport() {
-  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/CreateReport.vue */ "resource/js/Pages/Admin/ProgressReport/CreateReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/CreateReport.vue */ "./resources/js/Pages/Admin/ProgressReport/CreateReport.vue"));
+  return Promise.all(/*! import() | resource/js/Pages/Admin/ProgressReport/CreateReport.vue */[__webpack_require__.e("vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue"), __webpack_require__.e("resource/js/Pages/Admin/ProgressReport/CreateReport.vue")]).then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/CreateReport.vue */ "./resources/js/Pages/Admin/ProgressReport/CreateReport.vue"));
 };
 
 var ViewCreatedReport = function ViewCreatedReport() {
@@ -79688,7 +79688,7 @@ var routes = [{
     meta: {
       title: "My Report",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-my-report"],
+      permissions: ["view-my-pms-report"],
       breadcrumb: [{
         name: 'Dashboard',
         link: 'dashboard'
@@ -79701,14 +79701,14 @@ var routes = [{
     path: '/create-report',
     component: CreateReport,
     meta: {
-      title: "Create Report",
+      title: "Create PMS Report",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["create-report"],
+      permissions: ["create-pms-report"],
       breadcrumb: [{
         name: 'Dashboard',
         link: 'dashboard'
       }, {
-        name: 'Create Report'
+        name: 'Create PMS Report'
       }]
     }
   }, {
@@ -79716,14 +79716,14 @@ var routes = [{
     path: '/view-created-report',
     component: ViewCreatedReport,
     meta: {
-      title: "View Created Report",
+      title: "View PMS Created Report",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
-      permissions: ["view-created-report"],
+      permissions: ["view-created-pms-report"],
       breadcrumb: [{
         name: 'Dashboard',
         link: 'dashboard'
       }, {
-        name: 'View Created Report'
+        name: 'View PMS Created Report'
       }]
     }
   }]
@@ -80241,8 +80241,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/php80/PMSPROJECT/Pmsdemo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/php80/PMSPROJECT/Pmsdemo/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! /opt/php74/Demo-Laravel-vue-NiceAdmin/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/php74/Demo-Laravel-vue-NiceAdmin/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })

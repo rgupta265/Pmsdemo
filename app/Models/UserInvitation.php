@@ -12,9 +12,9 @@ class UserInvitation extends Model
 {
     use HasFactory,LogsActivity,Notifiable;
 
-    protected $fillable =['code','email','role_id','sender_user_id','status','valid_till'];
+    protected $fillable =['code','email','role_id','sender_user_id','status','valid_till','user_id'];
     protected static $logName = 'invitation';
-    protected static $logAttributes = ['email','role_id','sender_user_id','status','valid_till'];
+    protected static $logAttributes = ['email','role_id','sender_user_id','status','valid_till','user_id'];
 
 
     public function inviteuser()
@@ -25,6 +25,11 @@ class UserInvitation extends Model
     {
         return $this->belongsTo(Role::class,'role_id');
     }
+    public function userDetails()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+    
 
 
 }

@@ -348,7 +348,7 @@
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <Alert v-if="showError"></Alert>
+                    <!-- <Alert v-if="showError"></Alert> -->
                     <Alert :data="success"></Alert>
                     <form
                       method="post"
@@ -487,7 +487,7 @@ export default {
       // send upload request
       axios
         .post(this.api, formData)
-        .then(function (response) {
+        .then((response) => {
           this.success = response.data.success;
         })
         .catch(function (error) {});

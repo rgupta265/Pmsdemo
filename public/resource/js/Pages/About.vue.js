@@ -153,6 +153,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.userProfile.image = e.target.files[0];
     },
     updateProfile: function updateProfile() {
+      var _this2 = this;
+
       var formData = new FormData();
       formData.append("image", this.userProfile.image);
       formData.append("emp_code", this.userProfile.emp_code);
@@ -166,7 +168,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append("joining_date", this.userProfile.joining_date); // send upload request
 
       axios.post(this.api, formData).then(function (response) {
-        this.success = response.data.success;
+        _this2.success = response.data.success;
       })["catch"](function (error) {});
     }
   })
@@ -715,7 +717,7 @@ var render = function render() {
     attrs: {
       id: "profile-change-password"
     }
-  }, [_vm.showError ? _c("Alert") : _vm._e(), _vm._v(" "), _c("Alert", {
+  }, [_c("Alert", {
     attrs: {
       data: _vm.success
     }
