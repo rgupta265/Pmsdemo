@@ -29,7 +29,15 @@ class PmsReportController extends Controller
         return response()->json($data);
     }
 
+    public function getUserDetailByCode($code)
+    {
+        $data =UserInvitation::where('code',$code)
+        ->with('userDetails','inviterole:id,name,slug','userMoreInfo')
+        ->first();
+
+        return response()->json($data);
     
+    }
 
     
 }

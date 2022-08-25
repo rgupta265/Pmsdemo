@@ -20,6 +20,7 @@ class Userdetails extends Model
         'emergency_contactno',
         'linkedin_id',
         'status',
+        'joining_date',
         'added_by',
     ];
 }

@@ -27,6 +27,7 @@ const InviteLink = () => import('../Pages/Admin/InviteLink/List.vue' /* webpackC
 const ViewMyReport = () => import('../Pages/Admin/MyReport/ViewMyReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/MyReport/ViewMyReport.vue" */)
 const CreateReport = () => import('../Pages/Admin/ProgressReport/CreateReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/CreateReport.vue" */)
 const ViewCreatedReport = () => import('../Pages/Admin/ProgressReport/ViewCreatedReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue" */)
+const AddReport = () => import('../Pages/Admin/ProgressReport/AddReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/AddReport.vue" */)
 // Authenticated Component End
 
 
@@ -256,6 +257,23 @@ const routes = [
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
               { name: 'View PMS Created Report' }
+            ]
+        }
+      },
+      {
+        name:"addReport",
+        path: '/add-report',
+        component: AddReport,
+        meta:{
+            title:`Add PMS Report`, 
+            middleware :[
+              Middlewares.auth,
+              Middlewares.checkPermissions 
+            ],
+            permissions:["create-pms-report"],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'Add PMS Report' }
             ]
         }
       },

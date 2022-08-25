@@ -85,48 +85,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "list",
+  name: "viewCreatedReport",
   components: {
     Breadcrumb: _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__["default"],
     Alert: _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {
-      api: "getJoinedUser",
-      InviteList: [],
-      message: "",
-      inviteSearch: "",
-      resultInfo: ""
-    };
+    return {};
   },
   mounted: function mounted() {},
-  computed: {
-    filteredInviteList: function filteredInviteList() {
-      var _this = this;
-
-      return this.InviteList.filter(function (invite) {
-        return invite.email.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.status.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.inviterole.name.toLowerCase().includes(_this.inviteSearch.toLowerCase());
-      });
-    }
-  },
-  methods: {
-    getJoinedUser: function getJoinedUser() {
-      var _this2 = this;
-
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get(this.api, {
-        params: {
-          page: page
-        }
-      }).then(function (response) {
-        _this2.InviteList = response.data.data;
-        _this2.resultInfo = response.data;
-      });
-    }
-  },
-  created: function created() {
-    this.getJoinedUser();
-  }
+  computed: {},
+  methods: {},
+  created: function created() {}
 });
 
 /***/ }),
@@ -236,155 +206,10 @@ var render = function render() {
     attrs: {
       id: "main"
     }
-  }, [_c("Breadcrumb"), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, [_c("Alert", {
-    attrs: {
-      data: _vm.message
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "col-xl-12"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-body py-2"
-  }, [_c("strong", [_vm._v("Showing\n              "), _c("span", [_vm._v(_vm._s(_vm.resultInfo.from ? _vm.resultInfo.from : 0) + " –\n                " + _vm._s(_vm.resultInfo.to ? _vm.resultInfo.to : 0) + " of\n                " + _vm._s(_vm.resultInfo.total ? _vm.resultInfo.total : 0) + " Joined\n                User.")])]), _vm._v(" "), _c("div", {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.inviteSearch,
-      expression: "inviteSearch"
-    }],
-    staticClass: "form-control-sm",
-    attrs: {
-      placeholder: "Search...",
-      type: "text"
-    },
-    domProps: {
-      value: _vm.inviteSearch
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.inviteSearch = $event.target.value;
-      }
-    }
-  })])])])])], 1), _vm._v(" "), _c("section", {
-    staticClass: "section profile"
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-xl-12"
-  }, [_c("div", {
-    staticClass: "card table-responsive"
-  }, [_c("div", {
-    staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("Successfully Joined User List")]), _vm._v(" "), _c("table", {
-    staticClass: "table table-sm table-responsive-sm"
-  }, [_vm._m(1), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredInviteList, function (invite, index) {
-    return _c("tr", {
-      key: index
-    }, [_c("td", {
-      attrs: {
-        scope: "row"
-      }
-    }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.user_details.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.user_details.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.inviterole.name))]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _vm._m(2, true)]);
-  }), _vm._v(" "), _vm.filteredInviteList.length == 0 ? _c("tr", [_c("td", {
-    staticClass: "text-center",
-    attrs: {
-      colspan: "8"
-    }
-  }, [_vm._v("There is no data available.")])]) : _vm._e()], 2)])])]), _vm._v(" "), _c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-body py-1"
-  }, [_c("div", {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c("pagination", {
-    attrs: {
-      data: _vm.resultInfo,
-      limit: 0,
-      size: "small"
-    },
-    on: {
-      "pagination-change-page": _vm.getJoinedUser
-    }
-  })], 1)])])])])])], 1)]);
+  }, [_c("Breadcrumb")], 1)]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("Send Invitation Request")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("thead", [_c("tr", [_c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("#")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Name")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Email")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Role")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Emp Code")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Designation")]), _vm._v(" "), _c("th", {
-    attrs: {
-      scope: "col"
-    }
-  }, [_vm._v("Action")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("td", [_c("span", {
-    staticClass: "badge bg-info",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("View User detail")]), _vm._v(" "), _c("span", {
-    staticClass: "badge bg-success",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("Create Report")]), _vm._v(" "), _c("span", {
-    staticClass: "badge bg-secondary",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("Download Report")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 

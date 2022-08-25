@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue","resource/js/Pages/Admin/ProgressReport/AddReport.vue":"resource/js/Pages/Admin/ProgressReport/AddReport.vue"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -79526,11 +79526,15 @@ var ViewMyReport = function ViewMyReport() {
 };
 
 var CreateReport = function CreateReport() {
-  return Promise.all(/*! import() | resource/js/Pages/Admin/ProgressReport/CreateReport.vue */[__webpack_require__.e("vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue"), __webpack_require__.e("resource/js/Pages/Admin/ProgressReport/CreateReport.vue")]).then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/CreateReport.vue */ "./resources/js/Pages/Admin/ProgressReport/CreateReport.vue"));
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/CreateReport.vue */ "resource/js/Pages/Admin/ProgressReport/CreateReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/CreateReport.vue */ "./resources/js/Pages/Admin/ProgressReport/CreateReport.vue"));
 };
 
 var ViewCreatedReport = function ViewCreatedReport() {
   return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue */ "resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/ViewCreatedReport.vue */ "./resources/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue"));
+};
+
+var AddReport = function AddReport() {
+  return Promise.all(/*! import() | resource/js/Pages/Admin/ProgressReport/AddReport.vue */[__webpack_require__.e("vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue"), __webpack_require__.e("resource/js/Pages/Admin/ProgressReport/AddReport.vue")]).then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/AddReport.vue */ "./resources/js/Pages/Admin/ProgressReport/AddReport.vue"));
 }; // Authenticated Component End
 
 
@@ -79724,6 +79728,21 @@ var routes = [{
         link: 'dashboard'
       }, {
         name: 'View PMS Created Report'
+      }]
+    }
+  }, {
+    name: "addReport",
+    path: '/add-report',
+    component: AddReport,
+    meta: {
+      title: "Add PMS Report",
+      middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth, _middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].checkPermissions],
+      permissions: ["create-pms-report"],
+      breadcrumb: [{
+        name: 'Dashboard',
+        link: 'dashboard'
+      }, {
+        name: 'Add PMS Report'
       }]
     }
   }]

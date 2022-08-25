@@ -28,6 +28,12 @@ class UserInvitation extends Model
     public function userDetails()
     {
         return $this->belongsTo(User::class,'user_id');
+        
+    }
+    public function userMoreInfo()
+    {
+        return $this->belongsTo(Userdetails::class,'user_id','user_id');
+        
     }
     
 

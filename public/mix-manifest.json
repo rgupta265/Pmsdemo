@@ -14,6 +14,7 @@
     "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js",
     "/resource/js/Pages/Login.js": "/resource/js/Pages/Login.js",
     "/resource/js/Pages/Register.js": "/resource/js/Pages/Register.js",
-    "/resource/js/Pages/About.vue~resource/js/Pages/Admin/InviteLink/CreateLink.vue~resource/js/Pages/Admi~7da893ce.js": "/resource/js/Pages/About.vue~resource/js/Pages/Admin/InviteLink/CreateLink.vue~resource/js/Pages/Admi~7da893ce.js",
-    "/vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js": "/vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js"
+    "/vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js": "/vendors~resource/js/Pages/Admin/ProgressReport/CreateReport.vue.js",
+    "/resource/js/Pages/Admin/ProgressReport/AddReport.vue.js": "/resource/js/Pages/Admin/ProgressReport/AddReport.vue.js",
+    "/vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue.js": "/vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue.js"
 }
