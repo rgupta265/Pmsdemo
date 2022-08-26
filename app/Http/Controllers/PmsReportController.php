@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PmsReport;
+use App\Models\PmsAttribute;
 use Illuminate\Http\Request;
 use App\Models\UserInvitation;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,10 @@ class PmsReportController extends Controller
 
         return response()->json($data);
     
+    }
+    public function getAllPmsAttribute()
+    {
+        return response()->json(PmsAttribute::where('status',1)->get());
     }
 
     

@@ -286,7 +286,7 @@ var render = function render() {
   }, [_c("h5", {
     staticClass: "card-title"
   }, [_vm._v("Successfully Joined User List")]), _vm._v(" "), _c("table", {
-    staticClass: "table table-sm table-responsive-sm"
+    staticClass: "table table-sm"
   }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredInviteList, function (invite, index) {
     return _c("tr", {
       key: index

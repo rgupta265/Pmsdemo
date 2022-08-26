@@ -82,8 +82,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Breadcrumb */ "./resources/js/Components/Layouts/Breadcrumb.vue");
 /* harmony import */ var _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! .../../../resources/js/Components/Layouts/Alert */ "./resources/js/Components/Layouts/Alert.vue");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
-/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -91,8 +91,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "addReport",
   components: {
     Breadcrumb: _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Alert: _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default.a
+    Alert: _resources_js_Components_Layouts_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -108,17 +107,32 @@ __webpack_require__.r(__webpack_exports__);
         value: "12M"
       }],
       userData: "",
+      allPmsData: [],
       message: "",
       reportForm: {
         reportId: "",
         startDate: "",
         reportCycle: "",
         endDate: ""
-      }
+      },
+      pmsAttrData: [{
+        title: "",
+        rating: "",
+        comments: ""
+      }]
     };
+  },
+  computed: {
+    isCalculatedEndDate: function isCalculatedEndDate() {
+      if (this.reportForm.startDate != "" && this.reportForm.reportCycle != "") {
+        var cMonth = this.reportForm.reportCycle.replace("M", "");
+        return this.reportForm.endDate = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.reportForm.startDate).add(cMonth, "months").format("DD-MM-YYYY");
+      }
+    }
   },
   mounted: function mounted() {
     this.getUserData();
+    this.getPmsData();
   },
   methods: {
     getUserData: function getUserData() {
@@ -127,9 +141,25 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("getUserData/" + this.token).then(function (response) {
         _this.userData = response.data;
       });
+    },
+    getPmsData: function getPmsData() {
+      var _this2 = this;
+
+      axios.get("pms").then(function (response) {
+        _this2.allPmsData = response.data;
+      });
+    },
+    add: function add(index) {
+      this.pmsAttrData.push({
+        title: "",
+        rating: "",
+        comments: ""
+      });
+    },
+    remove: function remove(index) {
+      this.pmsAttrData.splice(index, 1);
     }
-  },
-  created: function created() {}
+  }
 });
 
 /***/ }),
@@ -256,7 +286,7 @@ var render = function render() {
   }, [_vm._v("Add New PMS Report")]), _vm._v(" "), _c("fieldset", {
     staticClass: "border p-2"
   }, [_c("legend", {
-    staticClass: "float-none w-auto p-2"
+    staticClass: "float-none w-auto p-2 card-title"
   }, [_vm._v("Report")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("label", {
@@ -292,16 +322,16 @@ var render = function render() {
   })])])]), _vm._v(" "), _c("fieldset", {
     staticClass: "border p-2"
   }, [_c("legend", {
-    staticClass: "float-none w-auto p-2"
-  }, [_vm._v("User Details")]), _vm._v(" "), _c("div", {
+    staticClass: "float-none w-auto p-2 card-title"
+  }, [_vm._v("\n                User Details\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "row container"
   }, [_c("table", {
     staticClass: "table p-1"
-  }, [_c("tr", [_c("th", [_vm._v("Name")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_details.name))]), _vm._v(" "), _c("th", [_vm._v("Email")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_details.email))]), _vm._v(" "), _c("th", [_vm._v("Role")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.inviterole.name))])]), _vm._v(" "), _vm.userData.user_more_info ? _c("tr", [_c("th", [_vm._v("Designation")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.designation))]), _vm._v(" "), _c("th", [_vm._v("Emp Code")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.emp_code))]), _vm._v(" "), _c("th", [_vm._v("Phone")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.phone))])]) : _vm._e()])])]), _vm._v(" "), _c("fieldset", {
+  }, [_c("tr", [_c("th", [_vm._v("Name :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_details.name))]), _vm._v(" "), _c("th", [_vm._v("Email :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_details.email))]), _vm._v(" "), _c("th", [_vm._v("Role :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.inviterole.name))])]), _vm._v(" "), _vm.userData.user_more_info ? _c("tr", [_c("th", [_vm._v("Designation :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.designation))]), _vm._v(" "), _c("th", [_vm._v("Emp Code :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.emp_code))]), _vm._v(" "), _c("th", [_vm._v("Phone :")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(_vm.userData.user_more_info.phone))])]) : _vm._e()])])]), _vm._v(" "), _c("fieldset", {
     staticClass: "border p-2"
   }, [_c("legend", {
-    staticClass: "float-none w-auto p-2"
-  }, [_vm._v("Report Duration")]), _vm._v(" "), _c("div", {
+    staticClass: "float-none w-auto p-2 card-title"
+  }, [_vm._v("\n                Report Duration\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("label", {
     staticClass: "col-sm-2 col-form-label",
@@ -340,54 +370,225 @@ var render = function render() {
     }
   }, [_vm._v("Select Report Cycle")]), _vm._v(" "), _c("div", {
     staticClass: "col-sm-2"
-  }, [_c("Multiselect", {
-    attrs: {
-      options: _vm.options,
-      placeholder: "Select Any One",
-      label: "name",
-      "track-by": "name"
-    },
-    model: {
+  }, [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
       value: _vm.reportForm.reportCycle,
-      callback: function callback($$v) {
-        _vm.$set(_vm.reportForm, "reportCycle", $$v);
-      },
       expression: "reportForm.reportCycle"
+    }],
+    staticClass: "form-control",
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+
+        _vm.$set(_vm.reportForm, "reportCycle", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
     }
-  })], 1), _vm._v(" "), _c("label", {
+  }, [_c("option", {
+    attrs: {
+      disabled: "",
+      value: ""
+    }
+  }, [_vm._v("Select Any One")]), _vm._v(" "), _vm._l(_vm.options, function (op, item) {
+    return _c("option", {
+      key: item,
+      domProps: {
+        value: op.value
+      }
+    }, [_vm._v("\n                      " + _vm._s(op.name) + "\n                    ")]);
+  })], 2)]), _vm._v(" "), _vm.isCalculatedEndDate ? _c("label", {
     staticClass: "col-sm-4 col-form-label",
     attrs: {
       "for": "inputEmail3"
     }
-  }, [_vm._v("End Date Will be : " + _vm._s(_vm.reportForm.endDate))])])])])]), _vm._v(" "), _vm._m(0)])], 1), _vm._v(" "), _vm._m(1)], 1)]);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
+  }, [_vm._v("End Date Will be : " + _vm._s(_vm.reportForm.endDate))]) : _vm._e()])])])]), _vm._v(" "), _c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body py-2"
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
+  }, [_c("fieldset", {
+    staticClass: "border p-2"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto p-2 card-title"
+  }, [_vm._v("\n                PMS Attribute\n              ")]), _vm._v(" "), _c("div", {
+    staticClass: "row container"
+  }, [_vm._v("\n                " + _vm._s(_vm.pmsAttrData) + "\n                "), _c("table", {
+    staticClass: "table p-1 table-sm border border-2"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.pmsAttrData, function (_input, k) {
+    return _c("tr", {
+      key: k
+    }, [_c("td", [_vm._v(_vm._s(k + 1))]), _vm._v(" "), _c("td", [_c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _input.title,
+        expression: "input.title"
+      }],
+      staticClass: "form-control",
+      on: {
+        change: function change($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
 
-  return _c("section", {
+          _vm.$set(_input, "title", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }
+      }
+    }, [_c("option", {
+      attrs: {
+        disabled: "",
+        value: ""
+      }
+    }, [_vm._v("Select Any One")]), _vm._v(" "), _vm._l(_vm.allPmsData, function (pms, ind) {
+      return _c("option", {
+        key: ind,
+        domProps: {
+          value: pms.id
+        }
+      }, [_vm._v("\n                            " + _vm._s(pms.title) + "\n                          ")]);
+    })], 2)]), _vm._v(" "), _c("td", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _input.rating,
+        expression: "input.rating"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        placeholder: "Rating"
+      },
+      domProps: {
+        value: _input.rating
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_input, "rating", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("textarea", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _input.comments,
+        expression: "input.comments"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        placeholder: "Comments"
+      },
+      domProps: {
+        value: _input.comments
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+
+          _vm.$set(_input, "comments", $event.target.value);
+        }
+      }
+    })]), _vm._v(" "), _c("td", {
+      staticClass: "text-center"
+    }, [_c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: k || !k && _vm.pmsAttrData.length > 1,
+        expression: "k || (!k && pmsAttrData.length > 1)"
+      }],
+      staticClass: "btn btn-sm btn-danger",
+      attrs: {
+        role: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.remove(k);
+        }
+      }
+    }, [_vm._v("Remove")]), _vm._v(" "), _c("span", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: k == _vm.pmsAttrData.length - 1,
+        expression: "k == pmsAttrData.length - 1"
+      }],
+      staticClass: "btn btn-sm btn-success",
+      attrs: {
+        role: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.add(k);
+        }
+      }
+    }, [_vm._v("Add")])])]);
+  }), 0)])])])])])])], 1), _vm._v(" "), _c("section", {
     staticClass: "section profile"
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-xl-12"
   }, [_c("div", {
-    staticClass: "card table-responsive"
+    staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("Invitation Request List")])])])])])]);
+  }, [_c("fieldset", {
+    staticClass: "border p-2"
+  }, [_c("legend", {
+    staticClass: "float-none w-auto p-2 card-title"
+  }, [_vm._v("\n                  Remarks\n                ")]), _vm._v(" "), _c("div", {
+    staticClass: "row container"
+  }, [_c("label", {
+    staticClass: "col-sm-2 col-form-label",
+    attrs: {
+      "for": "inputEmail3"
+    }
+  }, [_vm._v("Remarks")]), _vm._v(" "), _c("div", {
+    staticClass: "col-sm-10"
+  }, [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.reportForm.remarks,
+      expression: "reportForm.remarks"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      placeholder: "Remarks Here"
+    },
+    domProps: {
+      value: _vm.reportForm.remarks
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.reportForm, "remarks", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary mt-5",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Create Report")])])])])])])])])], 1)]);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("S.No")]), _vm._v(" "), _c("th", [_vm._v("Title")]), _vm._v(" "), _c("th", [_vm._v("Rating")]), _vm._v(" "), _c("th", [_vm._v("Comments")]), _vm._v(" "), _c("th", [_vm._v("Add / Remove")])])]);
 }];
 render._withStripped = true;
 

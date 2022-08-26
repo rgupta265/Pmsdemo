@@ -46,4 +46,5 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::resource('userProfile', UserdetailController::class);
     Route::get('getJoinedUser', [App\Http\Controllers\PmsReportController::class, 'getAllJoinedUser']);
     Route::get('getUserData/{code}', [App\Http\Controllers\PmsReportController::class, 'getUserDetailByCode']);
+    Route::get('pms', [App\Http\Controllers\PmsReportController::class,'getAllPmsAttribute']);
 });

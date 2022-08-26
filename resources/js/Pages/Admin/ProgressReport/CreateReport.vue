@@ -40,7 +40,7 @@
             <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Successfully Joined User List</h5>
-                <table class="table table-sm table-responsive-sm">
+                <table class="table table-sm">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
