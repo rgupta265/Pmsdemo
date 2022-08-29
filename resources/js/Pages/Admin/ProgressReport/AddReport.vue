@@ -4,214 +4,230 @@
       <Breadcrumb> </Breadcrumb>
 
       <!-- Send Invite Start -->
-      <div class="row">
-        <Alert :data="message"></Alert>
-        <div class="col-xl-12">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Add New PMS Report</h5>
-
-              <!-- report section start -->
-              <fieldset class="border p-2">
-                <legend class="float-none w-auto p-2 card-title">Report</legend>
-                <div class="row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label"
-                    >Report ID</label
-                  >
-                  <div class="col-sm-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Report ID"
-                      v-model="reportForm.reportId"
-                      id="inputText"
-                    />
-                  </div>
-                </div>
-              </fieldset>
-              <!-- report section end -->
-              <!-- user section start -->
-              <fieldset class="border p-2">
-                <legend class="float-none w-auto p-2 card-title">
-                  User Details
-                </legend>
-                <div class="row container">
-                  <table class="table p-1">
-                    <tr>
-                      <th>Name :</th>
-                      <td>{{ userData.user_details.name }}</td>
-                      <th>Email :</th>
-                      <td>{{ userData.user_details.email }}</td>
-                      <th>Role :</th>
-                      <td>{{ userData.inviterole.name }}</td>
-                    </tr>
-                    <tr v-if="userData.user_more_info">
-                      <th>Designation :</th>
-                      <td>{{ userData.user_more_info.designation }}</td>
-                      <th>Emp Code :</th>
-                      <td>{{ userData.user_more_info.emp_code }}</td>
-                      <th>Phone :</th>
-                      <td>{{ userData.user_more_info.phone }}</td>
-                    </tr>
-                  </table>
-                </div>
-              </fieldset>
-              <!-- user section end -->
-              <!-- report cycle section start -->
-              <fieldset class="border p-2">
-                <legend class="float-none w-auto p-2 card-title">
-                  Report Duration
-                </legend>
-                <div class="row">
-                  <label for="inputEmail3" class="col-sm-2 col-form-label"
-                    >Start Date</label
-                  >
-                  <div class="col-sm-2">
-                    <input
-                      type="date"
-                      class="form-control"
-                      placeholder="Start Report Date"
-                      v-model="reportForm.startDate"
-                      id="inputText"
-                    />
-                  </div>
-                  <label for="inputEmail3" class="col-sm-2 col-form-label"
-                    >Select Report Cycle</label
-                  >
-                  <div class="col-sm-2">
-                    <select
-                      class="form-control"
-                      v-model="reportForm.reportCycle"
-                    >
-                      <option disabled value="">Select Any One</option>
-                      <option
-                        :value="op.value"
-                        v-for="(op, item) in options"
-                        :key="item"
-                      >
-                        {{ op.name }}
-                      </option>
-                    </select>
-                  </div>
-
-                  <label
-                    for="inputEmail3"
-                    class="col-sm-4 col-form-label"
-                    v-if="isCalculatedEndDate"
-                    >End Date Will be : {{ reportForm.endDate }}</label
-                  >
-                </div>
-              </fieldset>
-              <!-- report cycle section end -->
-            </div>
-          </div>
-          <!-- Attribute PMS section start -->
-          <div class="card">
-            <div class="card-body py-2">
-              <fieldset class="border p-2">
-                <legend class="float-none w-auto p-2 card-title">
-                  PMS Attribute
-                </legend>
-                <div class="row container">
-                  {{ pmsAttrData }}
-                  <table class="table p-1 table-sm border border-2">
-                    <thead>
-                      <tr>
-                        <th>S.No</th>
-                        <th>Title</th>
-                        <th>Rating</th>
-                        <th>Comments</th>
-                        <th>Add / Remove</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(input, k) in pmsAttrData" :key="k">
-                        <td>{{ k + 1 }}</td>
-                        <td>
-                          <select class="form-control" v-model="input.title">
-                            <option disabled value="">Select Any One</option>
-                            <option
-                              :value="pms.id"
-                              v-for="(pms, ind) in allPmsData"
-                              :key="ind"
-                            >
-                              {{ pms.title }}
-                            </option>
-                          </select>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            placeholder="Rating"
-                            v-model="input.rating"
-                            class="form-control"
-                          />
-                        </td>
-                        <td>
-                          <textarea
-                            class="form-control"
-                            v-model="input.comments"
-                            placeholder="Comments"
-                          >
-                          </textarea>
-                        </td>
-                        <td class="text-center">
-                          <span
-                            class="btn btn-sm btn-danger"
-                            role="button"
-                            @click="remove(k)"
-                            v-show="k || (!k && pmsAttrData.length > 1)"
-                            >Remove</span
-                          >
-                          <span
-                            class="btn btn-sm btn-success"
-                            role="button"
-                            @click="add(k)"
-                            v-show="k == pmsAttrData.length - 1"
-                            >Add</span
-                          >
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </fieldset>
-            </div>
-          </div>
-          <!-- Attribute PMS section End -->
-        </div>
-      </div>
-      <!-- End Invite -->
-      <!-- table start -->
-      <section class="section profile">
+      <form action="" @submit.prevent="createReport" method="post">
         <div class="row">
+          <Alert :data="message"></Alert>
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
+                <h5 class="card-title">Add New PMS Report</h5>
+
+                <!-- report section start -->
                 <fieldset class="border p-2">
                   <legend class="float-none w-auto p-2 card-title">
-                    Remarks
+                    Report
+                  </legend>
+
+                  <div class="row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Report ID</label
+                    >
+                    <div class="col-sm-4">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Report ID"
+                        v-model="reportForm.reportId"
+                        required
+                        id="inputText"
+                      />
+                    </div>
+                  </div>
+                </fieldset>
+                <!-- report section end -->
+                <!-- user section start -->
+                <fieldset class="border p-2">
+                  <legend class="float-none w-auto p-2 card-title">
+                    User Details
                   </legend>
                   <div class="row container">
+                    <table class="table p-1">
+                      <tr>
+                        <th>Name :</th>
+                        <td>{{ userData.user_details.name }}</td>
+                        <th>Email :</th>
+                        <td>{{ userData.user_details.email }}</td>
+                        <th>Role :</th>
+                        <td>{{ userData.inviterole.name }}</td>
+                      </tr>
+                      <tr v-if="userData.user_more_info">
+                        <th>Designation :</th>
+                        <td>{{ userData.user_more_info.designation }}</td>
+                        <th>Emp Code :</th>
+                        <td>{{ userData.user_more_info.emp_code }}</td>
+                        <th>Phone :</th>
+                        <td>{{ userData.user_more_info.phone }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </fieldset>
+                <!-- user section end -->
+                <!-- report cycle section start -->
+                <fieldset class="border p-2">
+                  <legend class="float-none w-auto p-2 card-title">
+                    Report Duration
+                  </legend>
+                  <div class="row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label"
-                      >Remarks</label
+                      >Start Date</label
                     >
-                    <div class="col-sm-10">
-                      <textarea
+                    <div class="col-sm-2">
+                      <input
+                        type="date"
                         class="form-control"
-                        v-model="reportForm.remarks"
-                        placeholder="Remarks Here"
-                      >
-                      </textarea>
+                        placeholder="Start Report Date"
+                        v-model="reportForm.startDate"
+                        required
+                        id="inputText"
+                      />
                     </div>
-                    <button type="submit" class="btn btn-primary mt-5">Create Report</button>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label"
+                      >Select Report Cycle</label
+                    >
+                    <div class="col-sm-2">
+                      <select
+                        class="form-control"
+                        v-model="reportForm.reportCycle"
+                        required
+                      >
+                        <option disabled value="">Select Any One</option>
+                        <option
+                          :value="op.value"
+                          v-for="(op, item) in options"
+                          :key="item"
+                        >
+                          {{ op.name }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <label
+                      for="inputEmail3"
+                      class="col-sm-4 col-form-label"
+                      v-if="isCalculatedEndDate"
+                      >End Date Will be : {{ reportForm.endDate }}</label
+                    >
+                  </div>
+                </fieldset>
+                <!-- report cycle section end -->
+              </div>
+            </div>
+            <!-- Attribute PMS section start -->
+            <div class="card">
+              <div class="card-body py-2">
+                <fieldset class="border p-2">
+                  <legend class="float-none w-auto p-2 card-title">
+                    PMS Attribute
+                  </legend>
+                  <div class="row container">
+                    {{ pmsAttrData }}
+                    <table class="table p-1 table-sm border border-2">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Title</th>
+                          <th>Rating</th>
+                          <th>Comments</th>
+                          <th>Add / Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(input, k) in pmsAttrData" :key="k">
+                          <td>{{ k + 1 }}</td>
+                          <td>
+                            <select
+                              class="form-control"
+                              v-model="input.title"
+                              required
+                            >
+                              <option disabled value="">Select Any One</option>
+                              <option
+                                :value="pms.id"
+                                v-for="(pms, ind) in allPmsData"
+                                :key="ind"
+                              >
+                                {{ pms.title }}
+                              </option>
+                            </select>
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              placeholder="Rating"
+                              v-model="input.rating"
+                              required
+                              class="form-control"
+                            />
+                          </td>
+                          <td>
+                            <textarea
+                              class="form-control"
+                              v-model="input.comments"
+                              required
+                              placeholder="Comments"
+                            >
+                            </textarea>
+                          </td>
+                          <td class="text-center">
+                            <span
+                              class="btn btn-sm btn-danger"
+                              role="button"
+                              @click="remove(k)"
+                              v-show="k || (!k && pmsAttrData.length > 1)"
+                              >Remove</span
+                            >
+                            <span
+                              class="btn btn-sm btn-success"
+                              role="button"
+                              @click="add(k)"
+                              v-show="k == pmsAttrData.length - 1"
+                              >Add</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </fieldset>
               </div>
             </div>
+            <!-- Attribute PMS section End -->
           </div>
         </div>
-      </section>
+        <!-- End Invite -->
+        <!-- table start -->
+        <section class="section profile">
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="card">
+                <div class="card-body">
+                  <fieldset class="border p-2">
+                    <legend class="float-none w-auto p-2 card-title">
+                      Remarks
+                    </legend>
+                    <div class="row container">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label"
+                        >Remarks</label
+                      >
+                      <div class="col-sm-10">
+                        <textarea
+                          class="form-control"
+                          v-model="reportForm.remarks"
+                          placeholder="Remarks Here"
+                        >
+                        </textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary mt-5">
+                        Create Report
+                      </button>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
       <!-- Table end -->
     </main>
   </div>
@@ -280,6 +296,19 @@ export default {
     },
     remove(index) {
       this.pmsAttrData.splice(index, 1);
+    },
+    createReport() {
+      let data = {
+        reportData: this.reportForm,
+        pmsData: this.pmsAttrData,
+      };
+
+      axios
+        .post("new-report", data)
+        .then((response) => {
+          this.message =response.data.success;
+        })
+        .catch((error) => {});
     },
   },
 };

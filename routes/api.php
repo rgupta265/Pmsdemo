@@ -47,4 +47,5 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::get('getJoinedUser', [App\Http\Controllers\PmsReportController::class, 'getAllJoinedUser']);
     Route::get('getUserData/{code}', [App\Http\Controllers\PmsReportController::class, 'getUserDetailByCode']);
     Route::get('pms', [App\Http\Controllers\PmsReportController::class,'getAllPmsAttribute']);
+    Route::post('new-report', [App\Http\Controllers\PmsReportController::class,'CreateNewReport']);
 });

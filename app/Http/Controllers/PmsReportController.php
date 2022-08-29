@@ -43,6 +43,23 @@ class PmsReportController extends Controller
     {
         return response()->json(PmsAttribute::where('status',1)->get());
     }
+    public function CreateNewReport(Request $request)
+    {
+       
+        // dd($request->reportData['reportId']);
+        //insert intopmsreport
+        //insert into Pmsreportdetails
+        $DetailedReport = [];
+        for ($i = 0; $i < count($request->pmsData); $i++) {
+        $DetailedReport[] = [
+            'report_id' => "",
+            'pms_attributes_id' => $request->pmsData['title'][$i],
+            'pms_attributes_rating' => $request->pmsData['rating'][$i],
+            'pms_attributes_comment' => $request->pmsData['comments'][$i]
+        ];
+    }
+        return response()->json(['success'=>'Successfully worked']);
+    }
 
     
 }

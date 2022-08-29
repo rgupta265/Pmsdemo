@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Userdetails;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -22,6 +24,7 @@ class UserResource extends JsonResource
         $rolesPermissions = array_column($userRoles->pluck('permissions')->toArray(),'slug');
         // $userPermissions = $rolesPermissions->merge($this->permissions->pluck('slug'));
         $userPermissions = array_merge($rolesPermissions,$this->permissions->pluck('slug')->toArray());
+        $userInfo =Userdetails::where('user_id',Auth::user()->id)->first();
         return [
             'id' => $this->id,
             'name' => $this->name, 
@@ -29,6 +32,7 @@ class UserResource extends JsonResource
             'created_at' => $this->created_at->format('Y-m-d'),
             'roles' => $roles,
             'permissions' => $userPermissions,
+            'userInfo' =>$userInfo
         ];
     }
 }

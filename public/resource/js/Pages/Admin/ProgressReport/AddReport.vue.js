@@ -158,6 +158,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     remove: function remove(index) {
       this.pmsAttrData.splice(index, 1);
+    },
+    createReport: function createReport() {
+      var _this3 = this;
+
+      var data = {
+        reportData: this.reportForm,
+        pmsData: this.pmsAttrData
+      };
+      axios.post("new-report", data).then(function (response) {
+        _this3.message = response.data.success;
+      })["catch"](function (error) {});
     }
   }
 });
@@ -269,7 +280,18 @@ var render = function render() {
     attrs: {
       id: "main"
     }
-  }, [_c("Breadcrumb"), _vm._v(" "), _c("div", {
+  }, [_c("Breadcrumb"), _vm._v(" "), _c("form", {
+    attrs: {
+      action: "",
+      method: "post"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.createReport.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
     staticClass: "row"
   }, [_c("Alert", {
     attrs: {
@@ -287,7 +309,7 @@ var render = function render() {
     staticClass: "border p-2"
   }, [_c("legend", {
     staticClass: "float-none w-auto p-2 card-title"
-  }, [_vm._v("Report")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  Report\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("label", {
     staticClass: "col-sm-2 col-form-label",
@@ -307,6 +329,7 @@ var render = function render() {
     attrs: {
       type: "text",
       placeholder: "Report ID",
+      required: "",
       id: "inputText"
     },
     domProps: {
@@ -323,7 +346,7 @@ var render = function render() {
     staticClass: "border p-2"
   }, [_c("legend", {
     staticClass: "float-none w-auto p-2 card-title"
-  }, [_vm._v("\n                User Details\n              ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  User Details\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "row container"
   }, [_c("table", {
     staticClass: "table p-1"
@@ -331,7 +354,7 @@ var render = function render() {
     staticClass: "border p-2"
   }, [_c("legend", {
     staticClass: "float-none w-auto p-2 card-title"
-  }, [_vm._v("\n                Report Duration\n              ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  Report Duration\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("label", {
     staticClass: "col-sm-2 col-form-label",
@@ -351,6 +374,7 @@ var render = function render() {
     attrs: {
       type: "date",
       placeholder: "Start Report Date",
+      required: "",
       id: "inputText"
     },
     domProps: {
@@ -378,6 +402,9 @@ var render = function render() {
       expression: "reportForm.reportCycle"
     }],
     staticClass: "form-control",
+    attrs: {
+      required: ""
+    },
     on: {
       change: function change($event) {
         var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -401,7 +428,7 @@ var render = function render() {
       domProps: {
         value: op.value
       }
-    }, [_vm._v("\n                      " + _vm._s(op.name) + "\n                    ")]);
+    }, [_vm._v("\n                        " + _vm._s(op.name) + "\n                      ")]);
   })], 2)]), _vm._v(" "), _vm.isCalculatedEndDate ? _c("label", {
     staticClass: "col-sm-4 col-form-label",
     attrs: {
@@ -415,9 +442,9 @@ var render = function render() {
     staticClass: "border p-2"
   }, [_c("legend", {
     staticClass: "float-none w-auto p-2 card-title"
-  }, [_vm._v("\n                PMS Attribute\n              ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                  PMS Attribute\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "row container"
-  }, [_vm._v("\n                " + _vm._s(_vm.pmsAttrData) + "\n                "), _c("table", {
+  }, [_vm._v("\n                  " + _vm._s(_vm.pmsAttrData) + "\n                  "), _c("table", {
     staticClass: "table p-1 table-sm border border-2"
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.pmsAttrData, function (_input, k) {
     return _c("tr", {
@@ -430,6 +457,9 @@ var render = function render() {
         expression: "input.title"
       }],
       staticClass: "form-control",
+      attrs: {
+        required: ""
+      },
       on: {
         change: function change($event) {
           var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
@@ -453,7 +483,7 @@ var render = function render() {
         domProps: {
           value: pms.id
         }
-      }, [_vm._v("\n                            " + _vm._s(pms.title) + "\n                          ")]);
+      }, [_vm._v("\n                              " + _vm._s(pms.title) + "\n                            ")]);
     })], 2)]), _vm._v(" "), _c("td", [_c("input", {
       directives: [{
         name: "model",
@@ -464,7 +494,8 @@ var render = function render() {
       staticClass: "form-control",
       attrs: {
         type: "text",
-        placeholder: "Rating"
+        placeholder: "Rating",
+        required: ""
       },
       domProps: {
         value: _input.rating
@@ -485,6 +516,7 @@ var render = function render() {
       }],
       staticClass: "form-control",
       attrs: {
+        required: "",
         placeholder: "Comments"
       },
       domProps: {
@@ -546,7 +578,7 @@ var render = function render() {
     staticClass: "border p-2"
   }, [_c("legend", {
     staticClass: "float-none w-auto p-2 card-title"
-  }, [_vm._v("\n                  Remarks\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                    Remarks\n                  ")]), _vm._v(" "), _c("div", {
     staticClass: "row container"
   }, [_c("label", {
     staticClass: "col-sm-2 col-form-label",
@@ -581,7 +613,7 @@ var render = function render() {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("Create Report")])])])])])])])])], 1)]);
+  }, [_vm._v("\n                      Create Report\n                    ")])])])])])])])])])], 1)]);
 };
 
 var staticRenderFns = [function () {

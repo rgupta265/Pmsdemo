@@ -14,7 +14,18 @@ class CreatePmsReportsTable extends Migration
     public function up()
     {
         Schema::create('pms_reports', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('report_id')->unique();
+            $table->enum('report_cycle', ['3M', '6M','12M'])->comment('M represents months here');
+            $table->date('report_duration_from');
+            $table->date('report_duration_to');
+            $table->unsignedInteger('pms_rating_to_user_id')->comment('This Id represent those user whose report is being generated');
+            $table->foreign('pms_rating_to_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('pms_rating_by_user_id')->comment('This Id represent those user whoose this report is generated');;
+            $table->foreign('pms_rating_by_user_id')->references('id')->on('users');
+            $table->text('remarks')->nullable();
+            $table->enum('status', ['0', '1'])->default(1)->comment('0 Indicates deactive and 1 indicates active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
