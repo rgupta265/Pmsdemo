@@ -19,7 +19,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
               <i class="bi bi-bell"></i>
-              <span class="badge bg-primary badge-number"> {{ notifications.length }}</span> </a
+              <span class="badge bg-primary badge-number">
+                {{ notifications.length }}</span
+              > </a
             ><!-- End Notification Icon -->
 
             <Notification></Notification>
@@ -33,8 +35,8 @@
               data-bs-toggle="dropdown"
             >
               <img
-                src="backendTheme/assets/img/profile-img.jpg"
-                alt="Profile"
+                :src="filePath"
+                alt="Profile Image Missing"
                 class="rounded-circle"
               />
               <span class="d-none d-md-block dropdown-toggle ps-2">{{
@@ -138,10 +140,14 @@
         </li>
         <li
           class="nav-item"
-          v-if="$can($constants.permissions.createPmsReport || $constants.permissions.viewCreatedPmsReport)"
+          v-if="
+            $can(
+              $constants.permissions.createPmsReport ||
+                $constants.permissions.viewCreatedPmsReport
+            )
+          "
         >
           <a
-          
             class="nav-link collapsed"
             data-bs-target="#components-report"
             data-bs-toggle="collapse"
@@ -186,8 +192,10 @@
           </router-link>
         </li>
 
-
-        <li class="nav-item" v-if="$can($constants.permissions.viewMyPmsReport)">
+        <li
+          class="nav-item"
+          v-if="$can($constants.permissions.viewMyPmsReport)"
+        >
           <router-link :to="{ name: 'viewMyReport' }" class="nav-link">
             <i class="bi bi-file-earmark-arrow-up"></i>
             <span>My PMS Report</span>
@@ -197,10 +205,7 @@
         <li class="nav-heading">Master</li>
 
         <li class="nav-item" v-if="$can($constants.permissions.viewPmsMaster)">
-          <router-link
-            :to="{ name: 'pmsattribute' }"
-            class="nav-link"
-          >
+          <router-link :to="{ name: 'pmsattribute' }" class="nav-link">
             <i class="bi bi-person"></i>
             <span>PMS Attribute</span>
           </router-link>
@@ -244,7 +249,7 @@ export default {
   },
   name: "navbar",
   data() {
-    return {};
+    return { imageDir: "/storage/ProfileImage/" };
   },
   computed: {
     ...mapGetters({
@@ -255,6 +260,9 @@ export default {
 
     isLoggedIn: function () {
       return this.$store.getters.isLoggedIn;
+    },
+    filePath() {
+      return this.imageDir + this.userDetails.userInfo.image;
     },
   },
   created() {
@@ -285,6 +293,4 @@ export default {
 </script>
 
 <style>
-
-
 </style>

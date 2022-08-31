@@ -19,9 +19,9 @@
                 "
               >
                 <img
-                  src="backendTheme/assets/img/profile-img.jpg"
-                  alt="Profile"
-                  class="rounded-circle"
+                  :src="filePath"
+                  alt="Profile Image Is Missing"
+                  class="rounded-circle border"
                 />
                 <h2>{{ userDetails.name }}</h2>
                 <h3>Web Designer</h3>
@@ -136,7 +136,7 @@
                     class="tab-pane fade profile-edit pt-3"
                     id="profile-edit"
                   >
-                    <Alert :data="showError"></Alert>
+                    <Alert :data="message"></Alert>
                     <!-- Profile Edit Form -->
                     <form
                       method="post"
@@ -151,8 +151,9 @@
                         >
                         <div class="col-md-8 col-lg-9">
                           <img
-                            src="backendTheme/assets/img/profile-img.jpg"
-                            alt="Profile"
+                            :src="filePath"
+                            alt="Profile Image Is Missing"
+                            class="rounded border"
                           />
                           <div class="pt-2">
                             <input
@@ -348,8 +349,8 @@
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <!-- <Alert v-if="showError"></Alert> -->
-                    <Alert :data="success"></Alert>
+                    <Alert v-if="showError"></Alert>
+
                     <form
                       method="post"
                       action=""
@@ -434,14 +435,29 @@ export default {
       },
       showError: false,
       api: "userProfile",
-      success: "",
+      message: "",
+      imageDir: "/storage/ProfileImage/",
     };
   },
   computed: {
     ...mapGetters({ userDetails: "getUserDetails", errors: "getError" }),
-    isLoggedIn: function () {
-      return this.$store.getters.isLoggedIn;
+    filePath() {
+      return this.imageDir + this.userDetails.userInfo.image;
     },
+  },
+  created() {
+    this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
+    this.userProfile.image = this.userDetails.userInfo.image;
+    this.userProfile.designation = this.userDetails.userInfo.designation;
+    this.userProfile.father_name = this.userDetails.userInfo.father_name;
+    this.userProfile.address = this.userDetails.userInfo.address;
+    this.userProfile.correspondence_address =
+      this.userDetails.userInfo.correspondence_address;
+    this.userProfile.phone = this.userDetails.userInfo.phone;
+    this.userProfile.emergency_contactno =
+      this.userDetails.userInfo.emergency_contactno;
+    this.userProfile.linkedin_id = this.userDetails.userInfo.linkedin_id;
+    this.userProfile.joining_date = this.userDetails.userInfo.joining_date;
   },
   methods: {
     ...mapActions(["ChangePassword"]),
@@ -460,7 +476,7 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          // this.showError = true;
+          this.showError = true;
         });
     },
     onFileChange(e) {
@@ -488,7 +504,8 @@ export default {
       axios
         .post(this.api, formData)
         .then((response) => {
-          this.success = response.data.success;
+          this.message = response.data.success;
+          this.$store.dispatch("getUserDetails");
         })
         .catch(function (error) {});
     },

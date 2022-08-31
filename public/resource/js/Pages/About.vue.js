@@ -23,7 +23,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     data: ""
   },
   data: function data() {
-    return {};
+    return {
+      elementVisible: true
+    };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     errors: "getError"
@@ -118,17 +120,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       showError: false,
       api: "userProfile",
-      success: ""
+      message: "",
+      imageDir: "/storage/ProfileImage/"
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
     userDetails: "getUserDetails",
     errors: "getError"
   })), {}, {
-    isLoggedIn: function isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
+    filePath: function filePath() {
+      return this.imageDir + this.userDetails.userInfo.image;
     }
   }),
+  created: function created() {
+    this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
+    this.userProfile.image = this.userDetails.userInfo.image;
+    this.userProfile.designation = this.userDetails.userInfo.designation;
+    this.userProfile.father_name = this.userDetails.userInfo.father_name;
+    this.userProfile.address = this.userDetails.userInfo.address;
+    this.userProfile.correspondence_address = this.userDetails.userInfo.correspondence_address;
+    this.userProfile.phone = this.userDetails.userInfo.phone;
+    this.userProfile.emergency_contactno = this.userDetails.userInfo.emergency_contactno;
+    this.userProfile.linkedin_id = this.userDetails.userInfo.linkedin_id;
+    this.userProfile.joining_date = this.userDetails.userInfo.joining_date;
+  },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(["ChangePassword"])), {}, {
     changePassword: function changePassword() {
       var _this = this;
@@ -146,7 +161,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch("logout");
 
         _this.$router.push("/");
-      })["catch"](function (err) {// this.showError = true;
+      })["catch"](function (err) {
+        _this.showError = true;
       });
     },
     onFileChange: function onFileChange(e) {
@@ -168,7 +184,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append("joining_date", this.userProfile.joining_date); // send upload request
 
       axios.post(this.api, formData).then(function (response) {
-        _this2.success = response.data.success;
+        _this2.message = response.data.success;
+
+        _this2.$store.dispatch("getUserDetails");
       })["catch"](function (error) {});
     }
   })
@@ -205,7 +223,7 @@ var render = function render() {
       attrs: {
         role: "alert"
       }
-    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      \n    ")]);
+    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n    ")]);
   }), 0) : _vm._e()]);
 };
 
@@ -292,10 +310,10 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "card-body profile-card pt-4 d-flex flex-column align-items-center"
   }, [_c("img", {
-    staticClass: "rounded-circle",
+    staticClass: "rounded-circle border",
     attrs: {
-      src: "backendTheme/assets/img/profile-img.jpg",
-      alt: "Profile"
+      src: _vm.filePath,
+      alt: "Profile Image Is Missing"
     }
   }), _vm._v(" "), _c("h2", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("h3", [_vm._v("Web Designer")]), _vm._v(" "), _c("h3", [_vm._v(_vm._s(_vm.userDetails.email))]), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-8"
@@ -335,7 +353,7 @@ var render = function render() {
     }
   }, [_c("Alert", {
     attrs: {
-      data: _vm.showError
+      data: _vm.message
     }
   }), _vm._v(" "), _c("form", {
     attrs: {
@@ -358,9 +376,10 @@ var render = function render() {
   }, [_vm._v("Profile Image")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("img", {
+    staticClass: "rounded border",
     attrs: {
-      src: "backendTheme/assets/img/profile-img.jpg",
-      alt: "Profile"
+      src: _vm.filePath,
+      alt: "Profile Image Is Missing"
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "pt-2"
@@ -717,11 +736,7 @@ var render = function render() {
     attrs: {
       id: "profile-change-password"
     }
-  }, [_c("Alert", {
-    attrs: {
-      data: _vm.success
-    }
-  }), _vm._v(" "), _c("form", {
+  }, [_vm.showError ? _c("Alert") : _vm._e(), _vm._v(" "), _c("form", {
     attrs: {
       method: "post",
       action: ""

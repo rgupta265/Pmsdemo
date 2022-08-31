@@ -12,11 +12,10 @@
       <div
         class="alert alert-danger alert-dismissible fade show"
         role="alert"
-        v-for="(error,index) in errors"
+        v-for="(error, index) in errors"
         :key="index"
       >
         {{ error[0] }}
-        
       </div>
     </span>
     <!-- If Error End -->
@@ -30,11 +29,10 @@ export default {
     data: "",
   },
   data() {
-    return {};
+    return {elementVisible:true};
   },
   computed: {
     ...mapGetters({ errors: "getError" }),
-    
   },
   
 };

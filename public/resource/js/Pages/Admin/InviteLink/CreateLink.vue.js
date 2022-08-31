@@ -23,7 +23,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     data: ""
   },
   data: function data() {
-    return {};
+    return {
+      elementVisible: true
+    };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     errors: "getError"
@@ -192,7 +194,7 @@ var render = function render() {
       attrs: {
         role: "alert"
       }
-    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n      \n    ")]);
+    }, [_vm._v("\n      " + _vm._s(error[0]) + "\n    ")]);
   }), 0) : _vm._e()]);
 };
 

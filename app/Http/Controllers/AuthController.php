@@ -108,7 +108,7 @@ class AuthController extends Controller
                     return response()->json(['success' => 'User Created and Permission assigned successful'], 200);
                 } catch (\Exception $e) {
                     DB::rollback();
-                    return response()->json(['error'=>'Something Went Wrong.It may be due to user assigned roles/permission']);
+                    return response()->json(['error'=>$validator->errors()->add('warning', 'Something Went Wrong.It may be due to user assigned roles/permission')->toJson()], 400);
                 }
                 
 

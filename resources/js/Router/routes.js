@@ -28,6 +28,8 @@ const ViewMyReport = () => import('../Pages/Admin/MyReport/ViewMyReport.vue' /* 
 const CreateReport = () => import('../Pages/Admin/ProgressReport/CreateReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/CreateReport.vue" */)
 const ViewCreatedReport = () => import('../Pages/Admin/ProgressReport/ViewCreatedReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue" */)
 const AddReport = () => import('../Pages/Admin/ProgressReport/AddReport.vue' /* webpackChunkName: "resource/js/Pages/Admin/ProgressReport/AddReport.vue" */)
+const UserInfoComponent = () => import('../Pages/Admin/UserInfo.vue' /* webpackChunkName: "resource/js/Pages/Admin/UserInfo" */)
+const ReportInfoComponent = () => import('../Pages/Admin/ReportInfo.vue' /* webpackChunkName: "resource/js/Pages/Admin/UserInfo" */)
 // Authenticated Component End
 
 
@@ -274,6 +276,38 @@ const routes = [
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
               { name: 'Add PMS Report' }
+            ]
+        }
+      },
+      {
+        name:"MUserInfo",
+        path: '/m-user-info',
+        component: UserInfoComponent,
+        meta:{
+            title:`User Info`, 
+            middleware :[
+              Middlewares.auth,
+              // Middlewares.checkPermissions 
+            ],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'UserInfo' }
+            ]
+        }
+      },
+      {
+        name:"MReportInfo",
+        path: '/m-report-info',
+        component: ReportInfoComponent,
+        meta:{
+            title:`Report Info`, 
+            middleware :[
+              Middlewares.auth,
+              // Middlewares.checkPermissions 
+            ],
+            breadcrumb: [
+              { name: 'Dashboard', link: 'dashboard' },
+              { name: 'ReportInfo' }
             ]
         }
       },

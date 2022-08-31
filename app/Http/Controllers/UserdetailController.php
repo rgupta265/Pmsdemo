@@ -54,7 +54,7 @@ class UserdetailController extends Controller
         $empCode =Str::upper($empCode);
         if($request->file('image'))
         { 
-            $imageName =$empCode.'-'.$userId;
+            $imageName =$empCode.'-'.time();
             $fileName = $imageName.'.'.$request->image->extension();  
             $request->file('image')->storeAs('ProfileImage', $fileName, 'public');
         }
@@ -68,7 +68,8 @@ class UserdetailController extends Controller
              'address' => $request->address,
              'correspondence_address' => $request->correspondence_address,
              'phone' => $request->phone,
-             'linkedin_id' => $request->emergency_contactno,
+             'emergency_contactno' => $request->emergency_contactno,
+             'linkedin_id' => $request->linkedin_id,
              'joining_date' => $request->joining_date,
              'added_by' => $userId,
               ]

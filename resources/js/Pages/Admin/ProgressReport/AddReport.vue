@@ -6,21 +6,25 @@
       <!-- Send Invite Start -->
       <form action="" @submit.prevent="createReport" method="post">
         <div class="row">
-          <Alert :data="message"></Alert>
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Add New PMS Report</h5>
+                <h5 class="card-title">
+                  Add New PMS Report
+                  <strong class="text-danger"
+                    >(All * Fields are mandatory)</strong
+                  >
+                </h5>
 
                 <!-- report section start -->
-                <fieldset class="border p-2">
+                <!-- <fieldset class="border p-2">
                   <legend class="float-none w-auto p-2 card-title">
                     Report
                   </legend>
 
                   <div class="row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label"
-                      >Report ID</label
+                      >Report ID <span class="text-danger"> *</span></label
                     >
                     <div class="col-sm-4">
                       <input
@@ -33,7 +37,7 @@
                       />
                     </div>
                   </div>
-                </fieldset>
+                </fieldset> -->
                 <!-- report section end -->
                 <!-- user section start -->
                 <fieldset class="border p-2">
@@ -69,7 +73,7 @@
                   </legend>
                   <div class="row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label"
-                      >Start Date</label
+                      >Start Date <span class="text-danger"> *</span></label
                     >
                     <div class="col-sm-2">
                       <input
@@ -82,7 +86,8 @@
                       />
                     </div>
                     <label for="inputEmail3" class="col-sm-2 col-form-label"
-                      >Select Report Cycle</label
+                      >Select Report Cycle
+                      <span class="text-danger"> *</span></label
                     >
                     <div class="col-sm-2">
                       <select
@@ -125,8 +130,8 @@
                       <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Title</th>
-                          <th>Rating</th>
+                          <th>Title <span class="text-danger"> *</span></th>
+                          <th>Rating <span class="text-danger"> *</span></th>
                           <th>Comments</th>
                           <th>Add / Remove</th>
                         </tr>
@@ -137,7 +142,7 @@
                           <td>
                             <select
                               class="form-control"
-                              v-model="input.title"
+                              v-model="input.pms_attr_id"
                               required
                             >
                               <option disabled value="">Select Any One</option>
@@ -152,7 +157,9 @@
                           </td>
                           <td>
                             <input
-                              type="text"
+                              type="number"
+                              min="1"
+                              max="5"
                               placeholder="Rating"
                               v-model="input.rating"
                               required
@@ -163,7 +170,6 @@
                             <textarea
                               class="form-control"
                               v-model="input.comments"
-                              required
                               placeholder="Comments"
                             >
                             </textarea>
@@ -235,13 +241,11 @@
 
 <script>
 import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
-import Alert from ".../../../resources/js/Components/Layouts/Alert";
 import moment from "moment";
 export default {
   name: "addReport",
   components: {
     Breadcrumb,
-    Alert,
   },
   data() {
     return {
@@ -253,14 +257,16 @@ export default {
       ],
       userData: "",
       allPmsData: [],
-      message: "",
       reportForm: {
-        reportId: "",
+        // reportId: "",
         startDate: "",
         reportCycle: "",
         endDate: "",
+        remarks: "",
+        userId: "",
+        emp_code: "",
       },
-      pmsAttrData: [{ title: "", rating: "", comments: "" }],
+      pmsAttrData: [{ pms_attr_id: "", rating: "", comments: "" }],
     };
   },
   computed: {
@@ -284,6 +290,8 @@ export default {
     getUserData() {
       axios.get("getUserData/" + this.token).then((response) => {
         this.userData = response.data;
+        this.reportForm.userId = this.userData.user_id;
+        this.reportForm.emp_code = this.userData.user_more_info.emp_code;
       });
     },
     getPmsData() {
@@ -292,7 +300,7 @@ export default {
       });
     },
     add(index) {
-      this.pmsAttrData.push({ title: "", rating: "", comments: "" });
+      this.pmsAttrData.push({ pms_attr_id: "", rating: "", comments: "" });
     },
     remove(index) {
       this.pmsAttrData.splice(index, 1);
@@ -306,7 +314,8 @@ export default {
       axios
         .post("new-report", data)
         .then((response) => {
-          this.message =response.data.success;
+          this.$toast.success(response.data.success);
+          this.$router.push("/view-created-report");
         })
         .catch((error) => {});
     },

@@ -17,6 +17,11 @@ Vue.filter('formatDate', function(value) {
       return moment(String(value)).format('DD/MM/YYYY hh:mm:ss a')
   }
 });
+Vue.filter('DateChange', function(value) {
+  if (value) {
+      return moment(String(value)).format('DD/MM/YYYY')
+  }
+});
 Vue.filter('humanReadableTime', function (value) {
   return moment(value).fromNow();
 });//get time like 2hrs ago,50 seconds ago

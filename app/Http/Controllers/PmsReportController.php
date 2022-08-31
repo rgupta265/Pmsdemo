@@ -6,16 +6,23 @@ use App\Models\PmsReport;
 use App\Models\PmsAttribute;
 use Illuminate\Http\Request;
 use App\Models\UserInvitation;
+use App\Models\PmsReportDetails;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PmsReportController extends Controller
 {
     
+   public function getLoggedInUser()
+    {
+        $data['loggedInRoleName'] = Auth::user()->roles->pluck('slug');
+        $data['loggedInUserId'] = Auth::user()->id;
+        return $data;
+    }
     public function getAllJoinedUser()
     {
-        $loggedInRoleName =Auth::user()->roles->pluck('slug');
-        
-        if($loggedInRoleName[0] =='admin')
+        if($this->getLoggedInUser()['loggedInRoleName'][0] =='admin')
         {
             $data =UserInvitation::where('status','successful')
             ->with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email')
@@ -23,7 +30,7 @@ class PmsReportController extends Controller
         }
         else{
             $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email')
-            ->where(['sender_user_id'=>Auth::user()->id,
+            ->where(['sender_user_id'=>$this->getLoggedInUser()['loggedInUserId'],
             'status' => 'successful'])
             ->paginate(10);
         }
@@ -45,21 +52,72 @@ class PmsReportController extends Controller
     }
     public function CreateNewReport(Request $request)
     {
-       
-        // dd($request->reportData['reportId']);
+        $emp_code = $request->reportData['emp_code'];
+        $reportCycle =$request->reportData['reportCycle'];
+        $pmsRatingToUserid =$request->reportData['userId'];
+        if(!$emp_code)
+        {
+            $emp_code =$pmsRatingToUserid;
+        } 
+        $uniqueRepordId ="REP-".$reportCycle."-".$emp_code;
+        $validator = Validator::make($request->all(),[
+            // 'startDate' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error'=>$validator->errors()->toJson()], 400);
+        }
+        DB::beginTransaction();
+
+        try {
         //insert intopmsreport
-        //insert into Pmsreportdetails
-        $DetailedReport = [];
-        for ($i = 0; $i < count($request->pmsData); $i++) {
-        $DetailedReport[] = [
-            'report_id' => "",
-            'pms_attributes_id' => $request->pmsData['title'][$i],
-            'pms_attributes_rating' => $request->pmsData['rating'][$i],
-            'pms_attributes_comment' => $request->pmsData['comments'][$i]
-        ];
+            $reportData =[
+                'report_id' => $uniqueRepordId,
+                'emp_code' => $emp_code,
+                'report_duration_from' => $request->reportData['startDate'],
+                'report_cycle' => $reportCycle,
+                'report_duration_to' => date("Y-m-d",strtotime($request->reportData['endDate'])),
+                'remarks' => $request->reportData['remarks'],
+                'pms_rating_to_user_id' => $pmsRatingToUserid,
+                'pms_rating_by_user_id' => $this->getLoggedInUser()['loggedInUserId'],
+            ];
+            $addData=PmsReport::create($reportData);
+            
+            //create into Pmsreportdetails
+            
+            $DetailedReport = [];
+        
+            for ($i = 0; $i < count($request->pmsData); $i++) {
+            $DetailedReport[] = [
+                'report_id' => $addData->report_id,
+                'pms_attributes_id' => $request->pmsData[$i]['pms_attr_id'],
+                'pms_attributes_rating' => $request->pmsData[$i]['rating'],
+                'pms_attributes_comment' => $request->pmsData[$i]['comments'],
+                'created_at' => now(),
+                'updated_at' => now()
+            ];   
+        }
+        DB::commit();
+        PmsReportDetails::insert($DetailedReport);
+            return response()->json(['success'=>'New Report Created Successfully']);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error'=>$validator->errors()->add('warning', 'Something Went Wrong.It may be due to report creation'.$e)->toJson()], 400);
+        }
     }
-        return response()->json(['success'=>'Successfully worked']);
+
+    public function getAllReportListByUserId()
+    {
+        if($this->getLoggedInUser()['loggedInRoleName'][0] =='admin')
+        {
+            $data =PmsReport::where('status','1')->with('userReportInfo:id,name,email')->latest()
+            ->paginate(10);
+        }
+        else{
+
+        }
+        return response()->json($data);
     }
+    
 
     
 }
