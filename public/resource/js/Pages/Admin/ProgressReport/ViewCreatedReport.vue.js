@@ -98,7 +98,8 @@ __webpack_require__.r(__webpack_exports__);
       reportList: [],
       message: "",
       reportSearch: "",
-      resultInfo: ""
+      resultInfo: "",
+      repId: ""
     };
   },
   mounted: function mounted() {},
@@ -248,7 +249,7 @@ var render = function render() {
     attrs: {
       data: _vm.message
     }
-  }), _vm._v("\n      " + _vm._s(_vm.reportList) + "\n      "), _c("div", {
+  }), _vm._v(" "), _c("div", {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
@@ -303,7 +304,10 @@ var render = function render() {
     }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_c("router-link", {
       attrs: {
         to: {
-          name: "MReportInfo"
+          name: "MReportInfo",
+          query: {
+            token: report.token
+          }
         }
       }
     }, [_c("i", {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PmsReport;
+use Illuminate\Support\Str;
 use App\Models\PmsAttribute;
 use Illuminate\Http\Request;
 use App\Models\UserInvitation;
@@ -57,7 +58,7 @@ class PmsReportController extends Controller
         $pmsRatingToUserid =$request->reportData['userId'];
         if(!$emp_code)
         {
-            $emp_code =$pmsRatingToUserid;
+            $emp_code ="DUMMYGWL".$pmsRatingToUserid;
         } 
         $uniqueRepordId ="REP-".$reportCycle."-".$emp_code;
         $validator = Validator::make($request->all(),[
@@ -72,6 +73,7 @@ class PmsReportController extends Controller
         //insert intopmsreport
             $reportData =[
                 'report_id' => $uniqueRepordId,
+                'token'=>Str::random(20),
                 'emp_code' => $emp_code,
                 'report_duration_from' => $request->reportData['startDate'],
                 'report_cycle' => $reportCycle,
@@ -101,7 +103,7 @@ class PmsReportController extends Controller
             return response()->json(['success'=>'New Report Created Successfully']);
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['error'=>$validator->errors()->add('warning', 'Something Went Wrong.It may be due to report creation'.$e)->toJson()], 400);
+            return response()->json(['error'=>$validator->errors()->add('warning', 'Something Went Wrong.It may be due to report creation')->toJson()], 400);
         }
     }
 

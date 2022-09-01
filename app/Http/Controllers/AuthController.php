@@ -116,7 +116,7 @@ class AuthController extends Controller
         }
 
         else{
-            return response()->json(['error'=>'Something Went Wrong.It must be due to Token Mismatch/Absent']);
+            return response()->json(['error'=>$validator->errors()->add('warning','Something Went Wrong.It must be due to Token Mismatch/Absent')->toJson()]);
         }
         
 

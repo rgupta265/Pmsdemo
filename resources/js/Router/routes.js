@@ -300,14 +300,14 @@ const routes = [
         path: '/m-report-info',
         component: ReportInfoComponent,
         meta:{
-            title:`Report Info`, 
+            title:`PMS Report Info`, 
             middleware :[
               Middlewares.auth,
               // Middlewares.checkPermissions 
             ],
             breadcrumb: [
               { name: 'Dashboard', link: 'dashboard' },
-              { name: 'ReportInfo' }
+              { name: 'PMS Report Info' }
             ]
         }
       },

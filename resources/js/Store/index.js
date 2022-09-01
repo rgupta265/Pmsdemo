@@ -45,7 +45,8 @@ export default new Vuex.Store({
     setActivityDetails(state,activityDetails)
     {
       state.activityDetails = activityDetails
-    }
+    },
+  
   },
   actions: {
     //declare all mapActions methods routes of different methods (GET,POST etc)
@@ -134,6 +135,7 @@ export default new Vuex.Store({
         })
       }); 
     },
+   
   },
   getters : {
     //decalre only route/api of getting data
@@ -144,7 +146,8 @@ export default new Vuex.Store({
     getUserDetails :state=>state.userDetails,
     getWebDetails :state=>state.webDetails,
     getAllNotification :state=>state.notifyDetails,
-    getAllActivity :state=>state.activityDetails
+    getAllActivity :state=>state.activityDetails,
+    
   }
 })
 

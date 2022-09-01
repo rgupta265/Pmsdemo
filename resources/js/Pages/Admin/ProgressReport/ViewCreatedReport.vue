@@ -6,7 +6,6 @@
       <!-- Send Invite Start -->
       <div class="row">
         <Alert :data="message"></Alert>
-        {{ reportList }}
         <div class="col-xl-12">
           <!-- search start -->
           <div class="card">
@@ -59,7 +58,11 @@
                     >
                       <td scope="row">{{ ++index }}</td>
                       <td>
-                        <router-link :to="{ name: 'MReportInfo' }"
+                        <router-link
+                          :to="{
+                            name: 'MReportInfo',
+                            query: { token: report.token },
+                          }"
                           ><i class="bi bi-info-circle"></i>&nbsp;{{
                             report.report_id
                           }}</router-link
@@ -135,6 +138,7 @@ export default {
       message: "",
       reportSearch: "",
       resultInfo: "",
+      repId: "",
     };
   },
 

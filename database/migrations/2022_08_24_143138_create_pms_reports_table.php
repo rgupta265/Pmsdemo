@@ -16,6 +16,7 @@ class CreatePmsReportsTable extends Migration
         Schema::create('pms_reports', function (Blueprint $table) {
             $table->increments('id');
             $table->string('report_id')->unique();
+            $table->string('token')->unique();
             $table->string('emp_code')->unique()->nullable();
             $table->enum('report_cycle', ['3M', '6M','12M'])->comment('M represents months here');
             $table->date('report_duration_from');

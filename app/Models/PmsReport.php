@@ -12,6 +12,7 @@ class PmsReport extends Model
     use HasFactory,LogsActivity,Notifiable;
     protected $fillable = [
         'report_id',
+        'token',
         'emp_code',
         'report_duration_from',
         'report_cycle',
@@ -37,5 +38,9 @@ class PmsReport extends Model
     public function reportDetailInfo()
     {
         return $this->hasMany(PmsReportDetails::class,'report_id','report_id',);
+    }
+    public function reportGeneratedByUserInfo()
+    {
+      return $this->belongsTo(User::class,'pms_rating_by_user_id');
     }
 }

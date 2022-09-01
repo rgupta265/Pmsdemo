@@ -79773,14 +79773,14 @@ var routes = [{
     path: '/m-report-info',
     component: ReportInfoComponent,
     meta: {
-      title: "Report Info",
+      title: "PMS Report Info",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth // Middlewares.checkPermissions 
       ],
       breadcrumb: [{
         name: 'Dashboard',
         link: 'dashboard'
       }, {
-        name: 'ReportInfo'
+        name: 'PMS Report Info'
       }]
     }
   }]

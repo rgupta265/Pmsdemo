@@ -80,9 +80,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(UserInvitaion::class,'sender_user_id');
     }
-    public function userInfo()
+    public function userMoreInfo()
     {
-        return $this->belongsTo(Userdetails::class,'user_id');
+        return $this->hasOne(Userdetails::class,'user_id');
         
     }
 

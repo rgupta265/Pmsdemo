@@ -11,4 +11,8 @@ class PmsReportDetails extends Model
     protected $fillable = ['report_id','pms_attributes_id','pms_attributes_rating','pms_attributes_comment','status'];
     protected static $logName = 'reportDetails';
     protected static $logAttributes = ['report_id','pms_attributes_id','pms_attributes_rating','pms_attributes_comment','status'];
+    public function attributes()
+    {
+        return $this->belongsTo(PmsAttribute::class,'pms_attributes_id');
+    }
 }
