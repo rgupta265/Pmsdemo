@@ -23,8 +23,18 @@
                   alt="Profile"
                   class="rounded-circle border"
                 />
+                <label class="in-file mt-2" role="button">
+                  <i class="bi bi-upload"></i>
+                  Upload Photo
+                  <input
+                    type="file"
+                    accept="image/*"
+                    class="form-control"
+                    @change="onFileChange"
+                  />
+                </label>
                 <h2>{{ userDetails.name }}</h2>
-                <h3>Web Designer</h3>
+                <h3>{{ userDetails.userInfo.designation }}</h3>
                 <h3>{{ userDetails.email }}</h3>
                 <div class="social-links mt-2">
                   <a
@@ -100,11 +110,6 @@
                       </div>
                     </div>
 
-                    <!-- <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Country</div>
-                      <div class="col-lg-9 col-md-8"></div>
-                    </div> -->
-
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Address</div>
                       <div class="col-lg-9 col-md-8">
@@ -138,29 +143,6 @@
                       @submit.prevent="updateProfile"
                       enctype="multipart/form-data"
                     >
-                      <div class="row mb-3">
-                        <label
-                          for="profileImage"
-                          class="col-md-4 col-lg-3 col-form-label"
-                          >Profile Image</label
-                        >
-                        <div class="col-md-8 col-lg-9">
-                          <img
-                            :src="`/storage/ProfileImage/${userDetails.userInfo.image}`"
-                            alt="Profile"
-                            class="border"
-                          />
-                          <div class="pt-2">
-                            <input
-                              type="file"
-                              accept="image/*"
-                              class="form-control"
-                              @change="onFileChange"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
                       <div class="row mb-3">
                         <label
                           for="fullName"
@@ -409,7 +391,6 @@ export default {
   data() {
     return {
       userProfile: {
-        image: "",
         emp_code: "",
         designation: "",
         father_name: "",
@@ -427,6 +408,7 @@ export default {
       showError: false,
       api: "userProfile",
       success: "",
+      image: "",
     };
   },
   computed: {
@@ -435,7 +417,7 @@ export default {
 
   created() {
     this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
-    this.userProfile.image = this.userDetails.userInfo.image;
+    this.image = this.userDetails.userInfo.image;
     this.userProfile.designation = this.userDetails.userInfo.designation;
     this.userProfile.father_name = this.userDetails.userInfo.father_name;
     this.userProfile.address = this.userDetails.userInfo.address;
@@ -469,11 +451,36 @@ export default {
         });
     },
     onFileChange(e) {
-      this.userProfile.image = e.target.files[0];
+      this.image = e.target.files[0];
+      if (!this.image) {
+        e.preventDefault();
+        this.$toast.error("No file Choosen");
+        return;
+      }
+
+      if (this.image.size > 1024 * 1024) {
+        e.preventDefault();
+        this.$toast.error("File is too big (You can upload maximum upto 1MB)");
+        return;
+      }
+
+      this.uploadProfileImage();
+    },
+    uploadProfileImage() {
+      let formDataImage = new FormData();
+      formDataImage.append("image", this.image);
+      axios
+        .post("upload-image", formDataImage)
+        .then((response) => {
+          this.$store.dispatch("getUserDetails");
+          this.$toast.success(response.data.success);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     updateProfile() {
       let formData = new FormData();
-      formData.append("image", this.userProfile.image);
       formData.append("emp_code", this.userProfile.emp_code);
       formData.append("designation", this.userProfile.designation);
       formData.append("father_name", this.userProfile.father_name);
@@ -501,3 +508,20 @@ export default {
   },
 };
 </script>
+<style scoped>
+.in-file {
+  padding: 10px;
+  background: lightseagreen;
+  display: table;
+  color: blanchedalmond;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3;
+  border-radius: 4px;
+}
+
+input[type="file"] {
+  display: none;
+}
+</style>

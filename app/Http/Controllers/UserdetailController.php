@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use App\Models\Userdetails;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Namshi\JOSE\Signer\OpenSSL\RSA;
 
 class UserdetailController extends Controller
 {
@@ -40,51 +41,14 @@ class UserdetailController extends Controller
     public function store(Request $request)
     {
 
-         //dd($request->all());
-
-        //  dd($request->hasfile('image'));
-
-
-        if($request->hasfile('image')==true){
-
-            // echo"hi i am testing";die; 
-        $validator = Validator::make($request->all(), [
-             'image' => 'required|image:jpg,jpeg,png|max:1024',
-             
-        ],     
-        [
-            'image.required' => 'Image Must be Selected',
-            // 'image.image' => 'The type of the uploaded file should be an image.',
-        ]);
-
-         if($validator->fails()){
-            return response()->json(['error'=>$validator->errors()->toJson()], 400);
-        }
-
-    }
-
-
-       
+      
         $userId =Auth::user()->id;
         $empCode= str_replace(' ', '', $request->emp_code);
         $empCode =Str::upper($empCode);
         
-
-        if($request->file('image'))
-        { 
-            $imageName =$empCode.'-'.time();
-            $fileName = $imageName.'.'.$request->image->extension();  
-            $request->file('image')->storeAs('/public/ProfileImage', $fileName);
-        }
-
-        //  dd($request->all());
-
-
-     
         $product = Userdetails::updateOrCreate(
             [ 'user_id' => $userId ],
-            [ 'image' => $fileName,
-             'emp_code' => $empCode,
+            [ 'emp_code' => $empCode,
              'designation' => $request->designation,
              'father_name' => $request->father_name,
              'address' => $request->address,
@@ -150,5 +114,47 @@ class UserdetailController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function uploadProfileImage(Request $request)
+    {
+            $userId =Auth::user()->id;
+            // echo"hi i am testing";die; 
+            $validator = Validator::make($request->all(), [
+                'image' => 'required|image:jpg,jpeg,png|max:1024',
+                
+           ],     
+           [
+               'image.required' => 'Image Must be Selected',
+               // 'image.image' => 'The type of the uploaded file should be an image.',
+           ]);
+            $userData =Userdetails::select('id','emp_code')->where(['user_id' => $userId])->first();
+            if(!$userData->emp_code)
+            {
+                $empCode ="DUMMYGWL";
+            }
+            else{
+                $empCode = $userData->emp_code;
+            }
+                $imageName =$empCode.'-'.time();
+               $fileName = $imageName.'.'.$request->image->extension();  
+               $request->file('image')->storeAs('/public/ProfileImage', $fileName);
+          
+
+           $product = Userdetails::updateOrCreate(
+            [ 'user_id' => $userId ],
+            [ 
+                'image' => $fileName,
+                'added_by' => $userId
+             ]
+                );
+         
+   
+            if($validator->fails()){
+               return response()->json(['error'=>$validator->errors()->toJson()], 400);
+           }
+           if($product){
+            
+            return response()->json(['success' =>'Image Uploaded Successfully']);
+        }
     }
 }
