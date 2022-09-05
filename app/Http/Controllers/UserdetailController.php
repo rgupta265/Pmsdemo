@@ -39,25 +39,47 @@ class UserdetailController extends Controller
      */
     public function store(Request $request)
     {
+
+         //dd($request->all());
+
+        //  dd($request->hasfile('image'));
+
+
+        if($request->hasfile('image')==true){
+
+            // echo"hi i am testing";die; 
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image:jpg,jpeg,png|max:1024',
-        ],
+             'image' => 'required|image:jpg,jpeg,png|max:1024',
+             
+        ],     
         [
             'image.required' => 'Image Must be Selected',
-            'image.image' => 'The type of the uploaded file should be an image.',
+            // 'image.image' => 'The type of the uploaded file should be an image.',
         ]);
-        if($validator->fails()){
+
+         if($validator->fails()){
             return response()->json(['error'=>$validator->errors()->toJson()], 400);
         }
+
+    }
+
+
+       
         $userId =Auth::user()->id;
         $empCode= str_replace(' ', '', $request->emp_code);
         $empCode =Str::upper($empCode);
+        
+
         if($request->file('image'))
         { 
             $imageName =$empCode.'-'.time();
             $fileName = $imageName.'.'.$request->image->extension();  
-            $request->file('image')->storeAs('ProfileImage', $fileName, 'public');
+            $request->file('image')->storeAs('/public/ProfileImage', $fileName);
         }
+
+        //  dd($request->all());
+
+
      
         $product = Userdetails::updateOrCreate(
             [ 'user_id' => $userId ],
@@ -70,12 +92,17 @@ class UserdetailController extends Controller
              'phone' => $request->phone,
              'emergency_contactno' => $request->emergency_contactno,
              'linkedin_id' => $request->linkedin_id,
-             'joining_date' => $request->joining_date,
+             'joining_date' => date("Y-m-d",strtotime($request->joining_date)),
              'added_by' => $userId,
               ]
         );
 
-        return response()->json(['success' =>'Profile Updated Successfully']);
+
+        if($product){
+            
+            return response()->json(['success' =>'Profile Updated Successfully']);
+        }
+       
         
 
     }

@@ -197,10 +197,10 @@ var render = function render() {
       "data-bs-toggle": "dropdown"
     }
   }, [_c("img", {
-    staticClass: "rounded-circle",
+    staticClass: "rounded-circle border",
     attrs: {
       src: _vm.filePath,
-      alt: "Profile Image Missing"
+      alt: "No Image"
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "d-none d-md-block dropdown-toggle ps-2"

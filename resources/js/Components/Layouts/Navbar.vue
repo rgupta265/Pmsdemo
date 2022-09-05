@@ -36,8 +36,8 @@
             >
               <img
                 :src="filePath"
-                alt="Profile Image Missing"
-                class="rounded-circle"
+                alt="No Image"
+                class="rounded-circle border"
               />
               <span class="d-none d-md-block dropdown-toggle ps-2">{{
                 userDetails.name

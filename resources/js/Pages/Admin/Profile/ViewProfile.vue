@@ -19,22 +19,19 @@
                 "
               >
                 <img
-                  :src="filePath"
-                  alt="Profile Image Is Missing"
+                  :src="`/storage/ProfileImage/${userDetails.userInfo.image}`"
+                  alt="Profile"
                   class="rounded-circle border"
                 />
                 <h2>{{ userDetails.name }}</h2>
                 <h3>Web Designer</h3>
                 <h3>{{ userDetails.email }}</h3>
                 <div class="social-links mt-2">
-                  <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                  <a href="#" class="facebook"
-                    ><i class="bi bi-facebook"></i
-                  ></a>
-                  <a href="#" class="instagram"
-                    ><i class="bi bi-instagram"></i
-                  ></a>
-                  <a href="#" class="linkedin"
+                  <a
+                    :href="userDetails.userInfo.linkedin_id"
+                    target="_blank"
+                    class="linkedin"
+                    v-if="userDetails.userInfo.linkedin_id"
                     ><i class="bi bi-linkedin"></i
                   ></a>
                 </div>
@@ -82,14 +79,6 @@
                     class="tab-pane fade show active profile-overview"
                     id="profile-overview"
                   >
-                    <h5 class="card-title">About</h5>
-                    <p class="small fst-italic">
-                      Sunt est soluta temporibus accusantium neque nam maiores
-                      cumque temporibus. Tempora libero non est unde veniam est
-                      qui dolor. Ut sunt iure rerum quae quisquam autem eveniet
-                      perspiciatis odit. Fuga sequi sed ea saepe at unde.
-                    </p>
-
                     <h5 class="card-title">Profile Details</h5>
 
                     <div class="row">
@@ -101,27 +90,33 @@
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Company</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">Galaxy Weblinks</div>
                     </div>
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Job</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ userDetails.userInfo.designation }}
+                      </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-lg-3 col-md-4 label">Country</div>
                       <div class="col-lg-9 col-md-8"></div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Address</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ userDetails.userInfo.address }}
+                      </div>
                     </div>
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Phone</div>
-                      <div class="col-lg-9 col-md-8"></div>
+                      <div class="col-lg-9 col-md-8">
+                        {{ userDetails.userInfo.phone }}
+                      </div>
                     </div>
 
                     <div class="row">
@@ -136,7 +131,7 @@
                     class="tab-pane fade profile-edit pt-3"
                     id="profile-edit"
                   >
-                    <Alert :data="message"></Alert>
+                    <div id="msg"><Alert :data="success"></Alert></div>
                     <!-- Profile Edit Form -->
                     <form
                       method="post"
@@ -151,9 +146,9 @@
                         >
                         <div class="col-md-8 col-lg-9">
                           <img
-                            :src="filePath"
-                            alt="Profile Image Is Missing"
-                            class="rounded border"
+                            :src="`/storage/ProfileImage/${userDetails.userInfo.image}`"
+                            alt="Profile"
+                            class="border"
                           />
                           <div class="pt-2">
                             <input
@@ -205,6 +200,7 @@
                           class="col-md-4 col-lg-3 col-form-label"
                           >Employee code</label
                         >
+
                         <div class="col-md-8 col-lg-9">
                           <input
                             type="text"
@@ -239,7 +235,6 @@
                             type="text"
                             class="form-control"
                             v-model="userProfile.designation"
-                            value=""
                           />
                         </div>
                       </div>
@@ -255,7 +250,6 @@
                             type="text"
                             class="form-control"
                             v-model="userProfile.father_name"
-                            value=""
                           />
                         </div>
                       </div>
@@ -271,7 +265,6 @@
                             type="text"
                             class="form-control"
                             v-model="userProfile.address"
-                            value=""
                           />
                         </div>
                       </div>
@@ -287,7 +280,6 @@
                             type="text"
                             class="form-control"
                             v-model="userProfile.correspondence_address"
-                            value=""
                           />
                         </div>
                       </div>
@@ -332,7 +324,6 @@
                           <input
                             type="text"
                             class="form-control"
-                            value=""
                             v-model="userProfile.linkedin_id"
                           />
                         </div>
@@ -349,8 +340,8 @@
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <Alert v-if="showError"></Alert>
-
+                    <!-- <Alert v-if="showError"></Alert> -->
+                    <Alert :data="success"></Alert>
                     <form
                       method="post"
                       action=""
@@ -435,16 +426,13 @@ export default {
       },
       showError: false,
       api: "userProfile",
-      message: "",
-      imageDir: "/storage/ProfileImage/",
+      success: "",
     };
   },
   computed: {
     ...mapGetters({ userDetails: "getUserDetails", errors: "getError" }),
-    filePath() {
-      return this.imageDir + this.userDetails.userInfo.image;
-    },
   },
+
   created() {
     this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
     this.userProfile.image = this.userDetails.userInfo.image;
@@ -459,6 +447,7 @@ export default {
     this.userProfile.linkedin_id = this.userDetails.userInfo.linkedin_id;
     this.userProfile.joining_date = this.userDetails.userInfo.joining_date;
   },
+
   methods: {
     ...mapActions(["ChangePassword"]),
     changePassword: function () {
@@ -476,7 +465,7 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          this.showError = true;
+          // this.showError = true;
         });
     },
     onFileChange(e) {
@@ -504,7 +493,7 @@ export default {
       axios
         .post(this.api, formData)
         .then((response) => {
-          this.message = response.data.success;
+          this.success = response.data.success;
           this.$store.dispatch("getUserDetails");
         })
         .catch(function (error) {});

@@ -299,12 +299,12 @@ var render = function render() {
     }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_c("router-link", {
       attrs: {
         to: {
-          name: "dashboard"
+          name: "MUserInfo"
         }
       }
     }, [_c("i", {
       staticClass: "bi bi-info-circle"
-    }), _vm._v(" " + _vm._s(invite.user_details.name))])], 1), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.user_details.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.inviterole.name))]), _vm._v(" "), _c("td"), _vm._v(" "), _c("td"), _vm._v(" "), _c("td", [_c("router-link", {
+    }), _vm._v(" " + _vm._s(invite.user_details.name))])], 1), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.user_details.email))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(invite.inviterole.name))]), _vm._v(" "), invite.user_more_info ? _c("td", [_vm._v("\n                      " + _vm._s(invite.user_more_info.emp_code) + "\n                    ")]) : _c("td", [_vm._v("-------------------")]), _vm._v(" "), invite.user_more_info ? _c("td", [_vm._v("\n                      " + _vm._s(invite.user_more_info.designation) + "\n                    ")]) : _c("td", [_vm._v("-------------------")]), _vm._v(" "), _c("td", [_c("router-link", {
       attrs: {
         to: {
           name: "addReport",

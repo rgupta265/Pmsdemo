@@ -26,11 +26,11 @@ class PmsReportController extends Controller
         if($this->getLoggedInUser()['loggedInRoleName'][0] =='admin')
         {
             $data =UserInvitation::where('status','successful')
-            ->with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email')
+            ->with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo')
             ->paginate(10);
         }
         else{
-            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email')
+            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo')
             ->where(['sender_user_id'=>$this->getLoggedInUser()['loggedInUserId'],
             'status' => 'successful'])
             ->paginate(10);
@@ -115,8 +115,17 @@ class PmsReportController extends Controller
             ->paginate(10);
         }
         else{
-
+            $data =PmsReport::where(['status'=>'1','pms_rating_by_user_id'=>'$data[loggedInUserId]'])->with('userReportInfo:id,name,email')->latest()
+            ->paginate(10);
         }
+        return response()->json($data);
+    }
+
+    public function getMyProgressReport()
+    {
+     $data =PmsReport::where(['status'=>'1','pms_rating_to_user_id'=>'$data[loggedInUserId]'])->with('userReportInfo:id,name,email')->latest()
+        ->paginate(10);
+
         return response()->json($data);
     }
     

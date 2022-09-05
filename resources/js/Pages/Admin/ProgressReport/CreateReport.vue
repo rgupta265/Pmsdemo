@@ -59,7 +59,7 @@
                     >
                       <td scope="row">{{ ++index }}</td>
                       <td>
-                        <router-link :to="{ name: 'dashboard' }"
+                        <router-link :to="{ name: 'MUserInfo' }"
                           ><i class="bi bi-info-circle"></i>&nbsp;{{
                             invite.user_details.name
                           }}</router-link
@@ -67,9 +67,14 @@
                       </td>
                       <td>{{ invite.user_details.email }}</td>
                       <td>{{ invite.inviterole.name }}</td>
-                      <td></td>
-                      <td></td>
-
+                      <td v-if="invite.user_more_info">
+                        {{ invite.user_more_info.emp_code }}
+                      </td>
+                      <td v-else>-------------------</td>
+                      <td v-if="invite.user_more_info">
+                        {{ invite.user_more_info.designation }}
+                      </td>
+                      <td v-else>-------------------</td>
                       <td>
                         <router-link
                           :to="{

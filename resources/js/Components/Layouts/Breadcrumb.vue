@@ -13,6 +13,9 @@
         </li>
       </ol>
     </nav>
+    <!-- <div class="content text-right">
+      <a @click="$router.back()"><button class="btn btn-info">Back</button></a>
+    </div> -->
   </div>
 </template>
 <script>

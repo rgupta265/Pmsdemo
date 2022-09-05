@@ -6,6 +6,7 @@
       <!-- Send Invite Start -->
       <form action="" @submit.prevent="createReport" method="post">
         <div class="row">
+          <Alert v-if="showError"></Alert>
           <div class="col-xl-12">
             <div class="card">
               <div class="card-body">
@@ -16,29 +17,6 @@
                   >
                 </h5>
 
-                <!-- report section start -->
-                <!-- <fieldset class="border p-2">
-                  <legend class="float-none w-auto p-2 card-title">
-                    Report
-                  </legend>
-
-                  <div class="row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label"
-                      >Report ID <span class="text-danger"> *</span></label
-                    >
-                    <div class="col-sm-4">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Report ID"
-                        v-model="reportForm.reportId"
-                        required
-                        id="inputText"
-                      />
-                    </div>
-                  </div>
-                </fieldset> -->
-                <!-- report section end -->
                 <!-- user section start -->
                 <fieldset class="border p-2">
                   <legend class="float-none w-auto p-2 card-title">
@@ -249,6 +227,7 @@ export default {
   },
   data() {
     return {
+      showError: false,
       token: this.$route.query.code,
       options: [
         { name: "3 Months", value: "3M" },
@@ -317,7 +296,9 @@ export default {
           this.$toast.success(response.data.success);
           this.$router.push("/view-created-report");
         })
-        .catch((error) => {});
+        .catch((error) => {
+          this.showError = true;
+        });
     },
   },
 };

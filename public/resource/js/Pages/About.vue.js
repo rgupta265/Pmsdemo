@@ -120,18 +120,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       showError: false,
       api: "userProfile",
-      message: "",
-      imageDir: "/storage/ProfileImage/"
+      success: ""
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])({
     userDetails: "getUserDetails",
     errors: "getError"
-  })), {}, {
-    filePath: function filePath() {
-      return this.imageDir + this.userDetails.userInfo.image;
-    }
-  }),
+  })),
   created: function created() {
     this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
     this.userProfile.image = this.userDetails.userInfo.image;
@@ -161,8 +156,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch("logout");
 
         _this.$router.push("/");
-      })["catch"](function (err) {
-        _this.showError = true;
+      })["catch"](function (err) {// this.showError = true;
       });
     },
     onFileChange: function onFileChange(e) {
@@ -184,7 +178,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append("joining_date", this.userProfile.joining_date); // send upload request
 
       axios.post(this.api, formData).then(function (response) {
-        _this2.message = response.data.success;
+        _this2.success = response.data.success;
 
         _this2.$store.dispatch("getUserDetails");
       })["catch"](function (error) {});
@@ -312,16 +306,26 @@ var render = function render() {
   }, [_c("img", {
     staticClass: "rounded-circle border",
     attrs: {
-      src: _vm.filePath,
-      alt: "Profile Image Is Missing"
+      src: "/storage/ProfileImage/".concat(_vm.userDetails.userInfo.image),
+      alt: "Profile"
     }
-  }), _vm._v(" "), _c("h2", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("h3", [_vm._v("Web Designer")]), _vm._v(" "), _c("h3", [_vm._v(_vm._s(_vm.userDetails.email))]), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("h2", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("h3", [_vm._v("Web Designer")]), _vm._v(" "), _c("h3", [_vm._v(_vm._s(_vm.userDetails.email))]), _vm._v(" "), _c("div", {
+    staticClass: "social-links mt-2"
+  }, [_vm.userDetails.userInfo.linkedin_id ? _c("a", {
+    staticClass: "linkedin",
+    attrs: {
+      href: _vm.userDetails.userInfo.linkedin_id,
+      target: "_blank"
+    }
+  }, [_c("i", {
+    staticClass: "bi bi-linkedin"
+  })]) : _vm._e()])])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-8"
   }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body pt-3"
-  }, [_vm._m(1), _vm._v(" "), _c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "tab-content pt-2"
   }, [_c("div", {
     staticClass: "tab-pane fade show active profile-overview",
@@ -330,17 +334,31 @@ var render = function render() {
     }
   }, [_c("h5", {
     staticClass: "card-title"
-  }, [_vm._v("About")]), _vm._v(" "), _c("p", {
-    staticClass: "small fst-italic"
-  }, [_vm._v("\n                    Sunt est soluta temporibus accusantium neque nam maiores\n                    cumque temporibus. Tempora libero non est unde veniam est\n                    qui dolor. Ut sunt iure rerum quae quisquam autem eveniet\n                    perspiciatis odit. Fuga sequi sed ea saepe at unde.\n                  ")]), _vm._v(" "), _c("h5", {
-    staticClass: "card-title"
   }, [_vm._v("Profile Details")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-lg-3 col-md-4 label"
   }, [_vm._v("Full Name")]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-9 col-md-8"
-  }, [_vm._v("\n                      " + _vm._s(_vm.userDetails.name) + "\n                    ")])]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                      " + _vm._s(_vm.userDetails.name) + "\n                    ")])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-3 col-md-4 label"
+  }, [_vm._v("Job")]), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-9 col-md-8"
+  }, [_vm._v("\n                      " + _vm._s(_vm.userDetails.userInfo.designation) + "\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-3 col-md-4 label"
+  }, [_vm._v("Address")]), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-9 col-md-8"
+  }, [_vm._v("\n                      " + _vm._s(_vm.userDetails.userInfo.address) + "\n                    ")])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-3 col-md-4 label"
+  }, [_vm._v("Phone")]), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-9 col-md-8"
+  }, [_vm._v("\n                      " + _vm._s(_vm.userDetails.userInfo.phone) + "\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-lg-3 col-md-4 label"
@@ -351,11 +369,15 @@ var render = function render() {
     attrs: {
       id: "profile-edit"
     }
+  }, [_c("div", {
+    attrs: {
+      id: "msg"
+    }
   }, [_c("Alert", {
     attrs: {
-      data: _vm.message
+      data: _vm.success
     }
-  }), _vm._v(" "), _c("form", {
+  })], 1), _vm._v(" "), _c("form", {
     attrs: {
       method: "post",
       enctype: "multipart/form-data"
@@ -376,10 +398,10 @@ var render = function render() {
   }, [_vm._v("Profile Image")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("img", {
-    staticClass: "rounded border",
+    staticClass: "border",
     attrs: {
-      src: _vm.filePath,
-      alt: "Profile Image Is Missing"
+      src: "/storage/ProfileImage/".concat(_vm.userDetails.userInfo.image),
+      alt: "Profile"
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "pt-2"
@@ -534,8 +556,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
-      value: ""
+      type: "text"
     },
     domProps: {
       value: _vm.userProfile.designation
@@ -565,8 +586,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
-      value: ""
+      type: "text"
     },
     domProps: {
       value: _vm.userProfile.father_name
@@ -596,8 +616,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
-      value: ""
+      type: "text"
     },
     domProps: {
       value: _vm.userProfile.address
@@ -627,8 +646,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
-      value: ""
+      type: "text"
     },
     domProps: {
       value: _vm.userProfile.correspondence_address
@@ -718,8 +736,7 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
-      value: ""
+      type: "text"
     },
     domProps: {
       value: _vm.userProfile.linkedin_id
@@ -731,12 +748,16 @@ var render = function render() {
         _vm.$set(_vm.userProfile, "linkedin_id", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _vm._m(7)])], 1), _vm._v(" "), _c("div", {
+  })])]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c("div", {
     staticClass: "tab-pane fade pt-3",
     attrs: {
       id: "profile-change-password"
     }
-  }, [_vm.showError ? _c("Alert") : _vm._e(), _vm._v(" "), _c("form", {
+  }, [_c("Alert", {
+    attrs: {
+      data: _vm.success
+    }
+  }), _vm._v(" "), _c("form", {
     attrs: {
       method: "post",
       action: ""
@@ -807,45 +828,10 @@ var render = function render() {
         _vm.$set(_vm.userPass, "confirm_password", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _vm._m(8)])], 1)])])])])])])], 1)]);
+  })])]), _vm._v(" "), _vm._m(3)])], 1)])])])])])])], 1)]);
 };
 
 var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "social-links mt-2"
-  }, [_c("a", {
-    staticClass: "twitter",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-twitter"
-  })]), _vm._v(" "), _c("a", {
-    staticClass: "facebook",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-facebook"
-  })]), _vm._v(" "), _c("a", {
-    staticClass: "instagram",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-instagram"
-  })]), _vm._v(" "), _c("a", {
-    staticClass: "linkedin",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-linkedin"
-  })])]);
-}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
@@ -886,51 +872,7 @@ var staticRenderFns = [function () {
     staticClass: "col-lg-3 col-md-4 label"
   }, [_vm._v("Company")]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-9 col-md-8"
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-lg-3 col-md-4 label"
-  }, [_vm._v("Job")]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-9 col-md-8"
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-lg-3 col-md-4 label"
-  }, [_vm._v("Country")]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-9 col-md-8"
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-lg-3 col-md-4 label"
-  }, [_vm._v("Address")]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-9 col-md-8"
-  })]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-lg-3 col-md-4 label"
-  }, [_vm._v("Phone")]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-9 col-md-8"
-  })]);
+  }, [_vm._v("Galaxy Weblinks")])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;

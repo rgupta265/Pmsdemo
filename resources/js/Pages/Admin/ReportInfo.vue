@@ -9,10 +9,7 @@
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
               <a class="icon d-print-none"
-                ><i
-                  class="bi bi-printer-fill"
-                  @click="printReport('printableArea')"
-                ></i
+                ><i class="bi bi-printer-fill" @click="printReport"></i
               ></a>
               <h5 class="card-title">
                 PMS Report Details Of {{ allReportInfo.report_id }}
@@ -137,6 +134,12 @@
                       }}
                     </td>
                   </tr>
+                  <tr>
+                    <th>Remarks:</th>
+                    <td colspan="3">
+                      {{ allReportInfo.remarks }}
+                    </td>
+                  </tr>
                 </table>
               </div>
               <!-- Table 4 End-->
@@ -152,7 +155,7 @@
 
 <script>
 import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
-
+import html2pdf from "html2pdf.js";
 export default {
   name: "reportInfo",
   components: {
@@ -173,12 +176,15 @@ export default {
       .catch((error) => {});
   },
   methods: {
-    printReport(divName) {
-      var printContents = document.getElementById(divName).innerHTML;
-      var originalContents = document.body.innerHTML;
-      document.body.innerHTML = printContents;
-      window.print();
-      document.body.innerHTML = originalContents;
+    printReport() {
+      var element = document.getElementById("printableArea");
+      var opt = {
+        filename: this.allReportInfo.report_id + ".pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "A4", orientation: "portrait" },
+      };
+      // New Promise-based usage:
+      html2pdf().set(opt).from(element).save();
     },
   },
 };

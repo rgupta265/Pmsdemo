@@ -29,7 +29,7 @@ class AuthController extends Controller
         }
 
         if (! $token = JWTAuth::attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' =>$validator->errors()->add('warning', 'Unauthorized User')->toJson()], 400);
         }
         $check =User::where('email',$request->email)->first();
         if($check->status == 0)

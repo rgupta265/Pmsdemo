@@ -60,6 +60,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      showError: false,
       token: this.$route.query.code,
       options: [{
         name: "3 Months",
@@ -139,7 +140,9 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$toast.success(response.data.success);
 
         _this3.$router.push("/view-created-report");
-      })["catch"](function (error) {});
+      })["catch"](function (error) {
+        _this3.showError = true;
+      });
     }
   }
 });
@@ -225,7 +228,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "row"
-  }, [_c("div", {
+  }, [_vm.showError ? _c("Alert") : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "col-xl-12"
   }, [_c("div", {
     staticClass: "card"
@@ -444,7 +447,7 @@ var render = function render() {
         }
       }
     }, [_vm._v("Add")])])]);
-  }), 0)])])])])])])]), _vm._v(" "), _c("section", {
+  }), 0)])])])])])])], 1), _vm._v(" "), _c("section", {
     staticClass: "section profile"
   }, [_c("div", {
     staticClass: "row"
