@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.InviteList.filter(function (invite) {
-        return invite.email.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.status.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.inviterole.name.toLowerCase().includes(_this.inviteSearch.toLowerCase());
+        return invite.email.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.user_more_info.emp_code.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.user_more_info.designation.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.status.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.inviterole.name.toLowerCase().includes(_this.inviteSearch.toLowerCase());
       });
     }
   },

@@ -79757,6 +79757,7 @@ var routes = [{
     name: "MUserInfo",
     path: '/m-user-info',
     component: UserInfoComponent,
+    props: true,
     meta: {
       title: "User Info",
       middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth // Middlewares.checkPermissions 

@@ -283,6 +283,7 @@ const routes = [
         name:"MUserInfo",
         path: '/m-user-info',
         component: UserInfoComponent,
+        props: true,
         meta:{
             title:`User Info`, 
             middleware :[

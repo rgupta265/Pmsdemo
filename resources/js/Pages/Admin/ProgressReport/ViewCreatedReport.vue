@@ -69,7 +69,9 @@
                         >
                       </td>
                       <td>
-                        <router-link :to="{ name: 'MUserInfo' }"
+                        <router-link :to="{ name: 'MUserInfo',query: {
+                              accessToken: report.pms_rating_to_user_id,
+                            }, }"
                           ><i class="bi bi-info-circle"></i>&nbsp;{{
                             report.user_report_info.name
                           }}
@@ -86,7 +88,10 @@
                       </td>
 
                       <td>
-                        <span class="badge bg-secondary" role="button"
+                        <span
+                          class="badge bg-secondary"
+                          role="button"
+                          @click="goTodownload(report.token)"
                           ><i class="bi bi-download"></i> Download Report</span
                         >
                       </td>
@@ -146,12 +151,10 @@ export default {
   computed: {
     filteredReportList() {
       return this.reportList.filter((report) => {
-        if (report.emp_code != null) {
-          return report.emp_code
-            .toLowerCase()
-            .includes(this.reportSearch.toLowerCase());
-        }
         return (
+          report.emp_code
+            .toLowerCase()
+            .includes(this.reportSearch.toLowerCase()) ||
           report.report_id
             .toLowerCase()
             .includes(this.reportSearch.toLowerCase()) ||
@@ -186,6 +189,13 @@ export default {
           this.reportList = response.data.data;
           this.resultInfo = response.data;
         });
+    },
+    goTodownload(index) {
+      console.log(index);
+      this.$router.push({
+        name: "MReportInfo",
+        query: { token: index, downloadPdf: true },
+      });
     },
   },
   created() {

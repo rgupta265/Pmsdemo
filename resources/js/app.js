@@ -10,7 +10,6 @@ import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 import can from './helpers/can';
-
 import moment from 'moment';
 Vue.filter('formatDate', function(value) {
   if (value) {
@@ -25,6 +24,8 @@ Vue.filter('DateChange', function(value) {
 Vue.filter('humanReadableTime', function (value) {
   return moment(value).fromNow();
 });//get time like 2hrs ago,50 seconds ago
+
+
 const options = {
     timeout: 3000,
     position: "top-right",

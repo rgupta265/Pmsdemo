@@ -22,6 +22,15 @@
                   :src="`/storage/ProfileImage/${userDetails.userInfo.image}`"
                   alt="Profile"
                   class="rounded-circle border"
+                  v-if="userDetails.userInfo.image"
+                />
+                <img
+                  src="backendTheme/assets/img/default_image/no_image.png"
+                  alt="Profile"
+                  height="120"
+                  width="120"
+                  class="rounded border"
+                  v-else
                 />
                 <label class="in-file mt-2" role="button">
                   <i class="bi bi-upload"></i>

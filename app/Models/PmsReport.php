@@ -43,4 +43,5 @@ class PmsReport extends Model
     {
       return $this->belongsTo(User::class,'pms_rating_by_user_id');
     }
+    
 }

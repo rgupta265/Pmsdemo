@@ -1,6 +1,7 @@
 <template>
   <div class="reportInfo">
-    <main id="main" class="main">
+    <Loader v-show="isLoading"></Loader>
+    <main id="main" class="main" v-show="!isLoading">
       <Breadcrumb> </Breadcrumb>
 
       <div class="row">
@@ -8,9 +9,13 @@
           <div class="card">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
-              <a class="icon d-print-none"
-                ><i class="bi bi-printer-fill" @click="printReport"></i
-              ></a>
+              <button class="icon d-print-none">
+                <i
+                  class="bi bi-download"
+                  @click="printReport"
+                  ref="myPrintBtn"
+                ></i>
+              </button>
               <h5 class="card-title">
                 PMS Report Details Of {{ allReportInfo.report_id }}
               </h5>
@@ -105,7 +110,7 @@
               <!-- Table 3 End-->
 
               <!-- Table 4 Start-->
-              <h5 class="card-title text-center">Performance Authorization</h5>
+              <h5 class="card-title text-center">Performance Authorization / Inviter </h5>
               <div class="row container">
                 <table class="table table-bordered table-striped">
                   <tr>
@@ -155,16 +160,20 @@
 
 <script>
 import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
+import Loader from ".../../../resources/js/Components/Layouts/Loader";
 import html2pdf from "html2pdf.js";
 export default {
   name: "reportInfo",
   components: {
     Breadcrumb,
+    Loader,
   },
   data() {
     return {
+      isLoading: false,
       repToken: this.$route.query.token,
       allReportInfo: [],
+      downloadStatus: this.$route.query.downloadPdf,
     };
   },
   created() {
@@ -174,6 +183,16 @@ export default {
         this.allReportInfo = response.data;
       })
       .catch((error) => {});
+  },
+  mounted() {
+    if (this.downloadStatus == true) {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$refs.myPrintBtn.click();
+        this.isLoading = false;
+        this.$router.go(-1);
+      }, 2000);
+    }
   },
   methods: {
     printReport() {
@@ -189,3 +208,5 @@ export default {
   },
 };
 </script>
+<style scoped>
+</style>

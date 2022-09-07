@@ -35,9 +35,18 @@
               data-bs-toggle="dropdown"
             >
               <img
-                :src="filePath"
+                :src="`/storage/ProfileImage/${userDetails.userInfo.image}`"
                 alt="No Image"
                 class="rounded-circle border"
+                v-if="userDetails.userInfo.image"
+              />
+              <img
+                src="backendTheme/assets/img/default_image/no_image.png"
+                alt="Profile"
+                height="120"
+                width="120"
+                class="rounded border"
+                v-else
               />
               <span class="d-none d-md-block dropdown-toggle ps-2">{{
                 userDetails.name
@@ -249,7 +258,7 @@ export default {
   },
   name: "navbar",
   data() {
-    return { imageDir: "/storage/ProfileImage/" };
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -260,9 +269,6 @@ export default {
 
     isLoggedIn: function () {
       return this.$store.getters.isLoggedIn;
-    },
-    filePath() {
-      return this.imageDir + this.userDetails.userInfo.image;
     },
   },
   created() {

@@ -33,9 +33,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   name: "navbar",
   data: function data() {
-    return {
-      imageDir: "/storage/ProfileImage/"
-    };
+    return {};
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     userDetails: "getUserDetails",
@@ -44,9 +42,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     isLoggedIn: function isLoggedIn() {
       return this.$store.getters.isLoggedIn;
-    },
-    filePath: function filePath() {
-      return this.imageDir + this.userDetails.userInfo.image;
     }
   }),
   created: function created() {
@@ -196,11 +191,19 @@ var render = function render() {
       href: "#",
       "data-bs-toggle": "dropdown"
     }
-  }, [_c("img", {
+  }, [_vm.userDetails.userInfo.image ? _c("img", {
     staticClass: "rounded-circle border",
     attrs: {
-      src: _vm.filePath,
+      src: "/storage/ProfileImage/".concat(_vm.userDetails.userInfo.image),
       alt: "No Image"
+    }
+  }) : _c("img", {
+    staticClass: "rounded border",
+    attrs: {
+      src: "backendTheme/assets/img/default_image/no_image.png",
+      alt: "Profile",
+      height: "120",
+      width: "120"
     }
   }), _vm._v(" "), _c("span", {
     staticClass: "d-none d-md-block dropdown-toggle ps-2"

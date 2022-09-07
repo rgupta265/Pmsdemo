@@ -107,12 +107,8 @@ __webpack_require__.r(__webpack_exports__);
     filteredReportList: function filteredReportList() {
       var _this = this;
 
-      return this.reportList.filter(function (report) {
-        if (report.emp_code != null) {
-          return report.emp_code.toLowerCase().includes(_this.reportSearch.toLowerCase());
-        }
-
-        return report.report_id.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_cycle.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_from.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_to.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.email.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.name.toLowerCase().includes(_this.reportSearch.toLowerCase());
+      return this.reportList.filter(function (reportDemo) {
+        return reportDemo.emp_code.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.report_id.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.report_cycle.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.report_duration_from.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.report_duration_to.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.user_report_info.email.toLowerCase().includes(_this.reportSearch.toLowerCase()) || reportDemo.user_report_info.name.toLowerCase().includes(_this.reportSearch.toLowerCase());
       });
     }
   },
@@ -128,6 +124,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.reportList = response.data.data;
         _this2.resultInfo = response.data;
+      });
+    },
+    goTodownload: function goTodownload(index) {
+      console.log(index);
+      this.$router.push({
+        name: "MReportInfo",
+        query: {
+          token: index,
+          downloadPdf: true
+        }
       });
     }
   },
@@ -238,10 +244,159 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "view-my-report"
-  });
+  }, [_c("main", {
+    staticClass: "main",
+    attrs: {
+      id: "main"
+    }
+  }, [_c("Breadcrumb"), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-xl-12"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-2"
+  }, [_c("strong", [_vm._v("Showing\n              "), _c("span", [_vm._v(_vm._s(_vm.resultInfo.from ? _vm.resultInfo.from : 0) + " –\n                " + _vm._s(_vm.resultInfo.to ? _vm.resultInfo.to : 0) + " of\n                " + _vm._s(_vm.resultInfo.total ? _vm.resultInfo.total : 0) + " Report\n              ")])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.reportSearch,
+      expression: "reportSearch"
+    }],
+    staticClass: "form-control-sm",
+    attrs: {
+      placeholder: "Search...",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.reportSearch
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.reportSearch = $event.target.value;
+      }
+    }
+  })])])])])]), _vm._v(" "), _c("section", {
+    staticClass: "section profile"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-xl-12"
+  }, [_c("div", {
+    staticClass: "card table-responsive"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("PMS Report List")]), _vm._v(" "), _c("table", {
+    staticClass: "table table-sm"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredReportList, function (report, index) {
+    return _c("tr", {
+      key: index
+    }, [_c("td", {
+      attrs: {
+        scope: "row"
+      }
+    }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_c("router-link", {
+      attrs: {
+        to: {
+          name: "MReportInfo",
+          query: {
+            token: report.token
+          }
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-info-circle"
+    }), _vm._v(" " + _vm._s(report.report_id))])], 1), _vm._v(" "), _c("td", [_c("router-link", {
+      attrs: {
+        to: {
+          name: "MUserInfo",
+          query: {
+            accessToken: report.pms_rating_to_user_id
+          }
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-info-circle"
+    }), _vm._v(" " + _vm._s(report.user_report_info.name) + "\n                        (" + _vm._s(report.user_report_info.email) + ")")])], 1), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(report.emp_code ? report.emp_code : "-----------") + "\n                    ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(report.report_cycle))]), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_from)) + " -\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_to)) + "\n                    ")]), _vm._v(" "), _c("td", [_c("span", {
+      staticClass: "badge bg-secondary",
+      attrs: {
+        role: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.goTodownload(report.token);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-download"
+    }), _vm._v(" Download Report")])])]);
+  }), _vm._v(" "), _vm.filteredReportList.length == 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "8"
+    }
+  }, [_vm._v("\n                      There is no data available.\n                    ")])]) : _vm._e()], 2)])])]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-1"
+  }, [_c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("pagination", {
+    attrs: {
+      data: _vm.resultInfo,
+      limit: 0,
+      size: "small"
+    },
+    on: {
+      "pagination-change-page": _vm.getAllReport
+    }
+  })], 1)])])])])])], 1)]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("thead", [_c("tr", [_c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("#")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Report Id")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("User Info")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Emp Code")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Report Cycle")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Report Range")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Action")])])]);
+}];
 render._withStripped = true;
 
 

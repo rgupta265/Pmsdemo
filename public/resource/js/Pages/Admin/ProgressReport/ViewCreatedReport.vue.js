@@ -108,11 +108,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.reportList.filter(function (report) {
-        if (report.emp_code != null) {
-          return report.emp_code.toLowerCase().includes(_this.reportSearch.toLowerCase());
-        }
-
-        return report.report_id.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_cycle.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_from.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_to.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.email.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.name.toLowerCase().includes(_this.reportSearch.toLowerCase());
+        return report.emp_code.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_id.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_cycle.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_from.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.report_duration_to.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.email.toLowerCase().includes(_this.reportSearch.toLowerCase()) || report.user_report_info.name.toLowerCase().includes(_this.reportSearch.toLowerCase());
       });
     }
   },
@@ -128,6 +124,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this2.reportList = response.data.data;
         _this2.resultInfo = response.data;
+      });
+    },
+    goTodownload: function goTodownload(index) {
+      console.log(index);
+      this.$router.push({
+        name: "MReportInfo",
+        query: {
+          token: index,
+          downloadPdf: true
+        }
       });
     }
   },
@@ -315,12 +321,27 @@ var render = function render() {
     }), _vm._v(" " + _vm._s(report.report_id))])], 1), _vm._v(" "), _c("td", [_c("router-link", {
       attrs: {
         to: {
-          name: "MUserInfo"
+          name: "MUserInfo",
+          query: {
+            accessToken: report.pms_rating_to_user_id
+          }
         }
       }
     }, [_c("i", {
       staticClass: "bi bi-info-circle"
-    }), _vm._v(" " + _vm._s(report.user_report_info.name) + "\n                        (" + _vm._s(report.user_report_info.email) + ")")])], 1), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(report.emp_code ? report.emp_code : "-----------") + "\n                    ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(report.report_cycle))]), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_from)) + " -\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_to)) + "\n                    ")]), _vm._v(" "), _vm._m(1, true)]);
+    }), _vm._v(" " + _vm._s(report.user_report_info.name) + "\n                        (" + _vm._s(report.user_report_info.email) + ")")])], 1), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(report.emp_code ? report.emp_code : "-----------") + "\n                    ")]), _vm._v(" "), _c("td", [_vm._v(_vm._s(report.report_cycle))]), _vm._v(" "), _c("td", [_vm._v("\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_from)) + " -\n                      " + _vm._s(_vm._f("DateChange")(report.report_duration_to)) + "\n                    ")]), _vm._v(" "), _c("td", [_c("span", {
+      staticClass: "badge bg-secondary",
+      attrs: {
+        role: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.goTodownload(report.token);
+        }
+      }
+    }, [_c("i", {
+      staticClass: "bi bi-download"
+    }), _vm._v(" Download Report")])])]);
   }), _vm._v(" "), _vm.filteredReportList.length == 0 ? _c("tr", [_c("td", {
     staticClass: "text-center",
     attrs: {
@@ -379,18 +400,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Action")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("td", [_c("span", {
-    staticClass: "badge bg-secondary",
-    attrs: {
-      role: "button"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-download"
-  }), _vm._v(" Download Report")])]);
 }];
 render._withStripped = true;
 

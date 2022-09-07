@@ -149,6 +149,12 @@ export default {
           invite.email
             .toLowerCase()
             .includes(this.inviteSearch.toLowerCase()) ||
+          invite.user_more_info.emp_code
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase()) ||
+          invite.user_more_info.designation
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase()) ||
           invite.status
             .toLowerCase()
             .includes(this.inviteSearch.toLowerCase()) ||

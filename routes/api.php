@@ -50,6 +50,7 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::post('new-report', [App\Http\Controllers\PmsReportController::class,'CreateNewReport']);
     Route::get('getReportList', [App\Http\Controllers\PmsReportController::class,'getAllReportListByUserId']);
     Route::get('getReportInfo/{code}', [App\Http\Controllers\UniversalApi\GettersUniversalApiController::class,'getAllReportDetailsByReportCode']);
-    Route::get('get-my-progress-report', [App\Http\Controllers\UniversalApi\GettersUniversalApiController::class,'getMyProgressReport']);
+    Route::get('getUserInfo/{code}', [App\Http\Controllers\UniversalApi\GettersUniversalApiController::class,'getAllUserInfoByUserCode']);
+    Route::get('get-my-progress-report', [App\Http\Controllers\PmsReportController::class,'getMyProgressReport']);
     Route::post('upload-image', [App\Http\Controllers\UserdetailController::class,'uploadProfileImage']);
 });

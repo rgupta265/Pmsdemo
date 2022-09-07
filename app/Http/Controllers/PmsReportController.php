@@ -115,7 +115,7 @@ class PmsReportController extends Controller
             ->paginate(10);
         }
         else{
-            $data =PmsReport::where(['status'=>'1','pms_rating_by_user_id'=>'$data[loggedInUserId]'])->with('userReportInfo:id,name,email')->latest()
+            $data =PmsReport::where(['status'=>'1','pms_rating_by_user_id'=>Auth::user()->id])->with('userReportInfo:id,name,email')->latest()
             ->paginate(10);
         }
         return response()->json($data);
@@ -123,7 +123,7 @@ class PmsReportController extends Controller
 
     public function getMyProgressReport()
     {
-     $data =PmsReport::where(['status'=>'1','pms_rating_to_user_id'=>'$data[loggedInUserId]'])->with('userReportInfo:id,name,email')->latest()
+     $data =PmsReport::where(['status'=>'1','pms_rating_to_user_id'=>Auth::user()->id])->with('userReportInfo:id,name,email')->latest()
         ->paginate(10);
 
         return response()->json($data);

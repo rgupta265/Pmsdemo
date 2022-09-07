@@ -76,15 +76,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Permission::class,'users_permissions');
 
         }
-    public function invitations()
-    {
-        return $this->belongsToMany(UserInvitaion::class,'sender_user_id');
-    }
     public function userMoreInfo()
     {
         return $this->hasOne(Userdetails::class,'user_id');
-        
-        
+             
+    }
+    public function reports()
+    {
+        return $this->hasMany(PmsReport::class,'pms_rating_to_user_id');
     }
 
 }

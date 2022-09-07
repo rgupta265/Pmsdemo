@@ -329,11 +329,19 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body profile-card pt-4 d-flex flex-column align-items-center"
-  }, [_c("img", {
+  }, [_vm.userDetails.userInfo.image ? _c("img", {
     staticClass: "rounded-circle border",
     attrs: {
       src: "/storage/ProfileImage/".concat(_vm.userDetails.userInfo.image),
       alt: "Profile"
+    }
+  }) : _c("img", {
+    staticClass: "rounded border",
+    attrs: {
+      src: "backendTheme/assets/img/default_image/no_image.png",
+      alt: "Profile",
+      height: "120",
+      width: "120"
     }
   }), _vm._v(" "), _c("label", {
     staticClass: "in-file mt-2",
