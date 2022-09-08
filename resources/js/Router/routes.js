@@ -6,6 +6,7 @@ const Home = () => import('../Pages/Home.vue' /* webpackChunkName: "resource/js/
 const Login = () => import('../Pages/Login.vue' /* webpackChunkName: "resource/js/Pages/Login" */)
 const Register = () => import('../Pages/Register.vue' /* webpackChunkName: "resource/js/Pages/Register" */)
 const NotFound = () => import('../Pages/NotFound.vue' /* webpackChunkName: "resource/js/Pages/Register" */)
+const UpdateProfile = () => import('../Pages/UpdateProfile.vue' /* webpackChunkName: "resource/js/Pages/UpdateProfile" */)
 // Guest Component End
 
 // Navbar Layout Component Start
@@ -71,6 +72,23 @@ const routes = [
      
     }
   },
+   //redirect before update profile
+   {
+    path: '/update-profile',
+    component: UpdateProfile,
+    name: 'updateProfile',
+    meta:{
+      title:'Update Profile',
+      middleware :[
+        Middlewares.auth,
+      ],
+      breadcrumb: [
+        { name: 'Home', link: 'dashboard' },
+        { name: 'Update Profile' }
+      ]
+    }
+  },
+  //close redirect 
   // Dashboard layout and their Integrated children component Start
 
   //Initilise only one permission which can access routes permission object inside meta
@@ -91,6 +109,7 @@ const routes = [
           ],
         }
       },
+     
         {
             name:"dashboard",
             path: '/dashboard',

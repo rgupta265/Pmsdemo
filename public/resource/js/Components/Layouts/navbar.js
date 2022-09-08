@@ -211,7 +211,7 @@ var render = function render() {
     staticClass: "dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
   }, [_c("li", {
     staticClass: "dropdown-header"
-  }, [_c("h6", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _c("span", [_vm._v("Web Designer")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("li", [_c("router-link", {
+  }, [_c("h6", [_vm._v(_vm._s(_vm.userDetails.name))]), _vm._v(" "), _vm.userDetails.userInfo.designation ? _c("span", [_vm._v(_vm._s(_vm.userDetails.userInfo.designation))]) : _vm._e()]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("li", [_c("router-link", {
     attrs: {
       to: {
         name: "profile"
@@ -368,7 +368,7 @@ var render = function render() {
     }
   }, [_c("div", {
     staticClass: "copyright"
-  }, [_vm._v("\n      © Copyright\n      "), _c("strong", [_c("span", [_vm._v(_vm._s(_vm.webInfo.company_name))])]), _vm._v(". All Rights Reserved\n    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n      © Copyright " + _vm._s(new Date().getFullYear()) + "\n      "), _c("strong", [_c("span", [_vm._v(_vm._s(_vm.webInfo.company_name))])]), _vm._v(". All Rights Reserved\n    ")]), _vm._v(" "), _c("div", {
     staticClass: "credits"
   }, [_vm._v("\n      Designed by\n      "), _c("a", {
     attrs: {

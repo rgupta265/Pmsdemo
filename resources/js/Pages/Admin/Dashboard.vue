@@ -204,19 +204,32 @@
     </div>
 </template>
 <script>
-import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
-import {mapGetters} from 'vuex';
+import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
+import { mapGetters } from "vuex";
 export default {
   name: "dashboard",
-  components:{
-    Breadcrumb
+  components: {
+    Breadcrumb,
   },
   computed: {
-    ...mapGetters({allActivity :'getAllActivity'})
+    ...mapGetters({
+      allActivity: "getAllActivity",
+      userDetails: "getUserDetails",
+    }),
   },
-  created(){
-    this.$store.dispatch("getAllActivity")
-  }
+  created() {
+    if (
+      this.userDetails.userInfo == "" ||
+      null ||
+      this.userDetails.userInfo.emp_code == "" ||
+      null ||
+      this.userDetails.userInfo.designation == "" ||
+      null
+    ) {
+      this.$router.push("/update-profile");
+    }
+    this.$store.dispatch("getAllActivity");
+  },
 };
 </script>
 <style >

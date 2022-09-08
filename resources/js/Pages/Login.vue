@@ -136,7 +136,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ errors: "getError", webInfo: "getWebDetails" }),
+    ...mapGetters({
+      errors: "getError",
+      webInfo: "getWebDetails",
+      userDetails: "getUserDetails",
+    }),
   },
   methods: {
     ...mapActions(["login"]),
@@ -153,6 +157,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getWebDetails");
+    this.$store.dispatch("getUserDetails");
   },
 };
 </script>

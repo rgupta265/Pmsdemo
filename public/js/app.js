@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue","resource/js/Pages/Admin/ProgressReport/AddReport.vue":"resource/js/Pages/Admin/ProgressReport/AddReport.vue","vendors~resource/js/Pages/Admin/UserInfo":"vendors~resource/js/Pages/Admin/UserInfo","resource/js/Pages/Admin/UserInfo":"resource/js/Pages/Admin/UserInfo"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","resource/js/Pages/UpdateProfile":"resource/js/Pages/UpdateProfile","vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue","resource/js/Pages/Admin/ProgressReport/AddReport.vue":"resource/js/Pages/Admin/ProgressReport/AddReport.vue","vendors~resource/js/Pages/Admin/UserInfo":"vendors~resource/js/Pages/Admin/UserInfo","resource/js/Pages/Admin/UserInfo":"resource/js/Pages/Admin/UserInfo"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -79478,6 +79478,10 @@ var Register = function Register() {
 
 var NotFound = function NotFound() {
   return __webpack_require__.e(/*! import() | resource/js/Pages/Register */ "resource/js/Pages/Register").then(__webpack_require__.bind(null, /*! ../Pages/NotFound.vue */ "./resources/js/Pages/NotFound.vue"));
+};
+
+var UpdateProfile = function UpdateProfile() {
+  return __webpack_require__.e(/*! import() | resource/js/Pages/UpdateProfile */ "resource/js/Pages/UpdateProfile").then(__webpack_require__.bind(null, /*! ../Pages/UpdateProfile.vue */ "./resources/js/Pages/UpdateProfile.vue"));
 }; // Guest Component End
 // Navbar Layout Component Start
 
@@ -79575,7 +79579,23 @@ var routes = [{
   meta: {
     middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].guest]
   }
-}, // Dashboard layout and their Integrated children component Start
+}, //redirect before update profile
+{
+  path: '/update-profile',
+  component: UpdateProfile,
+  name: 'updateProfile',
+  meta: {
+    title: 'Update Profile',
+    middleware: [_middlewares_index__WEBPACK_IMPORTED_MODULE_0__["default"].auth],
+    breadcrumb: [{
+      name: 'Home',
+      link: 'dashboard'
+    }, {
+      name: 'Update Profile'
+    }]
+  }
+}, //close redirect 
+// Dashboard layout and their Integrated children component Start
 //Initilise only one permission which can access routes permission object inside meta
 {
   path: "",

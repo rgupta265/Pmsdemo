@@ -79,9 +79,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Breadcrumb: _resources_js_Components_Layouts_Breadcrumb__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
-    allActivity: 'getAllActivity'
+    allActivity: "getAllActivity",
+    userDetails: "getUserDetails"
   })),
   created: function created() {
+    if (this.userDetails.userInfo == "" || null || this.userDetails.userInfo.emp_code == "" || null || this.userDetails.userInfo.designation == "" || null) {
+      this.$router.push("/update-profile");
+    }
+
     this.$store.dispatch("getAllActivity");
   }
 });

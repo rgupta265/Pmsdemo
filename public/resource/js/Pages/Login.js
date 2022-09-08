@@ -91,7 +91,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     errors: "getError",
-    webInfo: "getWebDetails"
+    webInfo: "getWebDetails",
+    userDetails: "getUserDetails"
   })),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(["login"])), {}, {
     submit: function submit() {
@@ -106,6 +107,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   created: function created() {
     this.$store.dispatch("getWebDetails");
+    this.$store.dispatch("getUserDetails");
   }
 });
 

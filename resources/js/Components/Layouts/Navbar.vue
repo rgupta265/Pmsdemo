@@ -61,7 +61,7 @@
             >
               <li class="dropdown-header">
                 <h6>{{ userDetails.name }}</h6>
-                <span>Web Designer</span>
+                <span v-if="userDetails.userInfo.designation">{{userDetails.userInfo.designation}}</span>
               </li>
               <li>
                 <hr class="dropdown-divider" />
@@ -228,7 +228,7 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
       <div class="copyright">
-        &copy; Copyright
+        &copy; Copyright {{ new Date().getFullYear() }}
         <strong
           ><span>{{ webInfo.company_name }}</span></strong
         >. All Rights Reserved

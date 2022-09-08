@@ -16,6 +16,7 @@
     "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js": "/resource/js/Pages/Admin/UserManagement/Users/List.vue.js",
     "/resource/js/Pages/Login.js": "/resource/js/Pages/Login.js",
     "/resource/js/Pages/Register.js": "/resource/js/Pages/Register.js",
+    "/resource/js/Pages/UpdateProfile.js": "/resource/js/Pages/UpdateProfile.js",
     "/vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue.js": "/vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue.js",
     "/vendors~resource/js/Pages/Admin/UserInfo.js": "/vendors~resource/js/Pages/Admin/UserInfo.js"
 }
