@@ -232,7 +232,7 @@ var render = function render() {
       }
     }
   }, [_c("i", {
-    staticClass: "bi bi-box-arrow-up"
+    staticClass: "bi bi-power"
   }), _vm._v("Sign Out\n              ")])])])])])])]), _vm._v(" "), _c("aside", {
     staticClass: "sidebar",
     attrs: {

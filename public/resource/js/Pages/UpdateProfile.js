@@ -97,7 +97,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     if (this.isLoggedIn) {
       this.$store.dispatch("getUserDetails");
-      this.$store.dispatch('getWebDetails');
+      this.$store.dispatch("getWebDetails");
     }
   },
   methods: {
@@ -238,17 +238,12 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "updateprofile"
-  }, [_c("main", {
-    staticClass: "main",
-    attrs: {
-      id: "main"
-    }
+    staticClass: "updateprofile container-fluid"
   }, [_c("section", {
     staticClass: "section profile"
   }, [_c("div", {
     staticClass: "row"
-  }, [_c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "col-xl-4"
   }, [_c("div", {
     staticClass: "card"
@@ -277,7 +272,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-upload"
-  }), _vm._v("\n                Upload Photo\n                "), _c("input", {
+  }), _vm._v("\n              Upload Photo\n              "), _c("input", {
     staticClass: "form-control",
     attrs: {
       type: "file",
@@ -308,7 +303,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "bi bi-grid"
-  }), _vm._v("  Go to Dashboard\n                    ")]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }), _vm._v("  Go to Dashboard\n                  ")]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
   }, [_c("button", {
     staticClass: "dropdown-item d-flex align-items-center",
@@ -321,8 +316,8 @@ var render = function render() {
       }
     }
   }, [_c("i", {
-    staticClass: "bi bi-box-arrow-up"
-  }), _vm._v(" Sign Out\n                    ")])])]), _vm._v(" "), _c("div", {
+    staticClass: "bi bi-power"
+  }), _vm._v(" Sign Out\n                  ")])])]), _vm._v(" "), _c("div", {
     staticClass: "tab-pane active pt-3"
   }, [_c("div", {
     attrs: {
@@ -347,7 +342,7 @@ var render = function render() {
     staticClass: "text-danger"
   }, [_vm._v("(All * Fields are mandatory)")]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(0), _vm._v(" "), _c("div", {
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -374,7 +369,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(1), _vm._v(" "), _c("div", {
+  }, [_vm._m(2), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -400,7 +395,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(2), _vm._v(" "), _c("div", {
+  }, [_vm._m(3), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -426,7 +421,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(3), _vm._v(" "), _c("div", {
+  }, [_vm._m(4), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -452,7 +447,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(4), _vm._v(" "), _c("div", {
+  }, [_vm._m(5), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -478,7 +473,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(5), _vm._v(" "), _c("div", {
+  }, [_vm._m(6), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -504,7 +499,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(6), _vm._v(" "), _c("div", {
+  }, [_vm._m(7), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -530,7 +525,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(7), _vm._v(" "), _c("div", {
+  }, [_vm._m(8), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -556,7 +551,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(8), _vm._v(" "), _c("div", {
+  }, [_vm._m(9), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -582,7 +577,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(9), _vm._v(" "), _c("div", {
+  }, [_vm._m(10), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -608,7 +603,7 @@ var render = function render() {
     }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "row mb-3"
-  }, [_vm._m(10), _vm._v(" "), _c("div", {
+  }, [_vm._m(11), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
   }, [_c("input", {
     directives: [{
@@ -632,7 +627,7 @@ var render = function render() {
         _vm.$set(_vm.userProfile, "linkedin_id", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _vm._m(11)])])])])])])])])]), _vm._v(" "), _c("footer", {
+  })])]), _vm._v(" "), _vm._m(12)])])])])])])])]), _vm._v(" "), _c("footer", {
     staticClass: "footer",
     attrs: {
       id: "footer"
@@ -650,6 +645,17 @@ var render = function render() {
 };
 
 var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "card mt-5"
+  }, [_c("h5", {
+    staticClass: "card-title text-center"
+  }, [_c("strong", {
+    staticClass: "text-danger"
+  }, [_vm._v(" * ")]), _vm._v("Please fill all mandatory\n          fields to Access dashboard \n        ")])]);
+}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
@@ -682,7 +688,7 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "empcode"
     }
-  }, [_vm._v("Employee code "), _c("span", {
+  }, [_vm._v("Employee code\n                      "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(" *")])]);
 }, function () {
@@ -742,7 +748,7 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "Correspondence Address"
     }
-  }, [_vm._v("Correspondence Address "), _c("span", {
+  }, [_vm._v("Correspondence Address\n                      "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(" *")])]);
 }, function () {
@@ -766,7 +772,7 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "emergency contactno"
     }
-  }, [_vm._v("Emergency contactno. "), _c("span", {
+  }, [_vm._v("Emergency contactno.\n                      "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(" *")])]);
 }, function () {
@@ -778,7 +784,7 @@ var staticRenderFns = [function () {
     attrs: {
       "for": "Linkedin"
     }
-  }, [_vm._v("Linkedin Profile "), _c("span", {
+  }, [_vm._v("Linkedin Profile\n                      "), _c("span", {
     staticClass: "text-danger"
   }, [_vm._v(" *")])]);
 }, function () {
@@ -792,7 +798,7 @@ var staticRenderFns = [function () {
     attrs: {
       type: "submit"
     }
-  }, [_vm._v("\n                        Update Profile\n                      ")])]);
+  }, [_vm._v("\n                      Update Profile\n                    ")])]);
 }];
 render._withStripped = true;
 

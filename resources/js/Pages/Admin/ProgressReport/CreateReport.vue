@@ -59,7 +59,13 @@
                     >
                       <td scope="row">{{ ++index }}</td>
                       <td>
-                        <router-link :to="{ name: 'MUserInfo' }"
+                        <router-link
+                          :to="{
+                            name: 'MUserInfo',
+                            query: {
+                              accessToken: invite.user_id,
+                            },
+                          }"
                           ><i class="bi bi-info-circle"></i>&nbsp;{{
                             invite.user_details.name
                           }}</router-link
@@ -81,12 +87,20 @@
                             name: 'addReport',
                             query: { code: invite.code },
                           }"
-                          ><span class="badge bg-success" role="button"
+                          ><span
+                            class="badge bg-success"
+                            role="button"
                             >Create Report</span
                           ></router-link
                         >
-                        <span class="badge bg-secondary" role="button"
-                          ><i class="bi bi-download"></i> Download Report</span
+                        <span
+                          v-for="(rep, item) in invite.user_details.reports"
+                          :key="item"
+                          class="badge bg-secondary px-1 m-1"
+                          role="button"
+                          @click="goTodownload(rep.token)"
+                          ><i class="bi bi-download"></i>
+                          {{ rep.report_cycle }} Report</span
                         >
                       </td>
                     </tr>
@@ -138,6 +152,7 @@ export default {
       message: "",
       inviteSearch: "",
       resultInfo: "",
+     
     };
   },
 
@@ -164,6 +179,7 @@ export default {
         );
       });
     },
+   
   },
   methods: {
     getJoinedUser(page = 1) {
@@ -177,6 +193,13 @@ export default {
           this.InviteList = response.data.data;
           this.resultInfo = response.data;
         });
+    },
+    goTodownload(index) {
+      console.log(index);
+      this.$router.push({
+        name: "MReportInfo",
+        query: { token: index, downloadPdf: true },
+      });
     },
   },
   created() {

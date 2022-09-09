@@ -88,7 +88,7 @@
                   type="button"
                   @click="logout()"
                 >
-                  <i class="bi bi-box-arrow-up"></i>Sign Out
+                  <i class="bi bi-power"></i>Sign Out
                 </button>
               </li>
             </ul>

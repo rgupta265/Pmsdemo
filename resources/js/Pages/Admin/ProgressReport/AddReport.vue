@@ -103,7 +103,6 @@
                     PMS Attribute
                   </legend>
                   <div class="row container">
-                    {{ pmsAttrData }}
                     <table class="table p-1 table-sm border border-2">
                       <thead>
                         <tr>

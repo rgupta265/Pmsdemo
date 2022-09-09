@@ -124,6 +124,16 @@ __webpack_require__.r(__webpack_exports__);
         _this2.InviteList = response.data.data;
         _this2.resultInfo = response.data;
       });
+    },
+    goTodownload: function goTodownload(index) {
+      console.log(index);
+      this.$router.push({
+        name: "MReportInfo",
+        query: {
+          token: index,
+          downloadPdf: true
+        }
+      });
     }
   },
   created: function created() {
@@ -299,7 +309,10 @@ var render = function render() {
     }, [_vm._v(_vm._s(++index))]), _vm._v(" "), _c("td", [_c("router-link", {
       attrs: {
         to: {
-          name: "MUserInfo"
+          name: "MUserInfo",
+          query: {
+            accessToken: invite.user_id
+          }
         }
       }
     }, [_c("i", {
@@ -318,7 +331,22 @@ var render = function render() {
       attrs: {
         role: "button"
       }
-    }, [_vm._v("Create Report")])]), _vm._v(" "), _vm._m(1, true)], 1)]);
+    }, [_vm._v("Create Report")])]), _vm._v(" "), _vm._l(invite.user_details.reports, function (rep, item) {
+      return _c("span", {
+        key: item,
+        staticClass: "badge bg-secondary px-1 m-1",
+        attrs: {
+          role: "button"
+        },
+        on: {
+          click: function click($event) {
+            return _vm.goTodownload(rep.token);
+          }
+        }
+      }, [_c("i", {
+        staticClass: "bi bi-download"
+      }), _vm._v("\n                        " + _vm._s(rep.report_cycle) + " Report")]);
+    })], 2)]);
   }), _vm._v(" "), _vm.filteredInviteList.length == 0 ? _c("tr", [_c("td", {
     staticClass: "text-center",
     attrs: {
@@ -377,18 +405,6 @@ var staticRenderFns = [function () {
       scope: "col"
     }
   }, [_vm._v("Action")])])]);
-}, function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("span", {
-    staticClass: "badge bg-secondary",
-    attrs: {
-      role: "button"
-    }
-  }, [_c("i", {
-    staticClass: "bi bi-download"
-  }), _vm._v(" Download Report")]);
 }];
 render._withStripped = true;
 

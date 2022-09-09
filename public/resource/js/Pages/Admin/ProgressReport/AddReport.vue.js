@@ -326,7 +326,7 @@ var render = function render() {
     staticClass: "float-none w-auto p-2 card-title"
   }, [_vm._v("\n                  PMS Attribute\n                ")]), _vm._v(" "), _c("div", {
     staticClass: "row container"
-  }, [_vm._v("\n                  " + _vm._s(_vm.pmsAttrData) + "\n                  "), _c("table", {
+  }, [_c("table", {
     staticClass: "table p-1 table-sm border border-2"
   }, [_vm._m(3), _vm._v(" "), _c("tbody", _vm._l(_vm.pmsAttrData, function (_input, k) {
     return _c("tr", {

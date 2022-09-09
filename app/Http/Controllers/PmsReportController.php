@@ -26,11 +26,11 @@ class PmsReportController extends Controller
         if($this->getLoggedInUser()['loggedInRoleName'][0] =='admin')
         {
             $data =UserInvitation::where('status','successful')
-            ->with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo')
+            ->with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo','userDetails.reports')
             ->paginate(10);
         }
         else{
-            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo')
+            $data =UserInvitation::with('inviteuser:id,name,email','inviterole:id,name,slug','userDetails:id,name,email','userMoreInfo','userDetails.reports')
             ->where(['sender_user_id'=>$this->getLoggedInUser()['loggedInUserId'],
             'status' => 'successful'])
             ->paginate(10);
