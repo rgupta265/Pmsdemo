@@ -19,7 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return response()->json(Permission::all());
+        return response()->json(Permission::latest()->paginate(10));
     }
 
     /**

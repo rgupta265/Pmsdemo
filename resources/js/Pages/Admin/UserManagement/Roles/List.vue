@@ -6,11 +6,34 @@
 
       <section class="section profile">
         <div class="row">
+          <!-- search start -->
+          <div class="card">
+            <div class="card-body py-2">
+              <strong
+                >Showing
+                <span
+                  >{{ resultInfo.from ? resultInfo.from : 0 }} –
+                  {{ resultInfo.to ? resultInfo.to : 0 }} of
+                  {{ resultInfo.total ? resultInfo.total : 0 }} Role and their
+                  Permission .</span
+                >
+              </strong>
+              <div style="float: right">
+                <input
+                  class="form-control-sm"
+                  placeholder="Search..."
+                  type="text"
+                  v-model="inviteSearch"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- search End -->
           <div class="col-xl-9">
             <div class="card table-responsive">
               <div class="card-body">
                 <h5 class="card-title">Role List</h5>
-                <Alert :data ="success" v-if="showTableStatus"></Alert>
+                <Alert :data="success" v-if="showTableStatus"></Alert>
                 <table class="table table-sm table-responsive-sm">
                   <thead>
                     <tr>
@@ -22,7 +45,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(rl, index) in roleList" :key="index">
+                    <tr v-for="(rl, index) in filteredRoleList" :key="index">
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ rl.name }}</td>
 
@@ -31,7 +54,7 @@
                         <span
                           role="button"
                           class="badge bg-primary"
-                          @click="editRole(--index)"
+                          @click="editRole(rl.id)"
                           ><i class="bi bi-pencil-square me-1"></i> Edit</span
                         >
                         <span
@@ -44,18 +67,35 @@
                       <td>
                         <span
                           class="badge bg-success m-1"
-                          v-for="(per,idx) in rl.permissions"
+                          v-for="(per, idx) in rl.permissions"
                           :key="idx"
                         >
                           <i class="fbi bi-star me-1"></i>{{ per.slug }}
                         </span>
                       </td>
                     </tr>
+                    <tr v-if="filteredRoleList.length == 0">
+                      <td colspan="8" class="text-center">There is no data available.</td>
+                    </tr>
                   </tbody>
                 </table>
                 <!-- End small tables -->
               </div>
             </div>
+            <!-- Pagination start -->
+            <div class="card">
+              <div class="card-body py-1">
+                <div style="float: right">
+                  <pagination
+                    :data="resultInfo"
+                    @pagination-change-page="getRole"
+                    :limit="0"
+                    size="small"
+                  ></pagination>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination End -->
           </div>
           <div class="col-lg-3">
             <div class="card">
@@ -70,7 +110,7 @@
                 "
               >
                 <h5 class="card-title">{{ this.btnName }}</h5>
-                <Alert :data ="success"></Alert>
+                <Alert :data="success"></Alert>
                 <!-- Vertical Form -->
 
                 <div class="row g-3 col-12">
@@ -104,6 +144,7 @@
                       <input
                         class="form-check-input"
                         type="checkbox"
+                        :id="option.id"
                         v-model="assign_permissions"
                         :value="option.id"
                       />
@@ -113,7 +154,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="text-center p-2">
                   <button
                     type="submit"
@@ -150,7 +190,7 @@ export default {
   name: "list",
   components: {
     Breadcrumb,
-    Alert
+    Alert,
   },
   data() {
     return {
@@ -162,15 +202,30 @@ export default {
       api: "roles",
       btnName: "Add Role",
       editRoleId: "",
-      permissions: [],
-      assign_permissions: [],
+      permissions: [], //master Permission
+      assign_permissions: [], //add assign permissions
+      editPermissionId: [], //get edit permission
+      inviteSearch: "",
+      resultInfo: "",
     };
   },
   mounted() {
     this.getRole();
     this.getPermissions();
   },
-  
+  computed: {
+    filteredRoleList() {
+      return this.roleList.filter((invite) => {
+        return (
+          invite.name.toLowerCase().includes(this.inviteSearch.toLowerCase())
+          // invite.permissions.forEach((item) =>
+          //   item.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
+          // )
+        );
+      });
+    },
+  },
+
   methods: {
     getPermissions() {
       axios
@@ -180,10 +235,17 @@ export default {
         })
         .catch(() => {});
     },
-    getRole() {
-      axios.get(this.api).then((response) => {
-        this.roleList = response.data;
-      });
+    getRole(page = 1) {
+      axios
+        .get(this.api, {
+          params: {
+            page: page,
+          },
+        })
+        .then((response) => {
+          this.roleList = response.data.data;
+          this.resultInfo = response.data;
+        });
     },
     addRole() {
       axios
@@ -211,13 +273,13 @@ export default {
           this.getRole();
         });
     },
-    editRole(index) {
-      this.role = this.roleList[index].name;
-      this.editRoleId = this.roleList[index].id;
-      this.btnName = "Update Role";
-      this.assign_permissions = this.roleList[index].permissions.includes([
-        slug,
-      ]);
+    editRole(id) {
+      axios.get(this.api + "/" + id).then((response) => {
+        this.role = response.data.name;
+        this.editRoleId = id;
+        this.btnName = "Update Role";
+        this.editPermissionId = response.data.permissions;
+      });
     },
     updateRole() {
       let data = { name: this.role, permission: this.assign_permissions };
@@ -238,6 +300,9 @@ export default {
       this.editRoleId = "";
       this.btnName = "Add Role";
       this.assign_permissions = [];
+    },
+    isChecked(id) {
+      return this.editPermissionId.some((item) => item.id === id);
     },
   },
   created() {},

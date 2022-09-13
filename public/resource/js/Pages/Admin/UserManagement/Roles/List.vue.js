@@ -103,78 +103,106 @@ __webpack_require__.r(__webpack_exports__);
       btnName: "Add Role",
       editRoleId: "",
       permissions: [],
-      assign_permissions: []
+      //master Permission
+      assign_permissions: [],
+      //add assign permissions
+      editPermissionId: [],
+      //get edit permission
+      inviteSearch: "",
+      resultInfo: ""
     };
   },
   mounted: function mounted() {
     this.getRole();
     this.getPermissions();
   },
-  methods: {
-    getPermissions: function getPermissions() {
+  computed: {
+    filteredRoleList: function filteredRoleList() {
       var _this = this;
 
+      return this.roleList.filter(function (invite) {
+        return invite.name.toLowerCase().includes(_this.inviteSearch.toLowerCase()) // invite.permissions.forEach((item) =>
+        //   item.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
+        // )
+        ;
+      });
+    }
+  },
+  methods: {
+    getPermissions: function getPermissions() {
+      var _this2 = this;
+
       axios.get("/getAllPermission").then(function (response) {
-        _this.permissions = response.data.permissions;
+        _this2.permissions = response.data.permissions;
       })["catch"](function () {});
     },
     getRole: function getRole() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.get(this.api).then(function (response) {
-        _this2.roleList = response.data;
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get(this.api, {
+        params: {
+          page: page
+        }
+      }).then(function (response) {
+        _this3.roleList = response.data.data;
+        _this3.resultInfo = response.data;
       });
     },
     addRole: function addRole() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.post(this.api, {
         name: this.role,
         permission: this.assign_permissions
       }).then(function (response) {
-        _this3.success = response.data.success;
-        _this3.showStatus = true;
+        _this4.success = response.data.success;
+        _this4.showStatus = true;
 
-        _this3.getRole();
+        _this4.getRole();
 
-        _this3.role = "";
-        _this3.assign_permissions = [];
+        _this4.role = "";
+        _this4.assign_permissions = [];
       })["catch"](function (err) {
-        _this3.showStatus = true;
+        _this4.showStatus = true;
       });
     },
     deleteRole: function deleteRole(index) {
-      var _this4 = this;
+      var _this5 = this;
 
       axios["delete"](this.api + "/" + this.roleList[index].id).then(function (response) {
-        _this4.success = response.data.success;
-        _this4.showTableStatus = true;
+        _this5.success = response.data.success;
+        _this5.showTableStatus = true;
 
-        _this4.getRole();
+        _this5.getRole();
       });
     },
-    editRole: function editRole(index) {
-      this.role = this.roleList[index].name;
-      this.editRoleId = this.roleList[index].id;
-      this.btnName = "Update Role";
-      this.assign_permissions = this.roleList[index].permissions.includes([slug]);
+    editRole: function editRole(id) {
+      var _this6 = this;
+
+      axios.get(this.api + "/" + id).then(function (response) {
+        _this6.role = response.data.name;
+        _this6.editRoleId = id;
+        _this6.btnName = "Update Role";
+        _this6.editPermissionId = response.data.permissions;
+      });
     },
     updateRole: function updateRole() {
-      var _this5 = this;
+      var _this7 = this;
 
       var data = {
         name: this.role,
         permission: this.assign_permissions
       };
       axios.put(this.api + "/" + this.editRoleId, data).then(function (response) {
-        _this5.success = response.data.success;
-        _this5.showStatus = true;
+        _this7.success = response.data.success;
+        _this7.showStatus = true;
 
-        _this5.getRole();
+        _this7.getRole();
 
-        _this5.reset();
+        _this7.reset();
       })["catch"](function (err) {
-        _this5.showStatus = true;
+        _this7.showStatus = true;
       });
     },
     reset: function reset() {
@@ -182,6 +210,11 @@ __webpack_require__.r(__webpack_exports__);
       this.editRoleId = "";
       this.btnName = "Add Role";
       this.assign_permissions = [];
+    },
+    isChecked: function isChecked(id) {
+      return this.editPermissionId.some(function (item) {
+        return item.id === id;
+      });
     }
   },
   created: function created() {}
@@ -299,6 +332,35 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-2"
+  }, [_c("strong", [_vm._v("Showing\n              "), _c("span", [_vm._v(_vm._s(_vm.resultInfo.from ? _vm.resultInfo.from : 0) + " –\n                " + _vm._s(_vm.resultInfo.to ? _vm.resultInfo.to : 0) + " of\n                " + _vm._s(_vm.resultInfo.total ? _vm.resultInfo.total : 0) + " Role and their\n                Permission .")])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inviteSearch,
+      expression: "inviteSearch"
+    }],
+    staticClass: "form-control-sm",
+    attrs: {
+      placeholder: "Search...",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.inviteSearch
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.inviteSearch = $event.target.value;
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-9"
   }, [_c("div", {
     staticClass: "card table-responsive"
@@ -312,7 +374,7 @@ var render = function render() {
     }
   }) : _vm._e(), _vm._v(" "), _c("table", {
     staticClass: "table table-sm table-responsive-sm"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.roleList, function (rl, index) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredRoleList, function (rl, index) {
     return _c("tr", {
       key: index
     }, [_c("th", {
@@ -326,7 +388,7 @@ var render = function render() {
       },
       on: {
         click: function click($event) {
-          return _vm.editRole(--index);
+          return _vm.editRole(rl.id);
         }
       }
     }, [_c("i", {
@@ -351,7 +413,29 @@ var render = function render() {
         staticClass: "fbi bi-star me-1"
       }), _vm._v(_vm._s(per.slug) + "\n                      ")]);
     }), 0)]);
-  }), 0)])], 1)])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.filteredRoleList.length == 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "8"
+    }
+  }, [_vm._v("There is no data available.")])]) : _vm._e()], 2)])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-1"
+  }, [_c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("pagination", {
+    attrs: {
+      data: _vm.resultInfo,
+      limit: 0,
+      size: "small"
+    },
+    on: {
+      "pagination-change-page": _vm.getRole
+    }
+  })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
   }, [_c("div", {
     staticClass: "card"
@@ -413,7 +497,8 @@ var render = function render() {
       }],
       staticClass: "form-check-input",
       attrs: {
-        type: "checkbox"
+        type: "checkbox",
+        id: option.id
       },
       domProps: {
         value: option.id,

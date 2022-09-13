@@ -1,12 +1,34 @@
 <template>
   <div class="viewprofile">
     <main id="main" class="main">
-     <Breadcrumb>
-     </Breadcrumb>
+      <Breadcrumb> </Breadcrumb>
       <!-- End Page Title -->
 
       <section class="section profile">
         <div class="row">
+          <!-- search start -->
+          <div class="card">
+            <div class="card-body py-2">
+              <strong
+                >Showing
+                <span
+                  >{{ resultInfo.from ? resultInfo.from : 0 }} –
+                  {{ resultInfo.to ? resultInfo.to : 0 }} of
+                  {{ resultInfo.total ? resultInfo.total : 0 }} Permission
+                  .</span
+                >
+              </strong>
+              <div style="float: right">
+                <input
+                  class="form-control-sm"
+                  placeholder="Search..."
+                  type="text"
+                  v-model="inviteSearch"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- search End -->
           <div class="col-xl-9">
             <div class="card table-responsive">
               <div class="card-body">
@@ -23,7 +45,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(per, index) in permissionList" :key="index">
+                    <tr
+                      v-for="(per, index) in filteredPermissionList"
+                      :key="index"
+                    >
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ per.name }}</td>
                       <td>{{ per.slug }}</td>
@@ -43,11 +68,30 @@
                         >
                       </td>
                     </tr>
+                    <tr v-if="filteredPermissionList.length == 0">
+                      <td colspan="8" class="text-center">
+                        There is no data available.
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <!-- End small tables -->
               </div>
             </div>
+            <!-- Pagination start -->
+            <div class="card">
+              <div class="card-body py-1">
+                <div style="float: right">
+                  <pagination
+                    :data="resultInfo"
+                    @pagination-change-page="getPermission"
+                    :limit="0"
+                    size="small"
+                  ></pagination>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination End -->
           </div>
           <div class="col-lg-3">
             <div class="card">
@@ -66,7 +110,9 @@
                 <!-- Vertical Form -->
 
                 <div class="row g-3 col-12">
-                  <label for="inputNanme4" class="form-label">Permission Name</label>
+                  <label for="inputNanme4" class="form-label"
+                    >Permission Name</label
+                  >
                   <input
                     type="text"
                     class="form-control form-control-sm"
@@ -107,13 +153,13 @@
 </template>
 
 <script>
-import Breadcrumb from '.../../../resources/js/Components/Layouts/Breadcrumb';
+import Breadcrumb from ".../../../resources/js/Components/Layouts/Breadcrumb";
 import Alert from ".../../../resources/js/Components/Layouts/Alert";
 export default {
   name: "list",
   components: {
     Breadcrumb,
-    Alert
+    Alert,
   },
   data() {
     return {
@@ -125,17 +171,35 @@ export default {
       api: "permission",
       btnName: "Add Permission",
       editPermissionId: "",
+      inviteSearch: "",
+      resultInfo: "",
     };
   },
   mounted() {
     this.getPermission();
   },
-  
-  methods: {
-    getPermission() {
-      axios.get(this.api).then((response) => {
-        this.permissionList = response.data;
+  computed: {
+    filteredPermissionList() {
+      return this.permissionList.filter((invite) => {
+        return (
+          invite.name.toLowerCase().includes(this.inviteSearch.toLowerCase()) ||
+          invite.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
+        );
       });
+    },
+  },
+  methods: {
+    getPermission(page = 1) {
+      axios
+        .get(this.api, {
+          params: {
+            page: page,
+          },
+        })
+        .then((response) => {
+          this.permissionList = response.data.data;
+          this.resultInfo = response.data;
+        });
     },
     addPermission() {
       axios

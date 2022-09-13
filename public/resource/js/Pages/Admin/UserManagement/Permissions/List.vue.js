@@ -101,45 +101,62 @@ __webpack_require__.r(__webpack_exports__);
       success: "",
       api: "permission",
       btnName: "Add Permission",
-      editPermissionId: ""
+      editPermissionId: "",
+      inviteSearch: "",
+      resultInfo: ""
     };
   },
   mounted: function mounted() {
     this.getPermission();
   },
-  methods: {
-    getPermission: function getPermission() {
+  computed: {
+    filteredPermissionList: function filteredPermissionList() {
       var _this = this;
 
-      axios.get(this.api).then(function (response) {
-        _this.permissionList = response.data;
+      return this.permissionList.filter(function (invite) {
+        return invite.name.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || invite.slug.toLowerCase().includes(_this.inviteSearch.toLowerCase());
+      });
+    }
+  },
+  methods: {
+    getPermission: function getPermission() {
+      var _this2 = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get(this.api, {
+        params: {
+          page: page
+        }
+      }).then(function (response) {
+        _this2.permissionList = response.data.data;
+        _this2.resultInfo = response.data;
       });
     },
     addPermission: function addPermission() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post(this.api, {
         name: this.permission_name
       }).then(function (response) {
-        _this2.success = response.data.success;
-        _this2.showStatus = true;
+        _this3.success = response.data.success;
+        _this3.showStatus = true;
 
-        _this2.getPermission();
+        _this3.getPermission();
 
-        _this2.reset(); // this.permission_name = "";
+        _this3.reset(); // this.permission_name = "";
 
       })["catch"](function (err) {
-        _this2.showStatus = true;
+        _this3.showStatus = true;
       });
     },
     deletePermission: function deletePermission(index) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"](this.api + "/" + this.permissionList[index].id).then(function (response) {
-        _this3.success = response.data.success;
-        _this3.showTableStatus = true;
+        _this4.success = response.data.success;
+        _this4.showTableStatus = true;
 
-        _this3.getPermission();
+        _this4.getPermission();
       });
     },
     editPermission: function editPermission(index) {
@@ -148,20 +165,20 @@ __webpack_require__.r(__webpack_exports__);
       this.btnName = "Update Permission";
     },
     updatePermission: function updatePermission() {
-      var _this4 = this;
+      var _this5 = this;
 
       var data = {
         name: this.permission_name
       };
       axios.put(this.api + "/" + this.editPermissionId, data).then(function (response) {
-        _this4.success = response.data.success;
-        _this4.showStatus = true;
+        _this5.success = response.data.success;
+        _this5.showStatus = true;
 
-        _this4.getPermission();
+        _this5.getPermission();
 
-        _this4.reset();
+        _this5.reset();
       })["catch"](function (err) {
-        _this4.showStatus = true;
+        _this5.showStatus = true;
       });
     },
     reset: function reset() {
@@ -285,6 +302,35 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-2"
+  }, [_c("strong", [_vm._v("Showing\n              "), _c("span", [_vm._v(_vm._s(_vm.resultInfo.from ? _vm.resultInfo.from : 0) + " –\n                " + _vm._s(_vm.resultInfo.to ? _vm.resultInfo.to : 0) + " of\n                " + _vm._s(_vm.resultInfo.total ? _vm.resultInfo.total : 0) + " Permission\n                .")])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inviteSearch,
+      expression: "inviteSearch"
+    }],
+    staticClass: "form-control-sm",
+    attrs: {
+      placeholder: "Search...",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.inviteSearch
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.inviteSearch = $event.target.value;
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-9"
   }, [_c("div", {
     staticClass: "card table-responsive"
@@ -298,7 +344,7 @@ var render = function render() {
     }
   }) : _vm._e(), _vm._v(" "), _c("table", {
     staticClass: "table table-sm"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.permissionList, function (per, index) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredPermissionList, function (per, index) {
     return _c("tr", {
       key: index
     }, [_c("th", {
@@ -330,7 +376,29 @@ var render = function render() {
     }, [_c("i", {
       staticClass: "bi bi-trash me-1"
     }), _vm._v(" Delete")])])]);
-  }), 0)])], 1)])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.filteredPermissionList.length == 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "8"
+    }
+  }, [_vm._v("\n                      There is no data available.\n                    ")])]) : _vm._e()], 2)])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-1"
+  }, [_c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("pagination", {
+    attrs: {
+      data: _vm.resultInfo,
+      limit: 0,
+      size: "small"
+    },
+    on: {
+      "pagination-change-page": _vm.getPermission
+    }
+  })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
   }, [_c("div", {
     staticClass: "card"

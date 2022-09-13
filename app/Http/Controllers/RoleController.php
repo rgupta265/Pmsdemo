@@ -19,7 +19,7 @@ class RoleController extends Controller
      */
     public function index()
     {   
-        $roles= Role::with('permissions')->get();
+        $roles= Role::with('permissions')->latest()->paginate(10);
         return response()->json($roles);
     }
 
@@ -78,7 +78,8 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        //
+        $role =Role::with('permissions')->where('id', $role->id)->first();
+        return response()->json($role);
     }
 
     /**
@@ -89,7 +90,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        
     }
 
     /**
@@ -114,7 +115,7 @@ class RoleController extends Controller
             'slug'=>Str::slug($request->name)
         ]);
         if($request->has("permission")){
-            $role->permissions()->attach($request->permission);
+            $role->permissions()->sync($request->permission);
         }
         if($update){
             return response()->json(['success'=>'Role Updated Successfully']);
@@ -131,7 +132,8 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-
-        return response()->json(['success'=>'Role Deleted Successfully']);
+        $role->permissions()->detach();
+        
+        return response()->json(['success'=>'Role and Permission Deleted Successfully']);
     }
 }
