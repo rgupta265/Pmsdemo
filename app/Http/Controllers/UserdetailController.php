@@ -128,7 +128,7 @@ class UserdetailController extends Controller
                // 'image.image' => 'The type of the uploaded file should be an image.',
            ]);
             $userData =Userdetails::select('id','emp_code')->where(['user_id' => $userId])->first();
-            if(!$userData->emp_code)
+            if(!$userData->emp_code )
             {
                 $empCode ="DUMMYGWL";
             }

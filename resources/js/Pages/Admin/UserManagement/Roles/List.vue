@@ -75,7 +75,9 @@
                       </td>
                     </tr>
                     <tr v-if="filteredRoleList.length == 0">
-                      <td colspan="8" class="text-center">There is no data available.</td>
+                      <td colspan="8" class="text-center">
+                        There is no data available.
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -145,8 +147,9 @@
                         class="form-check-input"
                         type="checkbox"
                         :id="option.id"
-                        v-model="assign_permissions"
                         :value="option.id"
+                        v-model="assign_permissions"
+                        
                       />
                       <label class="">
                         {{ option.name }}
@@ -154,6 +157,7 @@
                     </div>
                   </div>
                 </div>
+                {{ assign_permissions }}
                 <div class="text-center p-2">
                   <button
                     type="submit"
@@ -216,12 +220,12 @@ export default {
   computed: {
     filteredRoleList() {
       return this.roleList.filter((invite) => {
-        return (
-          invite.name.toLowerCase().includes(this.inviteSearch.toLowerCase())
-          // invite.permissions.forEach((item) =>
-          //   item.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
-          // )
-        );
+        return invite.name
+          .toLowerCase()
+          .includes(this.inviteSearch.toLowerCase());
+        // invite.permissions.forEach((item) =>
+        //   item.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
+        // )
       });
     },
   },
@@ -304,6 +308,7 @@ export default {
     isChecked(id) {
       return this.editPermissionId.some((item) => item.id === id);
     },
+  
   },
   created() {},
 };

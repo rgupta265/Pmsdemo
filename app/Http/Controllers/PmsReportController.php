@@ -128,6 +128,11 @@ class PmsReportController extends Controller
 
         return response()->json($data);
     }
+    public function checkReport($id)
+    {
+        $data =PmsReport::where('pms_rating_to_user_id',$id)->get();
+        return response()->json($data);
+    }
     
 
     

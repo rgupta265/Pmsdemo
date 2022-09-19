@@ -94,10 +94,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.$store.getters.isLoggedIn;
     }
   }),
+  mounted: function mounted() {
+    this.userProfile.emp_code = this.userDetails.userInfo.emp_code; // this.image = this.userDetails.userInfo.image;
+
+    this.userProfile.designation = this.userDetails.userInfo.designation;
+    this.userProfile.father_name = this.userDetails.userInfo.father_name;
+    this.userProfile.address = this.userDetails.userInfo.address;
+    this.userProfile.correspondence_address = this.userDetails.userInfo.correspondence_address;
+    this.userProfile.phone = this.userDetails.userInfo.phone;
+    this.userProfile.emergency_contactno = this.userDetails.userInfo.emergency_contactno;
+    this.userProfile.linkedin_id = this.userDetails.userInfo.linkedin_id;
+    this.userProfile.joining_date = this.userDetails.userInfo.joining_date;
+  },
   created: function created() {
     if (this.isLoggedIn) {
-      this.$store.dispatch("getUserDetails");
       this.$store.dispatch("getWebDetails");
+      this.$store.dispatch("getUserDetails");
+      this.$store.dispatch("getAllNotification");
     }
   },
   methods: {
@@ -168,15 +181,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append("joining_date", this.userProfile.joining_date); // send upload request
 
       axios.post(this.api, formData).then(function (response) {
-        _this3.success = response.data.success;
-
         _this3.$store.dispatch("getUserDetails");
+
+        _this3.success = response.data.success;
       })["catch"](function (error) {});
     },
     goToDashboard: function goToDashboard() {
       this.$router.push({
         name: "dashboard"
       });
+    },
+    enforcePhoneFormat: function enforcePhoneFormat(value) {
+      var x = this.userProfile.emergency_contactno.replace(/\D/g, "").match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.userProfile.emergency_contactno = !x[2] ? x[1] : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
     }
   }
 });
@@ -265,7 +282,7 @@ var render = function render() {
       height: "120",
       width: "120"
     }
-  }), _vm._v(" "), _c("label", {
+  }), _vm._v(" "), _vm.userDetails.userInfo.emp_code != "" ? _c("label", {
     staticClass: "in-file mt-2",
     attrs: {
       role: "button"
@@ -281,7 +298,7 @@ var render = function render() {
     on: {
       change: _vm.onFileChange
     }
-  })])])])]), _vm._v(" "), _c("div", {
+  })]) : _vm._e()])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-8"
   }, [_c("div", {
     staticClass: "card"
@@ -501,7 +518,7 @@ var render = function render() {
     staticClass: "row mb-3"
   }, [_vm._m(7), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
-  }, [_c("input", {
+  }, [_c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -510,7 +527,6 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
       required: ""
     },
     domProps: {
@@ -527,7 +543,7 @@ var render = function render() {
     staticClass: "row mb-3"
   }, [_vm._m(8), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
-  }, [_c("input", {
+  }, [_c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -536,7 +552,6 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
       required: ""
     },
     domProps: {
@@ -563,7 +578,8 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      required: ""
+      required: "",
+      onkeyup: "if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,'')"
     },
     domProps: {
       value: _vm.userProfile.phone
@@ -589,7 +605,9 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "text",
-      required: ""
+      required: "",
+      maxlength: "13",
+      onkeyup: "if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,'')"
     },
     domProps: {
       value: _vm.userProfile.emergency_contactno
@@ -627,7 +645,7 @@ var render = function render() {
         _vm.$set(_vm.userProfile, "linkedin_id", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _vm._m(12)])])])])])])])]), _vm._v(" "), _c("footer", {
+  })])]), _vm._v(" "), _vm._m(12)])])])])])])])]), _vm._v("\n  " + _vm._s(_vm.userDetails.userInfo.emp_code) + "\n  "), _vm._v(" "), _c("footer", {
     staticClass: "footer",
     attrs: {
       id: "footer"
@@ -654,7 +672,7 @@ var staticRenderFns = [function () {
     staticClass: "card-title text-center"
   }, [_c("strong", {
     staticClass: "text-danger"
-  }, [_vm._v(" * ")]), _vm._v("Please fill all mandatory\n          fields to Access dashboard \n        ")])]);
+  }, [_vm._v(" * ")]), _vm._v("Please fill all mandatory\n          fields to Access dashboard\n        ")])]);
 }, function () {
   var _vm = this,
       _c = _vm._self._c;

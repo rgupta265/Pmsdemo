@@ -6,7 +6,29 @@
 
       <section class="section profile">
         <div class="row">
-          <!-- Search start -->
+          <!-- search start -->
+          <div class="card">
+            <div class="card-body py-2">
+              <strong
+                >Showing
+                <span
+                  >{{ resultInfo.from ? resultInfo.from : 0 }} –
+                  {{ resultInfo.to ? resultInfo.to : 0 }} of
+                  {{ resultInfo.total ? resultInfo.total : 0 }} Permission
+                  .</span
+                >
+              </strong>
+              <div style="float: right">
+                <input
+                  class="form-control-sm"
+                  placeholder="Search..."
+                  type="text"
+                  v-model="inviteSearch"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- search End -->
           <div class="col-xl-9">
             <div class="card table-responsive">
               <div class="card-body">
@@ -24,7 +46,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(rl, index) in PmsAttributeList" :key="index">
+                    <tr
+                      v-for="(rl, index) in filteredAttributeList"
+                      :key="index"
+                    >
                       <th scope="row">{{ ++index }}</th>
                       <td>{{ rl.title }}</td>
                       <td>{{ rl.max_rating }}</td>
@@ -54,11 +79,30 @@
                         </span>
                       </td>
                     </tr>
+                    <tr v-if="filteredAttributeList.length == 0">
+                      <td colspan="8" class="text-center">
+                        There is no data available.
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
                 <!-- End small tables -->
               </div>
             </div>
+            <!-- Pagination start -->
+            <div class="card">
+              <div class="card-body py-1">
+                <div style="float: right">
+                  <pagination
+                    :data="resultInfo"
+                    @pagination-change-page="getPmsAttribute"
+                    :limit="0"
+                    size="small"
+                  ></pagination>
+                </div>
+              </div>
+            </div>
+            <!-- Pagination End -->
           </div>
           <div class="col-lg-3">
             <div class="card">
@@ -147,16 +191,40 @@ export default {
       btnName: "Add PmsAttribute",
       editpmsAttributeId: "",
       assign_permissions: [],
+      inviteSearch: "",
+      resultInfo: "",
     };
   },
   mounted() {
     this.getPmsAttribute();
   },
-  methods: {
-    getPmsAttribute() {
-      axios.get(this.api).then((response) => {
-        this.PmsAttributeList = response.data;
+  computed: {
+    filteredAttributeList() {
+      return this.PmsAttributeList.filter((invite) => {
+        return (
+          invite.title
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase()) ||
+          parseInt(invite.max_rating) === parseInt(this.inviteSearch) ||
+          invite.user_info.name
+            .toLowerCase()
+            .includes(this.inviteSearch.toLowerCase())
+        );
       });
+    },
+  },
+  methods: {
+    getPmsAttribute(page = 1) {
+      axios
+        .get(this.api, {
+          params: {
+            page: page,
+          },
+        })
+        .then((response) => {
+          this.PmsAttributeList = response.data.data;
+          this.resultInfo = response.data;
+        });
     },
     addpmsattribute() {
       axios

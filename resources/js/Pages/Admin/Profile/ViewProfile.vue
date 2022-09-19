@@ -252,11 +252,10 @@
                           >Address</label
                         >
                         <div class="col-md-8 col-lg-9">
-                          <input
-                            type="text"
+                          <textarea
                             class="form-control"
                             v-model="userProfile.address"
-                          />
+                          ></textarea>
                         </div>
                       </div>
 
@@ -267,11 +266,10 @@
                           >Correspondence Address</label
                         >
                         <div class="col-md-8 col-lg-9">
-                          <input
-                            type="text"
+                          <textarea
                             class="form-control"
                             v-model="userProfile.correspondence_address"
-                          />
+                          ></textarea>
                         </div>
                       </div>
 
@@ -285,6 +283,8 @@
                           <input
                             type="text"
                             class="form-control"
+                            maxlength="13"
+                            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
                             v-model="userProfile.phone"
                           />
                         </div>
@@ -300,6 +300,8 @@
                           <input
                             type="text"
                             class="form-control"
+                            maxlength="13"
+                            onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
                             v-model="userProfile.emergency_contactno"
                           />
                         </div>
@@ -424,7 +426,7 @@ export default {
     ...mapGetters({ userDetails: "getUserDetails", errors: "getError" }),
   },
 
-  created() {
+  mounted() {
     this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
     this.image = this.userDetails.userInfo.image;
     this.userProfile.designation = this.userDetails.userInfo.designation;

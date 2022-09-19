@@ -41,16 +41,19 @@ Route::group(['middleware'=>'jwt.verify'],function(){
     Route::resource('userdetail', UserdetailController::class);
 
     Route::get('notification', [App\Http\Controllers\NotificationController::class, 'getAllNotification']);
+    Route::post('mark-read/{id}', [App\Http\Controllers\NotificationController::class, 'marksAsRead']);
     Route::get('getInviteRoles', [App\Http\Controllers\InvitatioinHierarchyController::class, 'getInviteRoleId']);
-    Route::get('getActivity', [App\Http\Controllers\DashboardController::class, 'getLoggedInUserActivity']);
     Route::resource('userProfile', UserdetailController::class);
     Route::get('getJoinedUser', [App\Http\Controllers\PmsReportController::class, 'getAllJoinedUser']);
     Route::get('getUserData/{code}', [App\Http\Controllers\PmsReportController::class, 'getUserDetailByCode']);
     Route::get('pms', [App\Http\Controllers\PmsReportController::class,'getAllPmsAttribute']);
     Route::post('new-report', [App\Http\Controllers\PmsReportController::class,'CreateNewReport']);
     Route::get('getReportList', [App\Http\Controllers\PmsReportController::class,'getAllReportListByUserId']);
+    Route::get('checkReport/{id}', [App\Http\Controllers\PmsReportController::class,'checkReport']);
     Route::get('getReportInfo/{code}', [App\Http\Controllers\UniversalApi\GettersUniversalApiController::class,'getAllReportDetailsByReportCode']);
     Route::get('getUserInfo/{code}', [App\Http\Controllers\UniversalApi\GettersUniversalApiController::class,'getAllUserInfoByUserCode']);
     Route::get('get-my-progress-report', [App\Http\Controllers\PmsReportController::class,'getMyProgressReport']);
     Route::post('upload-image', [App\Http\Controllers\UserdetailController::class,'uploadProfileImage']);
+    Route::get('getActivity', [App\Http\Controllers\UniversalApi\DashboardController::class, 'getLoggedInUserActivity']);
+    Route::get('getDashboard', [App\Http\Controllers\UniversalApi\DashboardController::class,'myDashboardData']);
 });

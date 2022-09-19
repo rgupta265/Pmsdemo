@@ -6,7 +6,7 @@
         ><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a
       >
     </li>
-    <div class="notify-message">
+    <div :class="{ notifymessage: notifications.length > 4 }">
       <div
         class="notification"
         v-for="(notify, index) in notifications"
@@ -18,7 +18,7 @@
 
         <li class="notification-item">
           <i class="bi bi-check-circle text-success"></i>
-          <div>
+          <div @click="markAsRead(notify.id)" role="button">
             <p>
               <strong>{{ notify.data.description }}</strong>
             </p>
@@ -53,11 +53,18 @@ export default {
   created() {
     this.$store.dispatch("getAllNotification");
   },
+  methods: {
+    markAsRead(id) {
+      axios.post("mark-read" + "/" + id).then((response) => {
+        this.$store.dispatch("getAllNotification");
+      });
+    },
+  },
 };
 </script>
 <style>
-.notify-message{
-  height:400px;
+.notifymessage {
+  height: 400px;
   overflow-y: auto;
 }
 </style>

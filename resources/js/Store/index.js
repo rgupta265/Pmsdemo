@@ -12,7 +12,8 @@ export default new Vuex.Store({
     userDetails:{},
     webDetails: {},
     notifyDetails:{},
-    activityDetails:{}
+    activityDetails:{},
+    dashboardDetails:{}
   },
   mutations: {
     auth_request(state){
@@ -46,6 +47,10 @@ export default new Vuex.Store({
     {
       state.activityDetails = activityDetails
     },
+    setDashboardDetails(state,dashboardDetails)
+    {
+      state.dashboardDetails = dashboardDetails
+    }
   
   },
   actions: {
@@ -132,6 +137,18 @@ export default new Vuex.Store({
         axios({url:'getActivity',method:'GET'}).then(res =>{
           commit('setActivityDetails',res.data)
           resolve(res)
+        }).catch(error => {
+          reject(error)
+        })
+      }); 
+    },
+    getAllDashboard({commit}){
+      return new Promise((resolve, reject) => {
+        axios({url:'getDashboard',method:'GET'}).then(res =>{
+          commit('setDashboardDetails',res.data)
+          resolve(res)
+        }).catch(error => {
+          reject(error)
         })
       }); 
     },
@@ -147,6 +164,7 @@ export default new Vuex.Store({
     getWebDetails :state=>state.webDetails,
     getAllNotification :state=>state.notifyDetails,
     getAllActivity :state=>state.activityDetails,
+    getAllDashboard :state=>state.dashboardDetails,
     
   }
 })

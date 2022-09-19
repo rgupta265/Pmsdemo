@@ -16,7 +16,7 @@ const Navbar = () => import('../Components/Layouts/Navbar.vue' /* webpackChunkNa
 
 
 // Authenticated Component Start
-const DashboardPage = () => import('../Pages/Admin/Dashboard.vue' /* webpackChunkName: "resource/js/Pages/Admin/Dashboard.vue" */)
+const MasterDashboardPage = () => import('../Pages/Admin/MasterDashboard.vue' /* webpackChunkName: "resource/js/Pages/Admin/Dashboard.vue" */)
 const AccessDenied = () => import('../Pages/AccessDenied.vue' /* webpackChunkName: "resource/js/Pages/Admin/Dashboard.vue" */)
 const ViewProfile = () => import('../Pages/Admin/Profile/ViewProfile.vue' /* webpackChunkName: "resource/js/Pages/About.vue" */)
 const PermissionList = () => import('../Pages/Admin/UserManagement/Permissions/List.vue' /* webpackChunkName: "resource/js/Pages/Admin/UserManagement/Permissions/List.vue" */)
@@ -113,7 +113,7 @@ const routes = [
         {
             name:"dashboard",
             path: '/dashboard',
-            component: DashboardPage,
+            component: MasterDashboardPage,
             meta:{
                 title:`Dashboard`,
                 text: 'Dashboard',

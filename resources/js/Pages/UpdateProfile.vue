@@ -7,7 +7,7 @@
         <div class="card mt-5">
           <h5 class="card-title text-center">
             <strong class="text-danger"> * </strong>Please fill all mandatory
-            fields to Access dashboard 
+            fields to Access dashboard
           </h5>
         </div>
         <div class="col-xl-4">
@@ -38,7 +38,7 @@
                 class="rounded border"
                 v-else
               />
-              <label class="in-file mt-2" role="button">
+              <label class="in-file mt-2" role="button" v-if="userDetails.userInfo.emp_code !=''">
                 <i class="bi bi-upload"></i>
                 Upload Photo
                 <input
@@ -46,6 +46,7 @@
                   accept="image/*"
                   class="form-control"
                   @change="onFileChange"
+                  
                 />
               </label>
             </div>
@@ -72,11 +73,10 @@
                       <i class="bi bi-grid"></i> &nbsp;Go to Dashboard
                     </button>
                   </div>
-                  <div class="col-md-6 ">
+                  <div class="col-md-6">
                     <button
                       class="dropdown-item d-flex align-items-center"
                       type="button"
-                      
                       @click="logout()"
                     >
                       <i class="bi bi-power"></i>&nbsp;Sign Out
@@ -200,12 +200,11 @@
                         >Address <span class="text-danger"> *</span></label
                       >
                       <div class="col-md-8 col-lg-9">
-                        <input
-                          type="text"
-                          required
+                        <textarea
                           class="form-control"
                           v-model="userProfile.address"
-                        />
+                          required
+                        ></textarea>
                       </div>
                     </div>
 
@@ -217,12 +216,11 @@
                         <span class="text-danger"> *</span></label
                       >
                       <div class="col-md-8 col-lg-9">
-                        <input
-                          type="text"
+                        <textarea
                           class="form-control"
                           required
                           v-model="userProfile.correspondence_address"
-                        />
+                        ></textarea>
                       </div>
                     </div>
 
@@ -236,6 +234,7 @@
                         <input
                           type="text"
                           required
+                          onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
                           class="form-control"
                           v-model="userProfile.phone"
                         />
@@ -253,7 +252,9 @@
                         <input
                           type="text"
                           required
+                          maxlength="13"
                           class="form-control"
+                          onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
                           v-model="userProfile.emergency_contactno"
                         />
                       </div>
@@ -291,7 +292,7 @@
         </div>
       </div>
     </section>
-
+    {{ userDetails.userInfo.emp_code }}
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
       <div class="copyright">
@@ -349,10 +350,25 @@ export default {
       return this.$store.getters.isLoggedIn;
     },
   },
+  mounted() {
+    this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
+    // this.image = this.userDetails.userInfo.image;
+    this.userProfile.designation = this.userDetails.userInfo.designation;
+    this.userProfile.father_name = this.userDetails.userInfo.father_name;
+    this.userProfile.address = this.userDetails.userInfo.address;
+    this.userProfile.correspondence_address =
+      this.userDetails.userInfo.correspondence_address;
+    this.userProfile.phone = this.userDetails.userInfo.phone;
+    this.userProfile.emergency_contactno =
+      this.userDetails.userInfo.emergency_contactno;
+    this.userProfile.linkedin_id = this.userDetails.userInfo.linkedin_id;
+    this.userProfile.joining_date = this.userDetails.userInfo.joining_date;
+  },
   created() {
     if (this.isLoggedIn) {
-      this.$store.dispatch("getUserDetails");
       this.$store.dispatch("getWebDetails");
+      this.$store.dispatch("getUserDetails");
+      this.$store.dispatch("getAllNotification");
     }
   },
 
@@ -411,13 +427,22 @@ export default {
       axios
         .post(this.api, formData)
         .then((response) => {
-          this.success = response.data.success;
           this.$store.dispatch("getUserDetails");
+          this.success = response.data.success;
         })
         .catch(function (error) {});
     },
     goToDashboard() {
       this.$router.push({ name: "dashboard" });
+    },
+    enforcePhoneFormat(value) {
+      let x = this.userProfile.emergency_contactno
+        .replace(/\D/g, "")
+        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+
+      this.userProfile.emergency_contactno = !x[2]
+        ? x[1]
+        : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
     },
   },
 };

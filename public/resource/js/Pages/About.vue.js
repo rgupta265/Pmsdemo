@@ -127,7 +127,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     userDetails: "getUserDetails",
     errors: "getError"
   })),
-  created: function created() {
+  mounted: function mounted() {
     this.userProfile.emp_code = this.userDetails.userInfo.emp_code;
     this.image = this.userDetails.userInfo.image;
     this.userProfile.designation = this.userDetails.userInfo.designation;
@@ -631,7 +631,7 @@ var render = function render() {
     }
   }, [_vm._v("Address")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
-  }, [_c("input", {
+  }, [_c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -639,9 +639,6 @@ var render = function render() {
       expression: "userProfile.address"
     }],
     staticClass: "form-control",
-    attrs: {
-      type: "text"
-    },
     domProps: {
       value: _vm.userProfile.address
     },
@@ -661,7 +658,7 @@ var render = function render() {
     }
   }, [_vm._v("Correspondence Address")]), _vm._v(" "), _c("div", {
     staticClass: "col-md-8 col-lg-9"
-  }, [_c("input", {
+  }, [_c("textarea", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -669,9 +666,6 @@ var render = function render() {
       expression: "userProfile.correspondence_address"
     }],
     staticClass: "form-control",
-    attrs: {
-      type: "text"
-    },
     domProps: {
       value: _vm.userProfile.correspondence_address
     },
@@ -700,7 +694,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text"
+      type: "text",
+      maxlength: "13",
+      onkeyup: "if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,'')"
     },
     domProps: {
       value: _vm.userProfile.phone
@@ -730,7 +726,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text"
+      type: "text",
+      maxlength: "13",
+      onkeyup: "if (/\\D/g.test(this.value)) this.value = this.value.replace(/\\D/g,'')"
     },
     domProps: {
       value: _vm.userProfile.emergency_contactno

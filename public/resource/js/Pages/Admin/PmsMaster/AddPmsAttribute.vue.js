@@ -102,43 +102,60 @@ __webpack_require__.r(__webpack_exports__);
       api: "pmsattribute",
       btnName: "Add PmsAttribute",
       editpmsAttributeId: "",
-      assign_permissions: []
+      assign_permissions: [],
+      inviteSearch: "",
+      resultInfo: ""
     };
   },
   mounted: function mounted() {
     this.getPmsAttribute();
   },
-  methods: {
-    getPmsAttribute: function getPmsAttribute() {
+  computed: {
+    filteredAttributeList: function filteredAttributeList() {
       var _this = this;
 
-      axios.get(this.api).then(function (response) {
-        _this.PmsAttributeList = response.data;
+      return this.PmsAttributeList.filter(function (invite) {
+        return invite.title.toLowerCase().includes(_this.inviteSearch.toLowerCase()) || parseInt(invite.max_rating) === parseInt(_this.inviteSearch) || invite.user_info.name.toLowerCase().includes(_this.inviteSearch.toLowerCase());
+      });
+    }
+  },
+  methods: {
+    getPmsAttribute: function getPmsAttribute() {
+      var _this2 = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get(this.api, {
+        params: {
+          page: page
+        }
+      }).then(function (response) {
+        _this2.PmsAttributeList = response.data.data;
+        _this2.resultInfo = response.data;
       });
     },
     addpmsattribute: function addpmsattribute() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post(this.api, {
         name: this.title
       }).then(function (response) {
-        _this2.success = response.data.success;
+        _this3.success = response.data.success;
 
-        _this2.getPmsAttribute();
+        _this3.getPmsAttribute();
 
-        _this2.reset();
+        _this3.reset();
       })["catch"](function (err) {// this.showStatus = true;
       });
     },
     deletepmsattribute: function deletepmsattribute(index) {
-      var _this3 = this;
+      var _this4 = this;
 
       axios["delete"](this.api + "/" + this.PmsAttributeList[index].id).then(function (response) {
-        _this3.success = response.data.success;
-        _this3.showTableStatus = true;
-        _this3.showStatus = false;
+        _this4.success = response.data.success;
+        _this4.showTableStatus = true;
+        _this4.showStatus = false;
 
-        _this3.getPmsAttribute();
+        _this4.getPmsAttribute();
       });
     },
     editpmsattribute: function editpmsattribute(index) {
@@ -147,19 +164,19 @@ __webpack_require__.r(__webpack_exports__);
       this.btnName = "Update PmsAttribute";
     },
     updatepmsAttribute: function updatepmsAttribute() {
-      var _this4 = this;
+      var _this5 = this;
 
       var data = {
         name: this.title
       };
       axios.put(this.api + "/" + this.editpmsAttributeId, data).then(function (response) {
-        _this4.success = response.data.success;
+        _this5.success = response.data.success;
 
-        _this4.getPmsAttribute();
+        _this5.getPmsAttribute();
 
-        _this4.reset();
+        _this5.reset();
       })["catch"](function (err) {
-        _this4.showStatus = true;
+        _this5.showStatus = true;
       });
     },
     reset: function reset() {
@@ -283,6 +300,35 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "row"
   }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-2"
+  }, [_c("strong", [_vm._v("Showing\n              "), _c("span", [_vm._v(_vm._s(_vm.resultInfo.from ? _vm.resultInfo.from : 0) + " –\n                " + _vm._s(_vm.resultInfo.to ? _vm.resultInfo.to : 0) + " of\n                " + _vm._s(_vm.resultInfo.total ? _vm.resultInfo.total : 0) + " Permission\n                .")])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.inviteSearch,
+      expression: "inviteSearch"
+    }],
+    staticClass: "form-control-sm",
+    attrs: {
+      placeholder: "Search...",
+      type: "text"
+    },
+    domProps: {
+      value: _vm.inviteSearch
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.inviteSearch = $event.target.value;
+      }
+    }
+  })])])]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-9"
   }, [_c("div", {
     staticClass: "card table-responsive"
@@ -299,7 +345,7 @@ var render = function render() {
     attrs: {
       id: "dataTableSearch"
     }
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.PmsAttributeList, function (rl, index) {
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", [_vm._l(_vm.filteredAttributeList, function (rl, index) {
     return _c("tr", {
       key: index
     }, [_c("th", {
@@ -338,7 +384,29 @@ var render = function render() {
         staticClass: "fbi bi-star me-1"
       }), _vm._v(_vm._s(per.slug) + "\n                      ")]);
     }), 0)]);
-  }), 0)])], 1)])]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.filteredAttributeList.length == 0 ? _c("tr", [_c("td", {
+    staticClass: "text-center",
+    attrs: {
+      colspan: "8"
+    }
+  }, [_vm._v("\n                      There is no data available.\n                    ")])]) : _vm._e()], 2)])], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body py-1"
+  }, [_c("div", {
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c("pagination", {
+    attrs: {
+      data: _vm.resultInfo,
+      limit: 0,
+      size: "small"
+    },
+    on: {
+      "pagination-change-page": _vm.getPmsAttribute
+    }
+  })], 1)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
   }, [_c("div", {
     staticClass: "card"

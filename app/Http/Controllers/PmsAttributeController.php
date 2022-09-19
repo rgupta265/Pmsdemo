@@ -20,7 +20,7 @@ class PmsAttributeController extends Controller
     public function index()
     {
         //
-        return response()->json(PmsAttribute::with('userInfo')->latest()->get());
+        return response()->json(PmsAttribute::with('userInfo')->latest()->paginate(10));
     }
 
     /**

@@ -121,10 +121,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.roleList.filter(function (invite) {
-        return invite.name.toLowerCase().includes(_this.inviteSearch.toLowerCase()) // invite.permissions.forEach((item) =>
+        return invite.name.toLowerCase().includes(_this.inviteSearch.toLowerCase()); // invite.permissions.forEach((item) =>
         //   item.slug.toLowerCase().includes(this.inviteSearch.toLowerCase())
         // )
-        ;
       });
     }
   },
@@ -418,7 +417,7 @@ var render = function render() {
     attrs: {
       colspan: "8"
     }
-  }, [_vm._v("There is no data available.")])]) : _vm._e()], 2)])], 1)]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                      There is no data available.\n                    ")])]) : _vm._e()], 2)])], 1)]), _vm._v(" "), _c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-body py-1"
@@ -525,7 +524,7 @@ var render = function render() {
         }
       }
     }), _vm._v(" "), _c("label", {}, [_vm._v("\n                      " + _vm._s(option.name) + "\n                    ")])]);
-  }), 0)]), _vm._v(" "), _c("div", {
+  }), 0)]), _vm._v("\n              " + _vm._s(_vm.assign_permissions) + "\n              "), _c("div", {
     staticClass: "text-center p-2"
   }, [!_vm.editRoleId ? _c("button", {
     staticClass: "btn btn-primary btn-sm",

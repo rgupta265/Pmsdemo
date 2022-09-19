@@ -115,7 +115,7 @@ class RoleController extends Controller
             'slug'=>Str::slug($request->name)
         ]);
         if($request->has("permission")){
-            $role->permissions()->sync($request->permission);
+            $role->permissions()->sync($request->permission);//syncWithoutDetaching
         }
         if($update){
             return response()->json(['success'=>'Role Updated Successfully']);

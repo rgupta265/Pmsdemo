@@ -119,6 +119,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   created: function created() {
     this.$store.dispatch("getAllNotification");
+  },
+  methods: {
+    markAsRead: function markAsRead(id) {
+      var _this = this;
+
+      axios.post("mark-read" + "/" + id).then(function (response) {
+        _this.$store.dispatch("getAllNotification");
+      });
+    }
   }
 });
 
@@ -469,7 +478,9 @@ var render = function render() {
   }, [_c("li", {
     staticClass: "dropdown-header"
   }, [_vm._v("\n    You have " + _vm._s(_vm.notifications.length) + " new notifications\n    "), _vm._m(0)]), _vm._v(" "), _c("div", {
-    staticClass: "notify-message"
+    "class": {
+      notifymessage: _vm.notifications.length > 4
+    }
   }, _vm._l(_vm.notifications, function (notify, index) {
     return _c("div", {
       key: index,
@@ -478,7 +489,16 @@ var render = function render() {
       staticClass: "notification-item"
     }, [_c("i", {
       staticClass: "bi bi-check-circle text-success"
-    }), _vm._v(" "), _c("div", [_c("p", [_c("strong", [_vm._v(_vm._s(notify.data.description))])]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm._f("humanReadableTime")(notify.created_at)))])])])]);
+    }), _vm._v(" "), _c("div", {
+      attrs: {
+        role: "button"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.markAsRead(notify.id);
+        }
+      }
+    }, [_c("p", [_c("strong", [_vm._v(_vm._s(notify.data.description))])]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm._f("humanReadableTime")(notify.created_at)))])])])]);
   }), 0), _vm._v(" "), _vm._m(2), _vm._v(" "), _c("li", {
     staticClass: "dropdown-footer"
   }, [_c("router-link", {
@@ -533,7 +553,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.notify-message{\n  height:400px;\n  overflow-y: auto;\n}\n", ""]);
+exports.push([module.i, "\n.notifymessage {\n  height: 400px;\n  overflow-y: auto;\n}\n", ""]);
 
 // exports
 

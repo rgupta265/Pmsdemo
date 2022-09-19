@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","resource/js/Pages/UpdateProfile":"resource/js/Pages/UpdateProfile","vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue":"vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue","resource/js/Pages/Admin/ProgressReport/AddReport.vue":"resource/js/Pages/Admin/ProgressReport/AddReport.vue","vendors~resource/js/Pages/Admin/UserInfo":"vendors~resource/js/Pages/Admin/UserInfo","resource/js/Pages/Admin/UserInfo":"resource/js/Pages/Admin/UserInfo"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"resource/js/Components/Layouts/navbar":"resource/js/Components/Layouts/navbar","resource/js/Pages/About.vue":"resource/js/Pages/About.vue","resource/js/Pages/Admin/Dashboard.vue":"resource/js/Pages/Admin/Dashboard.vue","resource/js/Pages/Admin/InviteLink/CreateLink.vue":"resource/js/Pages/Admin/InviteLink/CreateLink.vue","resource/js/Pages/Admin/MyReport/ViewMyReport.vue":"resource/js/Pages/Admin/MyReport/ViewMyReport.vue","resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue":"resource/js/Pages/Admin/PmsMaster/AddPmsAttribute.vue","resource/js/Pages/Admin/ProgressReport/AddReport.vue":"resource/js/Pages/Admin/ProgressReport/AddReport.vue","resource/js/Pages/Admin/ProgressReport/CreateReport.vue":"resource/js/Pages/Admin/ProgressReport/CreateReport.vue","resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue":"resource/js/Pages/Admin/ProgressReport/ViewCreatedReport.vue","resource/js/Pages/Admin/UserManagement/Permissions/List.vue":"resource/js/Pages/Admin/UserManagement/Permissions/List.vue","resource/js/Pages/Admin/UserManagement/Roles/List.vue":"resource/js/Pages/Admin/UserManagement/Roles/List.vue","resource/js/Pages/Admin/UserManagement/Users/List.vue":"resource/js/Pages/Admin/UserManagement/Users/List.vue","resource/js/Pages/Login":"resource/js/Pages/Login","resource/js/Pages/Register":"resource/js/Pages/Register","resource/js/Pages/UpdateProfile":"resource/js/Pages/UpdateProfile","vendors~resource/js/Pages/Admin/UserInfo":"vendors~resource/js/Pages/Admin/UserInfo","resource/js/Pages/Admin/UserInfo":"resource/js/Pages/Admin/UserInfo"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -79492,8 +79492,8 @@ var Navbar = function Navbar() {
 // Authenticated Component Start
 
 
-var DashboardPage = function DashboardPage() {
-  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/Dashboard.vue */ "resource/js/Pages/Admin/Dashboard.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/Dashboard.vue */ "./resources/js/Pages/Admin/Dashboard.vue"));
+var MasterDashboardPage = function MasterDashboardPage() {
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/Dashboard.vue */ "resource/js/Pages/Admin/Dashboard.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/MasterDashboard.vue */ "./resources/js/Pages/Admin/MasterDashboard.vue"));
 };
 
 var AccessDenied = function AccessDenied() {
@@ -79538,7 +79538,7 @@ var ViewCreatedReport = function ViewCreatedReport() {
 };
 
 var AddReport = function AddReport() {
-  return Promise.all(/*! import() | resource/js/Pages/Admin/ProgressReport/AddReport.vue */[__webpack_require__.e("vendors~resource/js/Pages/Admin/ProgressReport/AddReport.vue"), __webpack_require__.e("resource/js/Pages/Admin/ProgressReport/AddReport.vue")]).then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/AddReport.vue */ "./resources/js/Pages/Admin/ProgressReport/AddReport.vue"));
+  return __webpack_require__.e(/*! import() | resource/js/Pages/Admin/ProgressReport/AddReport.vue */ "resource/js/Pages/Admin/ProgressReport/AddReport.vue").then(__webpack_require__.bind(null, /*! ../Pages/Admin/ProgressReport/AddReport.vue */ "./resources/js/Pages/Admin/ProgressReport/AddReport.vue"));
 };
 
 var UserInfoComponent = function UserInfoComponent() {
@@ -79612,7 +79612,7 @@ var routes = [{
   }, {
     name: "dashboard",
     path: '/dashboard',
-    component: DashboardPage,
+    component: MasterDashboardPage,
     meta: {
       title: "Dashboard",
       text: 'Dashboard',
@@ -79837,7 +79837,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     userDetails: {},
     webDetails: {},
     notifyDetails: {},
-    activityDetails: {}
+    activityDetails: {},
+    dashboardDetails: {}
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -79868,6 +79869,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setActivityDetails: function setActivityDetails(state, activityDetails) {
       state.activityDetails = activityDetails;
+    },
+    setDashboardDetails: function setDashboardDetails(state, dashboardDetails) {
+      state.dashboardDetails = dashboardDetails;
     }
   },
   actions: {
@@ -79980,6 +79984,22 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         }).then(function (res) {
           commit('setActivityDetails', res.data);
           resolve(res);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    getAllDashboard: function getAllDashboard(_ref9) {
+      var commit = _ref9.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()({
+          url: 'getDashboard',
+          method: 'GET'
+        }).then(function (res) {
+          commit('setDashboardDetails', res.data);
+          resolve(res);
+        })["catch"](function (error) {
+          reject(error);
         });
       });
     }
@@ -80009,6 +80029,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     getAllActivity: function getAllActivity(state) {
       return state.activityDetails;
+    },
+    getAllDashboard: function getAllDashboard(state) {
+      return state.dashboardDetails;
     }
   }
 }));

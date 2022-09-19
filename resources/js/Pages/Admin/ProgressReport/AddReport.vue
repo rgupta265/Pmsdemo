@@ -78,6 +78,7 @@
                           :value="op.value"
                           v-for="(op, item) in options"
                           :key="item"
+                          v-show="filerCycle(op)"
                         >
                           {{ op.name }}
                         </option>
@@ -127,6 +128,7 @@
                                 :value="pms.id"
                                 v-for="(pms, ind) in allPmsData"
                                 :key="ind"
+                                v-show="isDisabled(pms.id)"
                               >
                                 {{ pms.title }}
                               </option>
@@ -245,6 +247,7 @@ export default {
         emp_code: "",
       },
       pmsAttrData: [{ pms_attr_id: "", rating: "", comments: "" }],
+      repCycle: [],
     };
   },
   computed: {
@@ -263,12 +266,15 @@ export default {
   mounted() {
     this.getUserData();
     this.getPmsData();
+    this.checkReportStatus();
+    console.log(this.reportForm.userId);
   },
   methods: {
     getUserData() {
       axios.get("getUserData/" + this.token).then((response) => {
         this.userData = response.data;
         this.reportForm.userId = this.userData.user_id;
+        this.checkReportStatus(this.userData.user_id);
         this.reportForm.emp_code = this.userData.user_more_info.emp_code;
       });
     },
@@ -299,7 +305,19 @@ export default {
           this.showError = true;
         });
     },
+    checkReportStatus(id) {
+      axios.get("checkReport/" + id).then((response) => {
+        this.repCycle = response.data;
+      });
+    },
+    isDisabled: function (pms) {
+      return !this.pmsAttrData.map((item) => item.pms_attr_id).includes(pms);
+    },
+    filerCycle(cycle) {
+      return !this.repCycle
+        .map((item) => item.report_cycle)
+        .includes(cycle.value);
+    },
   },
 };
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
